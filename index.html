@@ -4,231 +4,428 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday! ❤️</title>
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
-      --bg: #fff0f3;
-      --card-bg: #ffffff;
+      --bg: #1a0b16;
+      --card-bg: rgba(255, 255, 255, 0.08);
       --primary: #ff4d6d;
-      --accent: #c9184a;
-      --text: #590d22;
+      --accent: #ff758f;
+      --text: #ffffff;
+      --subtext: #ffb3c1;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-    .container { width: 100%; max-width: 650px; background: var(--card-bg); padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    
+    body {
+      background: linear-gradient(135deg, #0d0409 0%, #2a081a 100%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 15px;
+      overflow-x: hidden;
+    }
 
-    /* Passcode Lock */
-    #lock-screen input { padding: 12px; font-size: 1rem; border: 2px solid var(--primary); border-radius: 10px; margin: 15px 0; text-align: center; width: 80%; outline: none; }
-    button { background-color: var(--primary); color: white; border: none; padding: 12px 25px; font-size: 1rem; border-radius: 10px; cursor: pointer; transition: background 0.3s ease; margin-top: 5px; }
-    button:hover { background-color: var(--accent); }
-    .error-msg { color: var(--accent); font-size: 0.9rem; margin-top: 10px; display: none; }
+    .card {
+      width: 100%;
+      max-width: 390px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 25px 20px;
+      border-radius: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
 
-    /* Main Content */
-    #main-content { display: none; }
-    h1, h2, h3 { margin-bottom: 12px; color: var(--accent); }
-    .section { background: var(--bg); padding: 20px; border-radius: 15px; margin: 25px 0; }
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-    /* Photos */
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 15px 0; }
-    .gallery img { width: 100%; height: 140px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .screen.active { display: flex; }
 
-    /* Game 1: Carrom Canvas */
-    #carromCanvas { background: #f4e2d8; border: 4px solid #8b5a2b; border-radius: 10px; cursor: pointer; max-width: 100%; }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
-    /* Game 2: Quiz */
-    .quiz-options button { display: block; width: 100%; margin: 8px 0; background: white; color: var(--text); border: 1px solid var(--primary); }
-    .quiz-options button:hover { background: var(--primary); color: white; }
+    h1 { color: var(--primary); font-size: 1.8rem; margin-bottom: 8px; text-shadow: 0 0 10px rgba(255,77,109,0.5); }
+    h2 { color: var(--accent); font-size: 1.3rem; margin-bottom: 12px; }
+    p { font-size: 0.95rem; line-height: 1.5; color: var(--subtext); margin-bottom: 15px; }
 
-    /* Game 3: Ludo Dice */
-    .dice { width: 80px; height: 80px; background: white; border: 3px solid var(--primary); border-radius: 15px; display: flex; justify-content: center; align-items: center; font-size: 2.5rem; font-weight: bold; color: var(--accent); margin: 15px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    input {
+      padding: 14px;
+      font-size: 1.2rem;
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      margin: 15px 0;
+      text-align: center;
+      width: 85%;
+      outline: none;
+      background: rgba(0,0,0,0.3);
+      color: white;
+      letter-spacing: 2px;
+    }
 
-    .letter { text-align: left; line-height: 1.6; background: #fff; border-left: 4px solid var(--primary); padding: 15px; margin-top: 20px; border-radius: 5px; }
+    button {
+      background: linear-gradient(45deg, #ff4d6d, #c9184a);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 14px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+      transition: all 0.2s;
+    }
+
+    button:active { transform: scale(0.96); }
+    button:disabled { background: #4a3b47; box-shadow: none; color: #888; }
+
+    /* Photo Frame */
+    .photo-container {
+      width: 100%;
+      height: 250px;
+      border-radius: 18px;
+      overflow: hidden;
+      margin: 10px 0;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    .photo-container img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Canvas Elements */
+    #carromCanvas, #scratchCanvas {
+      border-radius: 14px;
+      touch-action: none;
+      margin: 10px 0;
+    }
+    #carromCanvas { background: #3d2314; border: 3px solid #8b5a2b; }
+
+    /* Quiz Options */
+    .quiz-options { width: 100%; }
+    .quiz-options button {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: none;
+      margin: 6px 0;
+    }
+
+    /* Dice */
+    .dice {
+      width: 90px;
+      height: 90px;
+      background: white;
+      border-radius: 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3.2rem;
+      color: #c9184a;
+      margin: 15px 0;
+      box-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
+      transition: transform 0.3s;
+    }
+    .rolling { animation: spin 0.4s infinite linear; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .letter {
+      text-align: left;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      background: rgba(0,0,0,0.4);
+      padding: 16px;
+      border-radius: 14px;
+      border-left: 4px solid var(--primary);
+      width: 100%;
+      max-height: 260px;
+      overflow-y: auto;
+      color: #ffe6ea;
+    }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <!-- LOCK SCREEN -->
-    <div id="lock-screen">
-      <h1>🔒 Passcode Required</h1>
-      <p>Enter your birth date to unlock your surprise (DDMM):</p>
-      <input type="password" id="passcode" placeholder="e.g. 1008" maxlength="4">
-      <br>
-      <button onclick="checkPasscode()">Unlock 💕</button>
-      <p id="error-msg" class="error-msg">Incorrect passcode! Try again ❤️</p>
+  <div class="card">
+    
+    <!-- SCREEN 1: LOCK SCREEN -->
+    <div id="screen-1" class="screen active">
+      <h1>🔒 Top Secret</h1>
+      <p>Enter your birth date to unlock your birthday surprise (DDMM):</p>
+      <input type="password" id="passcode" placeholder="1008" maxlength="4" inputmode="numeric">
+      <button onclick="checkPasscode()">Unlock Experience ✨</button>
+      <p id="error-msg" style="color:#ff758f; display:none; margin-top:8px;">Incorrect date! Try again baby ❤️</p>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main-content">
+    <!-- SCREEN 2: MEMORIES SLIDESHOW -->
+    <div id="screen-2" class="screen">
       <h1>🎂 Happy Birthday! 🎉</h1>
-      <p>A little interactive playground built just for you.</p>
-
-      <!-- GALLERY (10 PHOTOS) -->
-      <h2>Our Favorite Moments ❤️</h2>
-      <div class="gallery">
-        <img src="images/img1.jpeg" alt="Memory 1">
-        <img src="images/img2.jpeg" alt="Memory 2">
-        <img src="images/img3.jpeg" alt="Memory 3">
-        <img src="images/img4.jpeg" alt="Memory 4">
-        <img src="images/img5.jpeg" alt="Memory 5">
-        <img src="images/img6.jpeg" alt="Memory 6">
-        <img src="images/img7.jpeg" alt="Memory 7">
-        <img src="images/img8.jpeg" alt="Memory 8">
-        <img src="images/img9.jpeg" alt="Memory 9">
-        <img src="images/img10.jpeg" alt="Memory 10">
+      <p>Here are a few of my absolute favorite moments with you:</p>
+      <div class="photo-container">
+        <img id="slideshow" src="img5.jpeg" alt="Memories">
       </div>
-
-      <!-- GAME 1: CARROM SHOT -->
-      <div class="section">
-        <h2>🎯 Game 1: Queen Pocket Shot</h2>
-        <p>Click on the board to strike the Red Queen into the pocket!</p>
-        <canvas id="carromCanvas" width="300" height="200"></canvas>
-        <p id="carrom-result" style="font-weight: bold; margin-top: 8px;"></p>
-        <button onclick="resetCarrom()">Reset Shot 🔄</button>
-      </div>
-
-      <!-- GAME 2: QUIZ -->
-      <div class="section">
-        <h2>🧠 Game 2: Love Quiz</h2>
-        <p>Where was our favorite date together?</p>
-        <div class="quiz-options">
-          <button onclick="answerQuiz(false)">Coffee Shop</button>
-          <button onclick="answerQuiz(true)">At the Park / Walk</button>
-          <button onclick="answerQuiz(false)">Movie Theater</button>
-        </div>
-        <p id="quiz-result" style="font-weight: bold; margin-top: 10px;"></p>
-      </div>
-
-      <!-- GAME 3: LUDO SIX -->
-      <div class="section">
-        <h2>🎲 Game 3: Roll a 6 to Win!</h2>
-        <p>You need a 6 to open your birthday token!</p>
-        <div id="dice" class="dice">🎲</div>
-        <button onclick="rollDice()">Roll Dice 🎲</button>
-        <p id="ludo-result" style="font-weight: bold; margin-top: 10px;"></p>
-      </div>
-
-      <!-- BIRTHDAY LETTER -->
-      <h2>A Message For You 💌</h2>
-      <div class="letter">
-        <p>Dear [Her Name],</p><br>
-        <p>Happy Birthday! I created this little corner of the web to bring a smile to your face. You win every game in my life, every single day.</p><br>
-        <p>With all my love,</p>
-        <p>[Your Name]</p>
-      </div>
+      <button onclick="nextPhoto()">Next Photo 📸</button>
+      <button onclick="goToScreen(3)" style="background: linear-gradient(45deg, #ff758f, #ff4d6d); margin-top:8px;">Play Birthday Games 🎮</button>
     </div>
+
+    <!-- SCREEN 3: CARROM SHOT -->
+    <div id="screen-3" class="screen">
+      <h2>🎯 Game 1: Pocket the Queen</h2>
+      <p>Tap the board to fire the striker and pocket the Queen!</p>
+      <canvas id="carromCanvas" width="280" height="200"></canvas>
+      <p id="carrom-result" style="font-weight: bold; min-height: 24px;"></p>
+      <button id="carrom-next-btn" onclick="goToScreen(4)" disabled>Next Level ➡️</button>
+    </div>
+
+    <!-- SCREEN 4: QUIZ GAME -->
+    <div id="screen-4" class="screen">
+      <h2>🧠 Game 2: Memory Test</h2>
+      <p>Where was our favorite moment together?</p>
+      <div class="quiz-options">
+        <button onclick="answerQuiz(false)">Coffee Shop</button>
+        <button onclick="answerQuiz(true)">At the Park</button>
+        <button onclick="answerQuiz(false)">Movie Theater</button>
+      </div>
+      <p id="quiz-result" style="font-weight: bold; min-height: 24px; margin-top:8px;"></p>
+      <button id="quiz-next-btn" onclick="goToScreen(5)" disabled>Next Level ➡️</button>
+    </div>
+
+    <!-- SCREEN 5: LUDO DICE -->
+    <div id="screen-5" class="screen">
+      <h2>🎲 Game 3: Roll a 6 to Win!</h2>
+      <p>You need a lucky 6 to unlock your birthday scratch card!</p>
+      <div id="dice" class="dice">🎲</div>
+      <button onclick="rollDice()">Roll Dice 🎲</button>
+      <p id="ludo-result" style="font-weight: bold; min-height: 24px; margin-top:8px;"></p>
+      <button id="ludo-next-btn" onclick="goToScreen(6)" disabled>Unlock Scratch Card 🎟️</button>
+    </div>
+
+    <!-- SCREEN 6: SCRATCH CARD -->
+    <div id="screen-6" class="screen">
+      <h2>🎟️ Scratch to Reveal!</h2>
+      <p>Use your finger to scratch off the card below:</p>
+      <div style="position: relative; width: 280px; height: 150px;">
+        <div style="position: absolute; width: 100%; height: 100%; background: #ff4d6d; border-radius: 14px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; font-weight: bold; padding: 10px;">
+          <p style="color:white; font-size:1.1rem; margin:0;">🎁 Special Birthday Coupon</p>
+          <p style="color:#ffe6ea; font-size:0.85rem; margin-top:5px;">Valid for 1 Unlimited Shopping / Dinner Date with Me!</p>
+        </div>
+        <canvas id="scratchCanvas" width="280" height="150" style="position: absolute; top:0; left:0;"></canvas>
+      </div>
+      <button id="scratch-next-btn" onclick="goToScreen(7)" disabled style="margin-top:20px;">Read Birthday Letter 💌</button>
+    </div>
+
+    <!-- SCREEN 7: FINAL LETTER -->
+    <div id="screen-7" class="screen">
+      <h2>💌 Birthday Message</h2>
+      <div class="letter">
+        <p>Dear Birthday Girl,</p><br>
+        <p>Happy Birthday! I built this digital playground just to show you how much you mean to me. Every single line of code was written thinking about your smile.</p><br>
+        <p>Thank you for being the most incredible person in my life. I hope today is as wonderful as you are!</p><br>
+        <p>With all my love ❤️</p>
+      </div>
+      <button onclick="fireConfetti(); vibrate();">Celebrate Again 🎉</button>
+    </div>
+
   </div>
 
   <script>
-    // --- PASSCODE UNLOCK ---
+    // Audio Synthesizer (No MP3 download needed)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq = 440, type = 'sine', duration = 0.15) {
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function vibrate(ms = 50) {
+      if (navigator.vibrate) navigator.vibrate(ms);
+    }
+
+    function fireConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+
+    // Navigation
+    function goToScreen(screenNumber) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(`screen-${screenNumber}`).classList.add('active');
+      playBeep(523, 'triangle', 0.1);
+      vibrate(30);
+
+      if(screenNumber === 3) initCarrom();
+      if(screenNumber === 6) initScratchCard();
+      if(screenNumber === 7) fireConfetti();
+    }
+
+    // Lock Screen
     function checkPasscode() {
       const input = document.getElementById('passcode').value;
-      if (input === '1008') { // Passcode: 10th August
-        document.getElementById('lock-screen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        initCarrom();
+      if (input === '1008') {
+        fireConfetti();
+        goToScreen(2);
       } else {
+        vibrate([100, 50, 100]);
         document.getElementById('error-msg').style.display = 'block';
       }
     }
 
-    // --- GAME 1: CARROM ---
-    let canvas, ctx;
-    let striker = { x: 150, y: 170, radius: 10 };
-    let queen = { x: 150, y: 80, radius: 8 };
-    let pocket = { x: 270, y: 30, radius: 18 };
-    let shotTaken = false;
+    // Slideshow
+    const photos = ['img5.jpeg', 'img6.jpeg', 'img7.jpeg', 'img8.jpeg', 'img9.jpeg'];
+    let photoIdx = 0;
+    function nextPhoto() {
+      photoIdx = (photoIdx + 1) % photos.length;
+      document.getElementById('slideshow').src = photos[photoIdx];
+      playBeep(400, 'sine', 0.1);
+    }
 
+    // Game 1: Carrom
+    let canvas, ctx, striker, queen, pocket, shotTaken = false;
     function initCarrom() {
       canvas = document.getElementById('carromCanvas');
       ctx = canvas.getContext('2d');
+      striker = { x: 140, y: 170, radius: 10 };
+      queen = { x: 140, y: 80, radius: 8 };
+      pocket = { x: 250, y: 30, radius: 16 };
+      shotTaken = false;
       drawCarrom();
-      canvas.addEventListener('click', fireStriker);
+      canvas.onclick = fireStriker;
     }
 
     function drawCarrom() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Pocket
-      ctx.beginPath();
-      ctx.arc(pocket.x, pocket.y, pocket.radius, 0, Math.PI * 2);
-      ctx.fillStyle = '#333';
-      ctx.fill();
-
-      // Queen (Red)
-      ctx.beginPath();
-      ctx.arc(queen.x, queen.y, queen.radius, 0, Math.PI * 2);
-      ctx.fillStyle = '#c9184a';
-      ctx.fill();
-
-      // Striker (White)
-      ctx.beginPath();
-      ctx.arc(striker.x, striker.y, striker.radius, 0, Math.PI * 2);
-      ctx.fillStyle = '#ffffff';
-      ctx.strokeStyle = '#000';
-      ctx.lineWidth = 2;
-      ctx.fill();
-      ctx.stroke();
+      ctx.beginPath(); ctx.arc(pocket.x, pocket.y, pocket.radius, 0, Math.PI * 2); ctx.fillStyle = '#111'; ctx.fill();
+      ctx.beginPath(); ctx.arc(queen.x, queen.y, queen.radius, 0, Math.PI * 2); ctx.fillStyle = '#ff4d6d'; ctx.fill();
+      ctx.beginPath(); ctx.arc(striker.x, striker.y, striker.radius, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.lineWidth = 2; ctx.fill();
     }
 
     function fireStriker() {
       if (shotTaken) return;
       shotTaken = true;
-      
+      playBeep(300, 'square', 0.1);
       let anim = setInterval(() => {
         striker.y -= 5;
-        if (striker.y <= queen.y + 10) {
-          queen.x += 4;
-          queen.y -= 2;
-        }
-
+        if (striker.y <= queen.y + 10) { queen.x += 4; queen.y -= 2; }
         drawCarrom();
-
         if (queen.x >= pocket.x - 10 && queen.y <= pocket.y + 10) {
           clearInterval(anim);
-          document.getElementById('carrom-result').innerText = "QUEEN POCKETED! You hit the bullseye in my heart! 🎯❤️";
-          document.getElementById('carrom-result').style.color = "#c9184a";
+          fireConfetti();
+          vibrate(100);
+          playBeep(600, 'sine', 0.3);
+          document.getElementById('carrom-result').innerText = "QUEEN POCKETED! 🎯❤️";
+          document.getElementById('carrom-result').style.color = "#ff758f";
+          document.getElementById('carrom-next-btn').disabled = false;
         }
       }, 20);
     }
 
-    function resetCarrom() {
-      striker = { x: 150, y: 170, radius: 10 };
-      queen = { x: 150, y: 80, radius: 8 };
-      shotTaken = false;
-      document.getElementById('carrom-result').innerText = "";
-      drawCarrom();
-    }
-
-    // --- GAME 2: QUIZ ---
+    // Game 2: Quiz
     function answerQuiz(isCorrect) {
-      const result = document.getElementById('quiz-result');
+      const res = document.getElementById('quiz-result');
       if (isCorrect) {
-        result.innerText = "Correct! You remember every detail ❤️";
-        result.style.color = "green";
+        fireConfetti();
+        vibrate(80);
+        playBeep(587, 'sine', 0.2);
+        res.innerText = "Correct! You remember every detail ❤️";
+        res.style.color = "#80ffdb";
+        document.getElementById('quiz-next-btn').disabled = false;
       } else {
-        result.innerText = "Nice try! Try again 😜";
-        result.style.color = "red";
+        vibrate([50, 50, 50]);
+        res.innerText = "Try again! 😜";
+        res.style.color = "#ff758f";
       }
     }
 
-    // --- GAME 3: LUDO SIX ---
+    // Game 3: Ludo
     let rollCount = 0;
     function rollDice() {
       rollCount++;
       const diceEl = document.getElementById('dice');
-      const resultEl = document.getElementById('ludo-result');
+      diceEl.classList.add('rolling');
+      playBeep(200, 'sawtooth', 0.2);
       
-      let roll = (rollCount >= 3) ? 6 : Math.floor(Math.random() * 5) + 1;
-      diceEl.innerText = roll;
+      setTimeout(() => {
+        diceEl.classList.remove('rolling');
+        let roll = (rollCount >= 3) ? 6 : Math.floor(Math.random() * 5) + 1;
+        diceEl.innerText = roll;
+        const res = document.getElementById('ludo-result');
+        
+        if (roll === 6) {
+          fireConfetti();
+          vibrate(120);
+          playBeep(784, 'sine', 0.3);
+          res.innerText = "YOU ROLLED A 6! 🎉";
+          res.style.color = "#80ffdb";
+          document.getElementById('ludo-next-btn').disabled = false;
+        } else {
+          res.innerText = `Rolled a ${roll}! Roll again! 🎲`;
+          res.style.color = "#ffb3c1";
+        }
+      }, 400);
+    }
 
-      if (roll === 6) {
-        resultEl.innerText = "YOU ROLLED A 6! 🎉 You're always my lucky number!";
-        resultEl.style.color = "green";
-      } else {
-        resultEl.innerText = `Rolled a ${roll}! Roll again for a 6! 🎲`;
-        resultEl.style.color = "orange";
+    // Scratch Card Logic
+    function initScratchCard() {
+      const sCanvas = document.getElementById('scratchCanvas');
+      const sCtx = sCanvas.getContext('2d');
+      sCtx.fillStyle = '#888';
+      sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+      sCtx.fillStyle = '#aaa';
+      sCtx.font = '16px sans-serif';
+      sCtx.fillText('Scratch here with finger...', 50, 80);
+
+      let isScratching = false;
+
+      function scratch(e) {
+        if (!isScratching) return;
+        const rect = sCanvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+        sCtx.globalCompositeOperation = 'destination-out';
+        sCtx.beginPath();
+        sCtx.arc(x, y, 18, 0, Math.PI * 2);
+        sCtx.fill();
+        vibrate(10);
+
+        document.getElementById('scratch-next-btn').disabled = false;
       }
+
+      sCanvas.addEventListener('mousedown', () => isScratching = true);
+      sCanvas.addEventListener('mouseup', () => isScratching = false);
+      sCanvas.addEventListener('mousemove', scratch);
+      sCanvas.addEventListener('touchstart', () => isScratching = true);
+      sCanvas.addEventListener('touchend', () => isScratching = false);
+      sCanvas.addEventListener('touchmove', scratch);
+    }
+  </script>
+</body>
+</html>
     }
   </script>
 </body>
