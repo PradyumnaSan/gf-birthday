@@ -2,48 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday! ❤️</title>
-  <!-- Confetti Library -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Birthday My Love ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
-      --bg: #1a0b16;
-      --card-bg: rgba(255, 255, 255, 0.08);
-      --primary: #ff4d6d;
-      --accent: #ff758f;
+      --bg: #0a0003;
+      --card-bg: rgba(30, 3, 12, 0.75);
+      --primary-red: #ff003c;
+      --deep-red: #800020;
+      --glow-red: #ff3366;
       --text: #ffffff;
-      --subtext: #ffb3c1;
+      --text-sub: #ffccd5;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+
     body {
-      background: linear-gradient(135deg, #0d0409 0%, #2a081a 100%);
+      background: #050002;
       color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 15px;
+      padding: 12px;
       overflow-x: hidden;
+      position: relative;
     }
 
+    /* Floating Red Hearts Background Animation */
+    .heart-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      color: var(--primary-red);
+      font-size: 20px;
+      opacity: 0.7;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 0 8px var(--primary-red));
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.8; }
+      100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
+    }
+
+    /* App Card Container */
     .card {
       width: 100%;
-      max-width: 390px;
+      max-width: 400px;
       background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 25px 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 0, 60, 0.3);
+      padding: 24px 18px;
       border-radius: 28px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 35px rgba(255, 0, 60, 0.25);
       text-align: center;
       min-height: 580px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
+      z-index: 10;
     }
 
     .screen {
@@ -52,36 +84,36 @@
       align-items: center;
       justify-content: center;
       height: 100%;
-      animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: fadeIn 0.4s ease-in-out;
     }
 
     .screen.active { display: flex; }
 
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.9); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
 
-    h1 { color: var(--primary); font-size: 1.8rem; margin-bottom: 8px; text-shadow: 0 0 10px rgba(255,77,109,0.5); }
-    h2 { color: var(--accent); font-size: 1.3rem; margin-bottom: 12px; }
-    p { font-size: 0.95rem; line-height: 1.5; color: var(--subtext); margin-bottom: 15px; }
+    h1 { color: var(--primary-red); font-size: 1.8rem; margin-bottom: 8px; text-shadow: 0 0 12px rgba(255, 0, 60, 0.6); }
+    h2 { color: var(--glow-red); font-size: 1.3rem; margin-bottom: 12px; text-shadow: 0 0 8px rgba(255, 51, 102, 0.4); }
+    p { font-size: 0.95rem; line-height: 1.5; color: var(--text-sub); margin-bottom: 15px; }
 
     input {
       padding: 14px;
       font-size: 1.2rem;
-      border: 2px solid var(--primary);
+      border: 2px solid var(--primary-red);
       border-radius: 14px;
-      margin: 15px 0;
+      margin: 20px 0;
       text-align: center;
       width: 85%;
       outline: none;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.6);
       color: white;
-      letter-spacing: 2px;
+      box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2);
     }
 
     button {
-      background: linear-gradient(45deg, #ff4d6d, #c9184a);
+      background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
       color: white;
       border: none;
       padding: 14px 28px;
@@ -91,341 +123,435 @@
       cursor: pointer;
       width: 100%;
       margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+      box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
       transition: all 0.2s;
     }
 
     button:active { transform: scale(0.96); }
-    button:disabled { background: #4a3b47; box-shadow: none; color: #888; }
+    button:disabled { background: #331018; box-shadow: none; color: #775058; }
 
-    /* Photo Frame */
+    /* Photo Containers */
     .photo-container {
       width: 100%;
-      height: 250px;
+      height: 260px;
       border-radius: 18px;
       overflow: hidden;
-      margin: 10px 0;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      margin: 12px 0;
+      border: 2px solid var(--primary-red);
+      box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
     }
     .photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Canvas Elements */
-    #carromCanvas, #scratchCanvas {
-      border-radius: 14px;
+    /* Photo Collage Grid */
+    .collage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      width: 100%;
+      margin: 12px 0;
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 4px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.3);
+    }
+    .collage-grid img { width: 100%; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid var(--primary-red); }
+
+    /* Real Carrom Canvas */
+    .carrom-wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 10px auto;
+    }
+
+    #carromCanvas {
+      background: #e0be96;
+      border: 10px solid #5a2a18;
+      border-radius: 16px;
       touch-action: none;
-      margin: 10px 0;
-    }
-    #carromCanvas { background: #3d2314; border: 3px solid #8b5a2b; }
-
-    /* Quiz Options */
-    .quiz-options { width: 100%; }
-    .quiz-options button {
-      background: rgba(255, 255, 255, 0.08);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: none;
-      margin: 6px 0;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 0 15px rgba(255, 0, 60, 0.3);
     }
 
-    /* Dice */
-    .dice {
-      width: 90px;
-      height: 90px;
-      background: white;
-      border-radius: 22px;
+    .slider-container {
+      width: 100%;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    .slider-container input[type=range] {
+      flex: 1;
+      accent-color: var(--primary-red);
+    }
+
+    /* Yes / No Game Mechanics */
+    .yes-no-wrapper {
+      position: relative;
+      width: 100%;
+      height: 180px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 3.2rem;
-      color: #c9184a;
       margin: 15px 0;
-      box-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
-      transition: transform 0.3s;
     }
-    .rolling { animation: spin 0.4s infinite linear; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    .letter {
+    #btn-yes {
+      position: absolute;
+      width: 120px;
+      left: 20px;
+      background: linear-gradient(135deg, #00c853, #007e33);
+      box-shadow: 0 0 15px rgba(0, 200, 83, 0.4);
+    }
+
+    #btn-no {
+      position: absolute;
+      width: 120px;
+      right: 20px;
+      background: linear-gradient(135deg, #d50000, #8e0000);
+      box-shadow: 0 0 15px rgba(213, 0, 0, 0.4);
+      transition: all 0.15s ease-out;
+    }
+
+    /* Wish Letter Box */
+    .letter-box {
       text-align: left;
       font-size: 0.95rem;
       line-height: 1.6;
-      background: rgba(0,0,0,0.4);
+      background: rgba(15, 0, 5, 0.8);
       padding: 16px;
       border-radius: 14px;
-      border-left: 4px solid var(--primary);
+      border-left: 4px solid var(--primary-red);
       width: 100%;
-      max-height: 260px;
+      max-height: 220px;
       overflow-y: auto;
       color: #ffe6ea;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
 
+  <!-- Heavy Floating Hearts Layer -->
+  <div class="heart-bg" id="heartContainer"></div>
+
   <div class="card">
-    
-    <!-- SCREEN 1: LOCK SCREEN -->
+
+    <!-- 1. PASSWORD SCREEN (No hints) -->
     <div id="screen-1" class="screen active">
-      <h1>🔒 Top Secret</h1>
-      <p>Enter your birth date to unlock your birthday surprise (DDMM):</p>
-      <input type="password" id="passcode" placeholder="1008" maxlength="4" inputmode="numeric">
-      <button onclick="checkPasscode()">Unlock Experience ✨</button>
-      <p id="error-msg" style="color:#ff758f; display:none; margin-top:8px;">Incorrect date! Try again baby ❤️</p>
+      <h1>🔒 Password</h1>
+      <input type="password" id="passcode" placeholder="Enter Password" inputmode="numeric">
+      <button onclick="checkPasscode()">Unlock ❤️</button>
+      <p id="error-msg" style="color:var(--primary-red); display:none; margin-top:10px;">Incorrect Password!</p>
     </div>
 
-    <!-- SCREEN 2: MEMORIES SLIDESHOW -->
+    <!-- 2. ORDERED PHOTO JOURNEY -->
     <div id="screen-2" class="screen">
-      <h1>🎂 Happy Birthday! 🎉</h1>
-      <p>Here are a few of my absolute favorite moments with you:</p>
+      <h2>📸 Our Journey</h2>
+      <p id="photo-caption">Memory 1 of 5</p>
       <div class="photo-container">
-        <img id="slideshow" src="img5.jpeg" alt="Memories">
+        <img id="journey-photo" src="img5.jpeg" alt="Memory">
       </div>
-      <button onclick="nextPhoto()">Next Photo 📸</button>
-      <button onclick="goToScreen(3)" style="background: linear-gradient(45deg, #ff758f, #ff4d6d); margin-top:8px;">Play Birthday Games 🎮</button>
+      <button onclick="nextJourneyPhoto()">Next Memory ➡️</button>
     </div>
 
-    <!-- SCREEN 3: CARROM SHOT -->
+    <!-- 3. REAL INTERACTIVE CARROM GAME -->
     <div id="screen-3" class="screen">
-      <h2>🎯 Game 1: Pocket the Queen</h2>
-      <p>Tap the board to fire the striker and pocket the Queen!</p>
-      <canvas id="carromCanvas" width="280" height="200"></canvas>
-      <p id="carrom-result" style="font-weight: bold; min-height: 24px;"></p>
-      <button id="carrom-next-btn" onclick="goToScreen(4)" disabled>Next Level ➡️</button>
+      <h2>🎯 Pocket The Queen</h2>
+      <p>1. Move striker position<br>2. Drag back on board to aim & shot force!</p>
+      
+      <div class="carrom-wrapper">
+        <canvas id="carromCanvas" width="300" height="300"></canvas>
+      </div>
+
+      <div class="slider-container">
+        <span>Position:</span>
+        <input type="range" id="strikerPos" min="60" max="240" value="150" oninput="updateStrikerX(this.value)">
+      </div>
+
+      <p id="carrom-status" style="font-weight: bold; min-height: 24px; color: var(--glow-red);"></p>
+      <button id="carrom-next-btn" onclick="goToScreen(4)" disabled>Next Step ➡️</button>
     </div>
 
-    <!-- SCREEN 4: QUIZ GAME -->
+    <!-- 4. FUN YES / NO DODGE GAME -->
     <div id="screen-4" class="screen">
-      <h2>🧠 Game 2: Memory Test</h2>
-      <p>Where was our favorite moment together?</p>
-      <div class="quiz-options">
-        <button onclick="answerQuiz(false)">Coffee Shop</button>
-        <button onclick="answerQuiz(true)">At the Park</button>
-        <button onclick="answerQuiz(false)">Movie Theater</button>
+      <h2>❤️ Question For You</h2>
+      <p>Do you love me the most in the entire world?</p>
+      
+      <div class="yes-no-wrapper" id="yesNoContainer">
+        <button id="btn-yes" onclick="selectYes()">YES! 🥰</button>
+        <button id="btn-no" onmouseover="dodgeNo()" onclick="dodgeNo()" ontouchstart="dodgeNo()">NO 😜</button>
       </div>
-      <p id="quiz-result" style="font-weight: bold; min-height: 24px; margin-top:8px;"></p>
-      <button id="quiz-next-btn" onclick="goToScreen(5)" disabled>Next Level ➡️</button>
+      
+      <p id="yes-result" style="font-weight: bold; color: var(--glow-red); min-height: 24px;"></p>
+      <button id="yes-next-btn" onclick="goToScreen(5)" disabled style="display:none; margin-top:10px;">Continue 💕</button>
     </div>
 
-    <!-- SCREEN 5: LUDO DICE -->
+    <!-- 5. FINAL WISH & PHOTO COLLAGE -->
     <div id="screen-5" class="screen">
-      <h2>🎲 Game 3: Roll a 6 to Win!</h2>
-      <p>You need a lucky 6 to unlock your birthday scratch card!</p>
-      <div id="dice" class="dice">🎲</div>
-      <button onclick="rollDice()">Roll Dice 🎲</button>
-      <p id="ludo-result" style="font-weight: bold; min-height: 24px; margin-top:8px;"></p>
-      <button id="ludo-next-btn" onclick="goToScreen(6)" disabled>Unlock Scratch Card 🎟️</button>
-    </div>
-
-    <!-- SCREEN 6: SCRATCH CARD -->
-    <div id="screen-6" class="screen">
-      <h2>🎟️ Scratch to Reveal!</h2>
-      <p>Use your finger to scratch off the card below:</p>
-      <div style="position: relative; width: 280px; height: 150px;">
-        <div style="position: absolute; width: 100%; height: 100%; background: #ff4d6d; border-radius: 14px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; font-weight: bold; padding: 10px;">
-          <p style="color:white; font-size:1.1rem; margin:0;">🎁 Special Birthday Coupon</p>
-          <p style="color:#ffe6ea; font-size:0.85rem; margin-top:5px;">Valid for 1 Unlimited Shopping / Dinner Date with Me!</p>
-        </div>
-        <canvas id="scratchCanvas" width="280" height="150" style="position: absolute; top:0; left:0;"></canvas>
+      <h2>🎂 Happy Birthday! 🎉</h2>
+      
+      <!-- Photo Collage Grid -->
+      <div class="collage-grid">
+        <img src="img5.jpeg" alt="1">
+        <img src="img6.jpeg" alt="2">
+        <img src="img7.jpeg" alt="3">
+        <img src="img8.jpeg" alt="4">
+        <img src="img9.jpeg" alt="5">
+        <img src="img5.jpeg" alt="6">
       </div>
-      <button id="scratch-next-btn" onclick="goToScreen(7)" disabled style="margin-top:20px;">Read Birthday Letter 💌</button>
-    </div>
 
-    <!-- SCREEN 7: FINAL LETTER -->
-    <div id="screen-7" class="screen">
-      <h2>💌 Birthday Message</h2>
-      <div class="letter">
-        <p>Dear Birthday Girl,</p><br>
-        <p>Happy Birthday! I built this digital playground just to show you how much you mean to me. Every single line of code was written thinking about your smile.</p><br>
-        <p>Thank you for being the most incredible person in my life. I hope today is as wonderful as you are!</p><br>
-        <p>With all my love ❤️</p>
+      <!-- PASTE YOUR WISH HERE -->
+      <div class="letter-box">
+        <p><strong>My Dearest,</strong></p><br>
+        <p>Happy Birthday! I created this special interactive corner just for you.</p><br>
+        <p><em>[PASTE YOUR FINAL BIRTHDAY WISH TEXT HERE]</em></p><br>
+        <p>Forever Yours ❤️</p>
       </div>
-      <button onclick="fireConfetti(); vibrate();">Celebrate Again 🎉</button>
+
+      <button onclick="fireCelebration()">Celebrate 🎉</button>
     </div>
 
   </div>
 
   <script>
-    // Audio Synthesizer (No MP3 download needed)
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playBeep(freq = 440, type = 'sine', duration = 0.15) {
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.value = freq;
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-        osc.stop(audioCtx.currentTime + duration);
-      } catch(e) {}
+    // --- 1. FLOATING HEARTS GENERATOR ---
+    const heartContainer = document.getElementById('heartContainer');
+    const heartIcons = ['❤️', '💖', '💕', '💗', '💓'];
+    
+    for (let i = 0; i < 35; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      heart.style.animationDelay = (Math.random() * 5) + 's';
+      heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      heartContainer.appendChild(heart);
     }
 
-    function vibrate(ms = 50) {
-      if (navigator.vibrate) navigator.vibrate(ms);
-    }
-
-    function fireConfetti() {
-      if (typeof confetti === 'function') {
-        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-      }
-    }
-
-    // Navigation
-    function goToScreen(screenNumber) {
+    // --- 2. SCREEN NAVIGATION ---
+    function goToScreen(num) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(`screen-${screenNumber}`).classList.add('active');
-      playBeep(523, 'triangle', 0.1);
-      vibrate(30);
-
-      if(screenNumber === 3) initCarrom();
-      if(screenNumber === 6) initScratchCard();
-      if(screenNumber === 7) fireConfetti();
+      document.getElementById(`screen-${num}`).classList.add('active');
+      if (num === 3) initCarromGame();
     }
 
-    // Lock Screen
+    // --- 3. PASSWORD CHECK ---
     function checkPasscode() {
-      const input = document.getElementById('passcode').value;
-      if (input === '1008') {
-        fireConfetti();
+      const val = document.getElementById('passcode').value;
+      if (val === '1008') { // Enter password
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
         goToScreen(2);
       } else {
-        vibrate([100, 50, 100]);
         document.getElementById('error-msg').style.display = 'block';
       }
     }
 
-    // Slideshow
-    const photos = ['img5.jpeg', 'img6.jpeg', 'img7.jpeg', 'img8.jpeg', 'img9.jpeg'];
-    let photoIdx = 0;
-    function nextPhoto() {
-      photoIdx = (photoIdx + 1) % photos.length;
-      document.getElementById('slideshow').src = photos[photoIdx];
-      playBeep(400, 'sine', 0.1);
-    }
+    // --- 4. ORDERED PHOTO JOURNEY ---
+    const journeyPhotos = ['img5.jpeg', 'img6.jpeg', 'img7.jpeg', 'img8.jpeg', 'img9.jpeg'];
+    let journeyIdx = 0;
 
-    // Game 1: Carrom
-    let canvas, ctx, striker, queen, pocket, shotTaken = false;
-    function initCarrom() {
-      canvas = document.getElementById('carromCanvas');
-      ctx = canvas.getContext('2d');
-      striker = { x: 140, y: 170, radius: 10 };
-      queen = { x: 140, y: 80, radius: 8 };
-      pocket = { x: 250, y: 30, radius: 16 };
-      shotTaken = false;
-      drawCarrom();
-      canvas.onclick = fireStriker;
-    }
-
-    function drawCarrom() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath(); ctx.arc(pocket.x, pocket.y, pocket.radius, 0, Math.PI * 2); ctx.fillStyle = '#111'; ctx.fill();
-      ctx.beginPath(); ctx.arc(queen.x, queen.y, queen.radius, 0, Math.PI * 2); ctx.fillStyle = '#ff4d6d'; ctx.fill();
-      ctx.beginPath(); ctx.arc(striker.x, striker.y, striker.radius, 0, Math.PI * 2); ctx.fillStyle = '#fff'; ctx.lineWidth = 2; ctx.fill();
-    }
-
-    function fireStriker() {
-      if (shotTaken) return;
-      shotTaken = true;
-      playBeep(300, 'square', 0.1);
-      let anim = setInterval(() => {
-        striker.y -= 5;
-        if (striker.y <= queen.y + 10) { queen.x += 4; queen.y -= 2; }
-        drawCarrom();
-        if (queen.x >= pocket.x - 10 && queen.y <= pocket.y + 10) {
-          clearInterval(anim);
-          fireConfetti();
-          vibrate(100);
-          playBeep(600, 'sine', 0.3);
-          document.getElementById('carrom-result').innerText = "QUEEN POCKETED! 🎯❤️";
-          document.getElementById('carrom-result').style.color = "#ff758f";
-          document.getElementById('carrom-next-btn').disabled = false;
-        }
-      }, 20);
-    }
-
-    // Game 2: Quiz
-    function answerQuiz(isCorrect) {
-      const res = document.getElementById('quiz-result');
-      if (isCorrect) {
-        fireConfetti();
-        vibrate(80);
-        playBeep(587, 'sine', 0.2);
-        res.innerText = "Correct! You remember every detail ❤️";
-        res.style.color = "#80ffdb";
-        document.getElementById('quiz-next-btn').disabled = false;
+    function nextJourneyPhoto() {
+      journeyIdx++;
+      if (journeyIdx < journeyPhotos.length) {
+        document.getElementById('journey-photo').src = journeyPhotos[journeyIdx];
+        document.getElementById('photo-caption').innerText = `Memory ${journeyIdx + 1} of ${journeyPhotos.length}`;
       } else {
-        vibrate([50, 50, 50]);
-        res.innerText = "Try again! 😜";
-        res.style.color = "#ff758f";
+        goToScreen(3); // Proceed to Carrom Game
       }
     }
 
-    // Game 3: Ludo
-    let rollCount = 0;
-    function rollDice() {
-      rollCount++;
-      const diceEl = document.getElementById('dice');
-      diceEl.classList.add('rolling');
-      playBeep(200, 'sawtooth', 0.2);
-      
-      setTimeout(() => {
-        diceEl.classList.remove('rolling');
-        let roll = (rollCount >= 3) ? 6 : Math.floor(Math.random() * 5) + 1;
-        diceEl.innerText = roll;
-        const res = document.getElementById('ludo-result');
-        
-        if (roll === 6) {
-          fireConfetti();
-          vibrate(120);
-          playBeep(784, 'sine', 0.3);
-          res.innerText = "YOU ROLLED A 6! 🎉";
-          res.style.color = "#80ffdb";
-          document.getElementById('ludo-next-btn').disabled = false;
-        } else {
-          res.innerText = `Rolled a ${roll}! Roll again! 🎲`;
-          res.style.color = "#ffb3c1";
+    // --- 5. REAL CARROM GAME ENGINE ---
+    let cCanvas, cCtx;
+    let cStriker = { x: 150, y: 240, radius: 12, vx: 0, vy: 0 };
+    let cQueen = { x: 150, y: 120, radius: 10, vx: 0, vy: 0 };
+    let cPockets = [
+      { x: 25, y: 25, r: 18 }, { x: 275, y: 25, r: 18 },
+      { x: 25, y: 275, r: 18 }, { x: 275, y: 275, r: 18 }
+    ];
+    let isAiming = false;
+    let dragStart = { x: 0, y: 0 };
+    let dragCurrent = { x: 0, y: 0 };
+    let shotFired = false;
+
+    function initCarromGame() {
+      cCanvas = document.getElementById('carromCanvas');
+      cCtx = cCanvas.getContext('2d');
+      resetCarromBoard();
+
+      cCanvas.addEventListener('pointerdown', e => {
+        if (shotFired) return;
+        const rect = cCanvas.getBoundingClientRect();
+        const px = e.clientX - rect.left;
+        const py = e.clientY - rect.top;
+        if (Math.hypot(px - cStriker.x, py - cStriker.y) < 30) {
+          isAiming = true;
+          dragStart = { x: px, y: py };
+          dragCurrent = { x: px, y: py };
         }
-      }, 400);
+      });
+
+      cCanvas.addEventListener('pointermove', e => {
+        if (!isAiming) return;
+        const rect = cCanvas.getBoundingClientRect();
+        dragCurrent = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+        renderCarrom();
+      });
+
+      cCanvas.addEventListener('pointerup', () => {
+        if (!isAiming) return;
+        isAiming = false;
+        shotFired = true;
+        const dx = dragStart.x - dragCurrent.x;
+        const dy = dragStart.y - dragCurrent.y;
+        cStriker.vx = dx * 0.15;
+        cStriker.vy = dy * 0.15;
+        animateCarrom();
+      });
+
+      renderCarrom();
     }
 
-    // Scratch Card Logic
-    function initScratchCard() {
-      const sCanvas = document.getElementById('scratchCanvas');
-      const sCtx = sCanvas.getContext('2d');
-      sCtx.fillStyle = '#888';
-      sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
-      sCtx.fillStyle = '#aaa';
-      sCtx.font = '16px sans-serif';
-      sCtx.fillText('Scratch here with finger...', 50, 80);
-
-      let isScratching = false;
-
-      function scratch(e) {
-        if (!isScratching) return;
-        const rect = sCanvas.getBoundingClientRect();
-        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-        sCtx.globalCompositeOperation = 'destination-out';
-        sCtx.beginPath();
-        sCtx.arc(x, y, 18, 0, Math.PI * 2);
-        sCtx.fill();
-        vibrate(10);
-
-        document.getElementById('scratch-next-btn').disabled = false;
+    function updateStrikerX(val) {
+      if (!shotFired) {
+        cStriker.x = parseFloat(val);
+        renderCarrom();
       }
-
-      sCanvas.addEventListener('mousedown', () => isScratching = true);
-      sCanvas.addEventListener('mouseup', () => isScratching = false);
-      sCanvas.addEventListener('mousemove', scratch);
-      sCanvas.addEventListener('touchstart', () => isScratching = true);
-      sCanvas.addEventListener('touchend', () => isScratching = false);
-      sCanvas.addEventListener('touchmove', scratch);
     }
-  </script>
-</body>
-</html>
+
+    function resetCarromBoard() {
+      cStriker = { x: parseFloat(document.getElementById('strikerPos').value), y: 240, radius: 12, vx: 0, vy: 0 };
+      cQueen = { x: 150, y: 120, radius: 10, vx: 0, vy: 0 };
+      shotFired = false;
+      document.getElementById('carrom-status').innerText = "";
+      renderCarrom();
+    }
+
+    function renderCarrom() {
+      cCtx.clearRect(0, 0, 300, 300);
+
+      // Pockets
+      cPockets.forEach(p => {
+        cCtx.beginPath();
+        cCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        cCtx.fillStyle = '#111';
+        cCtx.fill();
+        cCtx.strokeStyle = '#333';
+        cCtx.stroke();
+      });
+
+      // Queen (Red Dot)
+      cCtx.beginPath();
+      cCtx.arc(cQueen.x, cQueen.y, cQueen.radius, 0, Math.PI * 2);
+      cCtx.fillStyle = '#ff003c';
+      cCtx.shadowColor = '#ff003c';
+      cCtx.shadowBlur = 10;
+      cCtx.fill();
+      cCtx.shadowBlur = 0;
+
+      // Striker
+      cCtx.beginPath();
+      cCtx.arc(cStriker.x, cStriker.y, cStriker.radius, 0, Math.PI * 2);
+      cCtx.fillStyle = '#ffffff';
+      cCtx.fill();
+      cCtx.strokeStyle = '#ff003c';
+      cCtx.lineWidth = 2;
+      cCtx.stroke();
+
+      // Aim Line Guide
+      if (isAiming) {
+        cCtx.beginPath();
+        cCtx.moveTo(cStriker.x, cStriker.y);
+        const aimX = cStriker.x + (dragStart.x - dragCurrent.x) * 2;
+        const aimY = cStriker.y + (dragStart.y - dragCurrent.y) * 2;
+        cCtx.lineTo(aimX, aimY);
+        cCtx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+        cCtx.setLineDash([4, 4]);
+        cCtx.stroke();
+        cCtx.setLineDash([]);
+      }
+    }
+
+    function animateCarrom() {
+      let loop = setInterval(() => {
+        // Move Striker & Queen
+        cStriker.x += cStriker.vx;
+        cStriker.y += cStriker.vy;
+        cQueen.x += cQueen.vx;
+        cQueen.y += cQueen.vy;
+
+        // Friction
+        cStriker.vx *= 0.98; cStriker.vy *= 0.98;
+        cQueen.vx *= 0.98; cQueen.vy *= 0.98;
+
+        // Wall Bounces
+        [cStriker, cQueen].forEach(obj => {
+          if (obj.x - obj.radius < 10 || obj.x + obj.radius > 290) obj.vx *= -1;
+          if (obj.y - obj.radius < 10 || obj.y + obj.radius > 290) obj.vy *= -1;
+        });
+
+        // Collision between Striker & Queen
+        let dist = Math.hypot(cStriker.x - cQueen.x, cStriker.y - cQueen.y);
+        if (dist < cStriker.radius + cQueen.radius) {
+          let angle = Math.atan2(cQueen.y - cStriker.y, cQueen.x - cStriker.x);
+          let speed = Math.hypot(cStriker.vx, cStriker.vy);
+          cQueen.vx = Math.cos(angle) * speed;
+          cQueen.vy = Math.sin(angle) * speed;
+        }
+
+        // Pocket check for Queen
+        cPockets.forEach(p => {
+          if (Math.hypot(cQueen.x - p.x, cQueen.y - p.y) < p.r) {
+            cQueen.x = -100; // Hide queen
+            cQueen.vx = 0; cQueen.vy = 0;
+            clearInterval(loop);
+            document.getElementById('carrom-status').innerText = "QUEEN POCKETED! PERFECT SHOT! 🎯❤️";
+            document.getElementById('carrom-next-btn').disabled = false;
+            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+          }
+        });
+
+        renderCarrom();
+
+        // Stop if motion stops
+        if (Math.abs(cStriker.vx) < 0.05 && Math.abs(cStriker.vy) < 0.05 && Math.abs(cQueen.vx) < 0.05 && Math.abs(cQueen.vy) < 0.05) {
+          clearInterval(loop);
+          if (cQueen.x > 0) {
+            document.getElementById('carrom-status').innerText = "Missed! Adjust position & try again!";
+            setTimeout(resetCarromBoard, 1500);
+          }
+        }
+      }, 1000 / 60);
+    }
+
+    // --- 6. YES / NO DODGE GAME MECHANIC ---
+    function dodgeNo() {
+      const btnNo = document.getElementById('btn-no');
+      const container = document.getElementById('yesNoContainer');
+      const rect = container.getBoundingClientRect();
+
+      const newX = Math.random() * (rect.width - 100);
+      const newY = Math.random() * (rect.height - 40);
+
+      btnNo.style.left = newX + 'px';
+      btnNo.style.top = newY + 'px';
+    }
+
+    function selectYes() {
+      confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
+      document.getElementById('yes-result').innerText = "I knew it! You had no choice anyway! 😘❤️";
+      document.getElementById('btn-no').style.display = 'none';
+      document.getElementById('yes-next-btn').style.display = 'block';
+      document.getElementById('yes-next-btn').disabled = false;
+    }
+
+    // --- 7. CELEBRATION ---
+    function fireCelebration() {
+      confetti({ particleCount: 120, spread: 100, origin: { y: 0.5 } });
     }
   </script>
 </body>
