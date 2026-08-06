@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Happy Birthday My Love ❤️</title>
+  <title>Happy 22nd Birthday Ghelli! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --bg: #0a0003;
-      --card-bg: rgba(25, 3, 10, 0.82);
+      --card-bg: rgba(25, 3, 10, 0.85);
       --primary-red: #ff003c;
       --deep-red: #800020;
       --glow-red: #ff3366;
@@ -30,21 +30,9 @@
       position: relative;
     }
 
-    /* Touch Particle Canvas Layer */
-    #particleCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 99;
-    }
-
     /* Floating Red Hearts Layer */
     .heart-bg {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none; z-index: 0; overflow: hidden;
     }
 
@@ -63,33 +51,22 @@
 
     /* Main Container */
     .card {
-      width: 100%;
-      max-width: 400px;
+      width: 100%; max-width: 400px;
       background: var(--card-bg);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border: 1px solid rgba(255, 0, 60, 0.35);
-      padding: 24px 18px;
-      border-radius: 28px;
+      padding: 24px 18px; border-radius: 28px;
       box-shadow: 0 0 40px rgba(255, 0, 60, 0.3);
-      text-align: center;
-      min-height: 590px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      z-index: 10;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
+      text-align: center; min-height: 600px;
+      display: flex; flex-direction: column;
+      justify-content: space-between; position: relative; z-index: 10;
     }
 
     .screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      animation: fadeIn 0.4s ease-in-out;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100%; animation: fadeIn 0.4s ease-in-out;
     }
 
     .screen.active { display: flex; }
@@ -104,8 +81,7 @@
     p { font-size: 0.95rem; line-height: 1.5; color: var(--text-sub); margin-bottom: 15px; }
 
     input {
-      padding: 14px; font-size: 1.2rem;
-      border: 2px solid var(--primary-red);
+      padding: 14px; font-size: 1.2rem; border: 2px solid var(--primary-red);
       border-radius: 14px; margin: 20px 0; text-align: center; width: 85%;
       outline: none; background: rgba(0,0,0,0.6); color: white;
       box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2);
@@ -116,30 +92,38 @@
       color: white; border: none; padding: 14px 28px;
       font-size: 1rem; font-weight: 700; border-radius: 14px;
       cursor: pointer; width: 100%; margin-top: 10px;
-      box-shadow: 0 0 18px rgba(255, 0, 60, 0.4);
-      transition: all 0.2s;
+      box-shadow: 0 0 18px rgba(255, 0, 60, 0.4); transition: all 0.2s;
     }
 
     button:active { transform: scale(0.96); }
-    button:disabled { background: #331018; box-shadow: none; color: #775058; }
 
-    /* Photo Frame with 3D Tilt */
-    .photo-container {
-      width: 100%; height: 260px;
-      border-radius: 18px; overflow: hidden; margin: 12px 0;
-      border: 2px solid var(--primary-red);
-      box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
-      transition: transform 0.2s ease;
+    /* Interactive Cake Arena */
+    .room-stage {
+      width: 100%; height: 260px; background: #120208;
+      border-radius: 18px; border: 2px solid var(--primary-red);
+      position: relative; overflow: hidden; transition: background 0.5s;
+      display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
     }
-    .photo-container img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Photo Collage Grid */
-    .collage-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
-      width: 100%; margin: 12px 0; max-height: 180px; overflow-y: auto;
-      padding: 4px; border-radius: 12px; background: rgba(0,0,0,0.3);
+    .lights-on { background: linear-gradient(180deg, #3a0d1d 0%, #120208 100%); }
+
+    /* Balloons Layer */
+    .balloon-layer { position: absolute; width: 100%; height: 100%; top: 0; left: 0; display: none; pointer-events: none; }
+    .balloon { position: absolute; bottom: -40px; font-size: 2rem; animation: floatUpBalloons 4s ease-in infinite; }
+    @keyframes floatUpBalloons {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-300px); opacity: 0; }
     }
-    .collage-grid img { width: 100%; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid var(--primary-red); }
+
+    /* Characters & Stage */
+    .stage-content {
+      position: relative; width: 100%; height: 180px;
+      display: flex; justify-space-around; align-items: flex-end; padding-bottom: 10px;
+    }
+
+    .char { font-size: 3.5rem; transition: all 0.5s ease; position: relative; }
+    .cake-svg { font-size: 3rem; cursor: pointer; transition: transform 0.2s; }
+    .cake-svg:active { transform: scale(0.9); }
 
     /* Carrom Canvas Container */
     .carrom-wrapper { position: relative; width: 300px; height: 300px; margin: 10px auto; }
@@ -154,66 +138,18 @@
     }
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
 
-    /* Dodge Game Container */
-    .yes-no-wrapper {
-      position: relative; width: 100%; height: 180px;
-      display: flex; justify-content: center; align-items: center; margin: 15px 0;
-    }
-    #btn-yes {
-      position: absolute; width: 120px; left: 20px;
-      background: linear-gradient(135deg, #00c853, #007e33);
-      box-shadow: 0 0 15px rgba(0, 200, 83, 0.4);
-    }
-    #btn-no {
-      position: absolute; width: 120px; right: 20px;
-      background: linear-gradient(135deg, #d50000, #8e0000);
-      box-shadow: 0 0 15px rgba(213, 0, 0, 0.4);
-      transition: all 0.15s ease-out;
-    }
-
-    /* Scratch Card Layer */
-    .scratch-container {
-      position: relative; width: 280px; height: 140px; margin: 10px auto;
-      border-radius: 16px; overflow: hidden; border: 2px solid var(--primary-red);
-    }
-    .scratch-reveal {
-      position: absolute; width: 100%; height: 100%;
-      background: linear-gradient(135deg, #2b000d, #66001a);
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      padding: 10px; color: white; text-align: center;
-    }
-    #scratchCanvas { position: absolute; top:0; left:0; touch-action: none; }
-
-    /* Voice Note Card Player */
-    .voice-card {
-      width: 100%; background: rgba(0,0,0,0.5);
-      border: 1px solid var(--glow-red); border-radius: 14px;
-      padding: 12px; margin: 10px 0; display: flex; align-items: center; gap: 12px;
-    }
-    .voice-btn {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--primary-red); border: none; color: white;
-      font-size: 1.2rem; display: flex; justify-content: center; align-items: center; cursor: pointer;
-    }
-
-    /* Animated Typewriter Wish Box */
-    .letter-box {
-      text-align: left; font-size: 0.95rem; line-height: 1.6;
-      background: rgba(15, 0, 5, 0.85); padding: 16px; border-radius: 14px;
-      border-left: 4px solid var(--primary-red); width: 100%; max-height: 200px;
-      overflow-y: auto; color: #ffe6ea; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    /* Tree Canvas */
+    #treeCanvas {
+      width: 100%; height: 260px; background: rgba(10, 0, 5, 0.9);
+      border-radius: 18px; border: 2px solid var(--primary-red);
     }
   </style>
 </head>
 <body>
 
-  <!-- Touch Particle Effect Canvas -->
-  <canvas id="particleCanvas"></canvas>
-
-  <!-- Heavy Floating Hearts Layer -->
   <div class="heart-bg" id="heartContainer"></div>
 
-  <div class="card" id="mainCard">
+  <div class="card">
 
     <!-- 1. PASSWORD SCREEN -->
     <div id="screen-1" class="screen active">
@@ -223,20 +159,52 @@
       <p id="error-msg" style="color:var(--primary-red); display:none; margin-top:10px;">Incorrect Password!</p>
     </div>
 
-    <!-- 2. ORDERED PHOTO JOURNEY -->
+    <!-- 2. 22ND BIRTHDAY ANNOUNCEMENT -->
     <div id="screen-2" class="screen">
-      <h2>📸 Our Journey</h2>
-      <p id="photo-caption">Memory 1 of 5</p>
-      <div class="photo-container" id="photoFrame">
-        <img id="journey-photo" src="img5.jpeg" alt="Memory">
-      </div>
-      <button onclick="nextJourneyPhoto()">Next Memory ➡️</button>
+      <h1>✨ 10th August 2026 ✨</h1>
+      <h2>Happy 22nd Birthday My Love! 🎉</h2>
+      <p>Born on 10th Aug 2004, today you officially turn 22 years beautiful!</p>
+      <div style="font-size: 4rem; margin: 20px 0;">👑🎂💖</div>
+      <button onclick="goToScreen(3)">I Have a Surprise For You! 🎁</button>
     </div>
 
-    <!-- 3. REAL INTERACTIVE CARROM GAME -->
+    <!-- 3. SURPRISE QUESTION (YES/NO) -->
     <div id="screen-3" class="screen">
+      <h2>🎁 Birthday Surprise</h2>
+      <p>I have a special surprise prepared for you Ghelli, do you want to see it?</p>
+      <div style="display: flex; gap: 10px; width: 100%; margin-top: 20px;">
+        <button onclick="goToScreen(4)" style="background: linear-gradient(135deg, #00c853, #007e33);">YES! 😍</button>
+        <button onclick="alert('Wrong answer! Click Yes! 😜')">NO 😜</button>
+      </div>
+    </div>
+
+    <!-- 4. STEP-BY-STEP CAKE CUTTING PREPARATION -->
+    <div id="screen-4" class="screen">
+      <h2 id="prep-title">🎂 Cake Preparation</h2>
+      
+      <div class="room-stage" id="roomStage">
+        <div class="balloon-layer" id="balloonLayer">
+          <span class="balloon" style="left: 10%;">🎈</span>
+          <span class="balloon" style="left: 30%; animation-delay: 1s;">🎈</span>
+          <span class="balloon" style="left: 60%; animation-delay: 0.5s;">🎈</span>
+          <span class="balloon" style="left: 80%; animation-delay: 1.5s;">🎈</span>
+        </div>
+        
+        <div class="stage-content">
+          <div class="char" id="cutieCat">🐱</div>
+          <div class="cake-svg" id="cakeIcon" onclick="cutCakeSequence()">🎂</div>
+          <div class="char" id="boyChar">👦</div>
+        </div>
+      </div>
+
+      <p id="prep-desc" style="margin-top:10px; font-weight:bold;">Step 1: Turn the lights on!</p>
+      <button id="prepBtn" onclick="nextPrepStep()">1. Lights On 💡</button>
+    </div>
+
+    <!-- 5. REAL INTERACTIVE AUTO-WIN CARROM GAME -->
+    <div id="screen-5" class="screen">
       <h2>🎯 Pocket The Queen</h2>
-      <p>1. Adjust striker position slider<br>2. Drag back on board to aim & release shot!</p>
+      <p>Adjust striker and shoot! Wherever you hit, the red queen goes straight to the pocket!</p>
       
       <div class="carrom-wrapper">
         <canvas id="carromCanvas" width="300" height="300"></canvas>
@@ -248,178 +216,111 @@
       </div>
 
       <p id="carrom-status" style="font-weight: bold; min-height: 24px; color: var(--glow-red);"></p>
-      <button id="carrom-next-btn" onclick="goToScreen(4)" disabled>Next Step ➡️</button>
+      <button id="carrom-next-btn" onclick="goToScreen(6)" disabled>Our Love Tree 🌳➡️</button>
     </div>
 
-    <!-- 4. FUN YES / NO DODGE GAME -->
-    <div id="screen-4" class="screen">
-      <h2>❤️ Question For You</h2>
-      <p>Do you love me the most in the entire world?</p>
-      
-      <div class="yes-no-wrapper" id="yesNoContainer">
-        <button id="btn-yes" onclick="selectYes()">YES! 🥰</button>
-        <button id="btn-no" onmouseover="dodgeNo()" onclick="dodgeNo()" ontouchstart="dodgeNo()">NO 😜</button>
-      </div>
-      
-      <p id="yes-result" style="font-weight: bold; color: var(--glow-red); min-height: 24px;"></p>
-      <button id="yes-next-btn" onclick="goToScreen(5)" disabled style="display:none; margin-top:10px;">Scratch Secret Card 🎟️</button>
-    </div>
-
-    <!-- 5. SCRATCH CARD SCREEN -->
-    <div id="screen-5" class="screen">
-      <h2>🎟️ Scratch Your Secret Note</h2>
-      <p>Wipe your finger across the card to reveal:</p>
-      
-      <div class="scratch-container">
-        <div class="scratch-reveal">
-          <p style="color:var(--glow-red); font-weight:bold; font-size:1rem;">🎁 Birthday Coupon</p>
-          <p style="color:#ffe6ea; font-size:0.85rem; margin-top:4px;">Valid for 1 Special Dinner & Shopping Date with Me!</p>
-        </div>
-        <canvas id="scratchCanvas" width="280" height="140"></canvas>
-      </div>
-
-      <button id="scratch-next-btn" onclick="goToScreen(6)" disabled style="margin-top:15px;">Read Birthday Wish 💌</button>
-    </div>
-
-    <!-- 6. FINAL WISH, VOICE NOTE & PHOTO COLLAGE -->
+    <!-- 6. GROWING HEART TREE & HUG/KISS SCENE -->
     <div id="screen-6" class="screen">
-      <h2>🎂 Happy Birthday! 🎉</h2>
-      
-      <!-- Voice Note Player UI -->
-      <div class="voice-card">
-        <button class="voice-btn" onclick="toggleVoiceNote()" id="voicePlayBtn">▶</button>
-        <div style="text-align:left;">
-          <p style="margin:0; font-weight:bold; color:white; font-size:0.9rem;">My Voice Note For You 🎙️</p>
-          <p style="margin:0; font-size:0.75rem; color:var(--text-sub);" id="voiceStatus">Tap play to listen</p>
-        </div>
-        <audio id="voiceAudio" src="voicenote.mp3"></audio> <!-- Add your voicenote.mp3 file whenever ready -->
-      </div>
+      <h2>🌳 Our Love Tree</h2>
+      <canvas id="treeCanvas" width="320" height="260"></canvas>
+      <p id="treeText" style="margin-top: 10px; font-weight: bold; color: var(--glow-red);">Watching our love grow...</p>
+      <button id="treeNextBtn" onclick="goToScreen(7)" disabled style="margin-top: 10px;">Read My Birthday Message 💌</button>
+    </div>
 
-      <!-- Photo Collage Grid -->
-      <div class="collage-grid">
-        <img src="img5.jpeg" alt="1">
-        <img src="img6.jpeg" alt="2">
-        <img src="img7.jpeg" alt="3">
-        <img src="img8.jpeg" alt="4">
-        <img src="img9.jpeg" alt="5">
-        <img src="img5.jpeg" alt="6">
+    <!-- 7. FINAL BIRTHDAY MESSAGE -->
+    <div id="screen-7" class="screen">
+      <h2>💌 Happy 22nd Birthday!</h2>
+      <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 16px; border-radius: 14px; border-left: 4px solid var(--primary-red); max-height: 220px; overflow-y: auto;">
+        <p><strong>My Dearest Ghelli,</strong></p><br>
+        <p>Happy 22nd Birthday! Turning 22 is so special, and I am so grateful to be celebrating it with you.</p><br>
+        <p>Every single step of this app was made just to put a massive smile on your face today!</p><br>
+        <p>Forever Yours ❤️</p>
       </div>
-
-      <!-- Typewriter Wish Box -->
-      <div class="letter-box" id="typewriterBox">
-        <!-- Text is typed out automatically -->
-      </div>
-
-      <button onclick="fireCelebration()" style="margin-top:10px;">Celebrate 🎉</button>
+      <button onclick="confetti({ particleCount: 100, spread: 80 });">Celebrate 🎉</button>
     </div>
 
   </div>
 
   <script>
-    // --- 1. SYNTHESIZED SOUND EFFECTS ENGINE ---
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playSFX(freq, type, duration) {
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type; osc.frequency.value = freq;
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start();
-        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-        osc.stop(audioCtx.currentTime + duration);
-      } catch(e) {}
-    }
-
-    // --- 2. TOUCH PARTICLE EFFECT (SPARKLE TRAIL) ---
-    const pCanvas = document.getElementById('particleCanvas');
-    const pCtx = pCanvas.getContext('2d');
-    let particles = [];
-
-    function resizeCanvas() { pCanvas.width = window.innerWidth; pCanvas.height = window.innerHeight; }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function addParticle(x, y) {
-      particles.push({ x, y, size: Math.random() * 8 + 4, opacity: 1, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2 });
-    }
-
-    window.addEventListener('pointermove', e => addParticle(e.clientX, e.clientY));
-    window.addEventListener('touchmove', e => addParticle(e.touches[0].clientX, e.touches[0].clientY));
-
-    function renderParticles() {
-      pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
-      particles.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy; p.opacity -= 0.02; p.size *= 0.96;
-        pCtx.fillStyle = `rgba(255, 0, 60, ${p.opacity})`;
-        pCtx.beginPath(); pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2); pCtx.fill();
-        if (p.opacity <= 0) particles.splice(i, 1);
-      });
-      requestAnimationFrame(renderParticles);
-    }
-    renderParticles();
-
-    // --- 3. FLOATING HEARTS BACKGROUND ---
+    // Floating Hearts Background
     const heartContainer = document.getElementById('heartContainer');
-    const heartIcons = ['❤️', '💖', '💕', '💗', '💓'];
     for (let i = 0; i < 30; i++) {
       const heart = document.createElement('div');
       heart.className = 'floating-heart';
-      heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+      heart.innerText = '❤️';
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
       heart.style.animationDelay = (Math.random() * 5) + 's';
-      heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
       heartContainer.appendChild(heart);
     }
 
-    // --- 4. DEVICE ORIENTATION TILT EFFECT ---
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', e => {
-        const card = document.getElementById('mainCard');
-        const tiltX = (e.gamma / 45) * 10;
-        const tiltY = (e.beta / 45) * 10;
-        card.style.transform = `rotateY(${tiltX}deg) rotateX(${-tiltY}deg)`;
-      });
-    }
-
-    // --- 5. SCREEN NAVIGATION ---
     function goToScreen(num) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(`screen-${num}`).classList.add('active');
-      playSFX(440, 'triangle', 0.1);
-      if (num === 3) initCarromGame();
-      if (num === 5) initScratchCard();
-      if (num === 6) startTypewriter();
+      if (num === 5) initCarromGame();
+      if (num === 6) growHeartTree();
     }
 
-    // --- 6. PASSWORD CHECK ---
     function checkPasscode() {
-      const val = document.getElementById('passcode').value;
-      if (val === '1008') {
-        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
-        playSFX(587, 'sine', 0.2);
+      if (document.getElementById('passcode').value === '1008') {
+        confetti({ particleCount: 50, spread: 60 });
         goToScreen(2);
       } else {
         document.getElementById('error-msg').style.display = 'block';
-        playSFX(150, 'sawtooth', 0.2);
       }
     }
 
-    // --- 7. ORDERED PHOTO JOURNEY ---
-    const journeyPhotos = ['img5.jpeg', 'img6.jpeg', 'img7.jpeg', 'img8.jpeg', 'img9.jpeg'];
-    let journeyIdx = 0;
-    function nextJourneyPhoto() {
-      journeyIdx++;
-      if (journeyIdx < journeyPhotos.length) {
-        document.getElementById('journey-photo').src = journeyPhotos[journeyIdx];
-        document.getElementById('photo-caption').innerText = `Memory ${journeyIdx + 1} of ${journeyPhotos.length}`;
-        playSFX(350, 'sine', 0.1);
-      } else {
-        goToScreen(3);
+    // Step-by-Step Preparation Engine
+    let prepStep = 0;
+    function nextPrepStep() {
+      prepStep++;
+      const stage = document.getElementById('roomStage');
+      const desc = document.getElementById('prep-desc');
+      const btn = document.getElementById('prepBtn');
+
+      if (prepStep === 1) {
+        stage.classList.add('lights-on');
+        desc.innerText = "Step 2: Start background music!";
+        btn.innerText = "2. Play Music 🎵";
+      } else if (prepStep === 2) {
+        desc.innerText = "Step 3: Add birthday decorations!";
+        btn.innerText = "3. Decorate 🎀";
+      } else if (prepStep === 3) {
+        desc.innerText = "Step 4: Release birthday balloons!";
+        btn.innerText = "4. Fly Balloons 🎈";
+      } else if (prepStep === 4) {
+        document.getElementById('balloonLayer').style.display = 'block';
+        desc.innerText = "Step 5: Ready! Tap the cake to cut!";
+        btn.innerText = "5. Let's Cut the Cake Ghelli! 🍰";
+        btn.onclick = cutCakeSequence;
       }
     }
 
-    // --- 8. REAL CARROM GAME ENGINE ---
+    // Interactive Cake Cut & Feed Sequence
+    function cutCakeSequence() {
+      const cutie = document.getElementById('cutieCat');
+      const boy = document.getElementById('boyChar');
+      const desc = document.getElementById('prep-desc');
+
+      desc.innerText = "Cutie Cat cuts the cake & feeds a slice! 🍰";
+      cutie.style.transform = "translateX(40px)";
+
+      setTimeout(() => {
+        desc.innerText = "Yummy! Now hugging & raining hearts! 🤗❤️";
+        cutie.innerText = "😻";
+        boy.innerText = "🥰";
+        cutie.style.transform = "translateX(50px)";
+        boy.style.transform = "translateX(-50px)";
+        
+        confetti({ particleCount: 100, spread: 90, origin: { y: 0.6 } });
+
+        setTimeout(() => {
+          goToScreen(5); // Proceed to Carrom game
+        }, 2200);
+      }, 1200);
+    }
+
+    // --- CARROM ENGINE WITH GUARANTEED AUTO-POCKET ---
     let cCanvas, cCtx;
     let cStriker = { x: 150, y: 240, radius: 12, vx: 0, vy: 0 };
     let cQueen = { x: 150, y: 120, radius: 10, vx: 0, vy: 0 };
@@ -454,7 +355,6 @@
         isAiming = false; shotFired = true;
         const dx = dragStart.x - dragCurrent.x, dy = dragStart.y - dragCurrent.y;
         cStriker.vx = dx * 0.15; cStriker.vy = dy * 0.15;
-        playSFX(250, 'square', 0.1);
         animateCarrom();
       });
       renderCarrom();
@@ -485,127 +385,83 @@
     }
 
     function animateCarrom() {
+      let queenTargeted = false;
       let loop = setInterval(() => {
         cStriker.x += cStriker.vx; cStriker.y += cStriker.vy;
         cQueen.x += cQueen.vx; cQueen.y += cQueen.vy;
+
         cStriker.vx *= 0.98; cStriker.vy *= 0.98; cQueen.vx *= 0.98; cQueen.vy *= 0.98;
 
-        [cStriker, cQueen].forEach(obj => {
-          if (obj.x - obj.radius < 10 || obj.x + obj.radius > 290) { obj.vx *= -1; playSFX(180, 'sine', 0.05); }
-          if (obj.y - obj.radius < 10 || obj.y + obj.radius > 290) { obj.vy *= -1; playSFX(180, 'sine', 0.05); }
-        });
+        // Bounces
+        if (cStriker.x - cStriker.radius < 10 || cStriker.x + cStriker.radius > 290) cStriker.vx *= -1;
+        if (cStriker.y - cStriker.radius < 10 || cStriker.y + cStriker.radius > 290) cStriker.vy *= -1;
 
+        // Collision -> AUTO-TARGET nearest pocket!
         let dist = Math.hypot(cStriker.x - cQueen.x, cStriker.y - cQueen.y);
-        if (dist < cStriker.radius + cQueen.radius) {
-          let angle = Math.atan2(cQueen.y - cStriker.y, cQueen.x - cStriker.x);
-          let speed = Math.hypot(cStriker.vx, cStriker.vy);
-          cQueen.vx = Math.cos(angle) * speed; cQueen.vy = Math.sin(angle) * speed;
-          playSFX(320, 'square', 0.08);
+        if (dist < cStriker.radius + cQueen.radius && !queenTargeted) {
+          queenTargeted = true;
+          // Target top-left or top-right pocket automatically
+          let targetPocket = cQueen.x < 150 ? cPockets[0] : cPockets[1];
+          let angle = Math.atan2(targetPocket.y - cQueen.y, targetPocket.x - cQueen.x);
+          cQueen.vx = Math.cos(angle) * 7;
+          cQueen.vy = Math.sin(angle) * 7;
         }
 
+        // Pocket check
         cPockets.forEach(p => {
           if (Math.hypot(cQueen.x - p.x, cQueen.y - p.y) < p.r) {
             cQueen.x = -100; cQueen.vx = 0; cQueen.vy = 0; clearInterval(loop);
             document.getElementById('carrom-status').innerText = "QUEEN POCKETED! PERFECT SHOT! 🎯❤️";
             document.getElementById('carrom-next-btn').disabled = false;
             confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
-            playSFX(650, 'sine', 0.3);
           }
         });
 
         renderCarrom();
-        if (Math.abs(cStriker.vx) < 0.05 && Math.abs(cStriker.vy) < 0.05 && Math.abs(cQueen.vx) < 0.05 && Math.abs(cQueen.vy) < 0.05) {
-          clearInterval(loop);
-          if (cQueen.x > 0) {
-            document.getElementById('carrom-status').innerText = "Missed! Adjust position & try again!";
-            setTimeout(resetCarromBoard, 1500);
-          }
-        }
       }, 1000 / 60);
     }
 
-    // --- 9. DODGE GAME MECHANICS ---
-    function dodgeNo() {
-      const btnNo = document.getElementById('btn-no');
-      const container = document.getElementById('yesNoContainer');
-      const rect = container.getBoundingClientRect();
-      btnNo.style.left = Math.random() * (rect.width - 100) + 'px';
-      btnNo.style.top = Math.random() * (rect.height - 40) + 'px';
-      playSFX(200, 'sawtooth', 0.05);
-    }
+    // Canvas Heart Tree Animation
+    function growHeartTree() {
+      const canvas = document.getElementById('treeCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    function selectYes() {
-      confetti({ particleCount: 80, spread: 80, origin: { y: 0.6 } });
-      playSFX(523, 'sine', 0.25);
-      document.getElementById('yes-result').innerText = "I knew it! You had no choice anyway! 😘❤️";
-      document.getElementById('btn-no').style.display = 'none';
-      document.getElementById('yes-next-btn').style.display = 'block';
-      document.getElementById('yes-next-btn').disabled = false;
-    }
+      let step = 0;
 
-    // --- 10. SCRATCH CARD ENGINE ---
-    function initScratchCard() {
-      const sCanvas = document.getElementById('scratchCanvas');
-      const sCtx = sCanvas.getContext('2d');
-      sCtx.fillStyle = '#7a001e'; sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
-      sCtx.fillStyle = '#ff3366'; sCtx.font = '14px sans-serif';
-      sCtx.fillText('Wipe with finger to reveal... ✨', 45, 75);
+      function drawBranch(startX, startY, len, angle, branchWidth) {
+        ctx.beginPath(); ctx.save();
+        ctx.strokeStyle = "#8b5a2b"; ctx.lineWidth = branchWidth;
+        ctx.translate(startX, startY); ctx.rotate(angle * Math.PI / 180);
+        ctx.moveTo(0, 0); ctx.lineTo(0, -len); ctx.stroke();
 
-      let isScratching = false;
-      function scratch(e) {
-        if (!isScratching) return;
-        const rect = sCanvas.getBoundingClientRect();
-        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-
-        sCtx.globalCompositeOperation = 'destination-out';
-        sCtx.beginPath(); sCtx.arc(x, y, 18, 0, Math.PI * 2); sCtx.fill();
-        document.getElementById('scratch-next-btn').disabled = false;
-      }
-
-      sCanvas.addEventListener('mousedown', () => isScratching = true);
-      sCanvas.addEventListener('mouseup', () => isScratching = false);
-      sCanvas.addEventListener('mousemove', scratch);
-      sCanvas.addEventListener('touchstart', () => isScratching = true);
-      sCanvas.addEventListener('touchend', () => isScratching = false);
-      sCanvas.addEventListener('touchmove', scratch);
-    }
-
-    // --- 11. VOICE NOTE CONTROL ---
-    function toggleVoiceNote() {
-      const audio = document.getElementById('voiceAudio');
-      const btn = document.getElementById('voicePlayBtn');
-      const status = document.getElementById('voiceStatus');
-      if (audio.paused) {
-        audio.play().then(() => {
-          btn.innerText = '⏸'; status.innerText = 'Playing... ❤️';
-        }).catch(() => { status.innerText = 'Add voicenote.mp3 file to repo!'; });
-      } else {
-        audio.pause(); btn.innerText = '▶'; status.innerText = 'Paused';
-      }
-    }
-
-    // --- 12. TYPEWRITER ANIMATED WISH ---
-    const wishMessage = "Dear Birthday Girl,\n\nHappy Birthday! I built this interactive website just to bring a smile to your face.\n\nEvery line of code and every game was designed with love for you.\n\nThank you for being the most incredible person in my life. I hope today is as amazing as you are!\n\nWith all my love ❤️";
-    let typeIdx = 0;
-    function startTypewriter() {
-      const box = document.getElementById('typewriterBox');
-      box.innerText = "";
-      typeIdx = 0;
-      function typeNextChar() {
-        if (typeIdx < wishMessage.length) {
-          box.innerText += wishMessage.charAt(typeIdx);
-          typeIdx++;
-          setTimeout(typeNextChar, 35);
+        if (len < 10) {
+          ctx.beginPath(); ctx.fillStyle = "#ff003c";
+          ctx.arc(0, -len, 5, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+          return;
         }
-      }
-      typeNextChar();
-    }
 
-    // --- 13. CELEBRATION ---
-    function fireCelebration() {
-      confetti({ particleCount: 120, spread: 100, origin: { y: 0.5 } });
-      playSFX(523, 'triangle', 0.4);
+        drawBranch(0, -len, len * 0.75, angle + 20, branchWidth * 0.7);
+        drawBranch(0, -len, len * 0.75, angle - 20, branchWidth * 0.7);
+        ctx.restore();
+      }
+
+      let growAnim = setInterval(() => {
+        step += 2;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBranch(160, 220, step, 0, 8);
+
+        ctx.font = "28px sans-serif";
+        ctx.fillText("👧👉", 70, 230);
+        ctx.fillText("👩‍❤️‍💋‍👨", 210, 230);
+
+        if (step >= 45) {
+          clearInterval(growAnim);
+          document.getElementById('treeText').innerText = "She points to our full heart tree, hugging and kissing! 🌳💋❤️";
+          document.getElementById('treeNextBtn').disabled = false;
+          confetti({ particleCount: 80, spread: 70 });
+        }
+      }, 100);
     }
   </script>
 </body>
