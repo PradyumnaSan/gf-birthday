@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Happy 22nd Birthday Ghelli! ❤️</title>
+  <title>Happy 22nd Birthday Rinky! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Three.js for 3D Heart Cake Rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root {
       --bg: #0a0003;
-      --card-bg: rgba(25, 3, 10, 0.85);
+      --card-bg: rgba(25, 3, 10, 0.88);
       --primary-red: #ff003c;
       --deep-red: #800020;
       --glow-red: #ff3366;
@@ -30,7 +32,6 @@
       position: relative;
     }
 
-    /* Floating Red Hearts Layer */
     .heart-bg {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none; z-index: 0; overflow: hidden;
@@ -49,7 +50,6 @@
       100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
     }
 
-    /* Main Container */
     .card {
       width: 100%; max-width: 400px;
       background: var(--card-bg);
@@ -58,7 +58,7 @@
       border: 1px solid rgba(255, 0, 60, 0.35);
       padding: 24px 18px; border-radius: 28px;
       box-shadow: 0 0 40px rgba(255, 0, 60, 0.3);
-      text-align: center; min-height: 600px;
+      text-align: center; min-height: 620px;
       display: flex; flex-direction: column;
       justify-content: space-between; position: relative; z-index: 10;
     }
@@ -97,35 +97,32 @@
 
     button:active { transform: scale(0.96); }
 
-    /* Interactive Cake Arena */
     .room-stage {
-      width: 100%; height: 260px; background: #120208;
+      width: 100%; height: 280px; background: #120208;
       border-radius: 18px; border: 2px solid var(--primary-red);
       position: relative; overflow: hidden; transition: background 0.5s;
-      display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+      display: flex; flex-direction: column; justify-content: space-between; align-items: center;
     }
 
     .lights-on { background: linear-gradient(180deg, #3a0d1d 0%, #120208 100%); }
 
-    /* Balloons Layer */
-    .balloon-layer { position: absolute; width: 100%; height: 100%; top: 0; left: 0; display: none; pointer-events: none; }
+    .balloon-layer { position: absolute; width: 100%; height: 100%; top: 0; left: 0; display: none; pointer-events: none; z-index: 15; }
     .balloon { position: absolute; bottom: -40px; font-size: 2rem; animation: floatUpBalloons 4s ease-in infinite; }
     @keyframes floatUpBalloons {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-300px); opacity: 0; }
     }
 
-    /* Characters & Stage */
-    .stage-content {
-      position: relative; width: 100%; height: 180px;
-      display: flex; justify-space-around; align-items: flex-end; padding-bottom: 10px;
+    /* 3D Cake Container */
+    #cake3DContainer { width: 100%; height: 200px; position: relative; z-index: 5; }
+
+    .stage-bears {
+      position: absolute; bottom: 10px; width: 100%;
+      display: flex; justify-content: space-between; padding: 0 20px; z-index: 20;
     }
 
-    .char { font-size: 3.5rem; transition: all 0.5s ease; position: relative; }
-    .cake-svg { font-size: 3rem; cursor: pointer; transition: transform 0.2s; }
-    .cake-svg:active { transform: scale(0.9); }
+    .bear { width: 65px; height: 65px; transition: all 0.5s ease; }
 
-    /* Carrom Canvas Container */
     .carrom-wrapper { position: relative; width: 300px; height: 300px; margin: 10px auto; }
     #carromCanvas {
       background: #e0be96; border: 10px solid #5a2a18; border-radius: 16px;
@@ -138,10 +135,10 @@
     }
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
 
-    /* Tree Canvas */
     #treeCanvas {
-      width: 100%; height: 260px; background: rgba(10, 0, 5, 0.9);
+      width: 100%; height: 280px; background: rgba(15, 2, 7, 0.95);
       border-radius: 18px; border: 2px solid var(--primary-red);
+      box-shadow: inset 0 0 15px rgba(255,0,60,0.2);
     }
   </style>
 </head>
@@ -162,25 +159,25 @@
     <!-- 2. 22ND BIRTHDAY ANNOUNCEMENT -->
     <div id="screen-2" class="screen">
       <h1>✨ 10th August 2026 ✨</h1>
-      <h2>Happy 22nd Birthday My Love! 🎉</h2>
+      <h2>Happy 22nd Birthday Rinky! 🎉</h2>
       <p>Born on 10th Aug 2004, today you officially turn 22 years beautiful!</p>
       <div style="font-size: 4rem; margin: 20px 0;">👑🎂💖</div>
       <button onclick="goToScreen(3)">I Have a Surprise For You! 🎁</button>
     </div>
 
-    <!-- 3. SURPRISE QUESTION (YES/NO) -->
+    <!-- 3. SURPRISE QUESTION -->
     <div id="screen-3" class="screen">
       <h2>🎁 Birthday Surprise</h2>
-      <p>I have a special surprise prepared for you Ghelli, do you want to see it?</p>
+      <p>I have a special surprise prepared for you Rinky, do you want to see it?</p>
       <div style="display: flex; gap: 10px; width: 100%; margin-top: 20px;">
         <button onclick="goToScreen(4)" style="background: linear-gradient(135deg, #00c853, #007e33);">YES! 😍</button>
         <button onclick="alert('Wrong answer! Click Yes! 😜')">NO 😜</button>
       </div>
     </div>
 
-    <!-- 4. STEP-BY-STEP CAKE CUTTING PREPARATION -->
+    <!-- 4. 3D HEART CAKE CUTTING PREPARATION -->
     <div id="screen-4" class="screen">
-      <h2 id="prep-title">🎂 Cake Preparation</h2>
+      <h2 id="prep-title">🎂 3D Cake Celebration</h2>
       
       <div class="room-stage" id="roomStage">
         <div class="balloon-layer" id="balloonLayer">
@@ -190,10 +187,37 @@
           <span class="balloon" style="left: 80%; animation-delay: 1.5s;">🎈</span>
         </div>
         
-        <div class="stage-content">
-          <div class="char" id="cutieCat">🐱</div>
-          <div class="cake-svg" id="cakeIcon" onclick="cutCakeSequence()">🎂</div>
-          <div class="char" id="boyChar">👦</div>
+        <div id="cake3DContainer"></div>
+
+        <div class="stage-bears">
+          <!-- Milk (White Bear - Her) -->
+          <div class="bear" id="milkBear">
+            <svg viewBox="0 0 100 100">
+              <circle cx="30" cy="25" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="3"/>
+              <circle cx="70" cy="25" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="3"/>
+              <ellipse cx="50" cy="55" rx="35" ry="30" fill="#ffffff" stroke="#e0e0e0" stroke-width="3"/>
+              <circle cx="40" cy="50" r="4" fill="#222"/>
+              <circle cx="60" cy="50" r="4" fill="#222"/>
+              <ellipse cx="50" cy="58" rx="5" ry="3" fill="#222"/>
+              <ellipse cx="32" cy="58" rx="5" ry="3" fill="#ffb3c1"/>
+              <ellipse cx="68" cy="58" rx="5" ry="3" fill="#ffb3c1"/>
+            </svg>
+          </div>
+
+          <!-- Mocha (Brown Bear - You) -->
+          <div class="bear" id="mochaBear">
+            <svg viewBox="0 0 100 100">
+              <circle cx="30" cy="25" r="12" fill="#a06040" stroke="#704028" stroke-width="3"/>
+              <circle cx="70" cy="25" r="12" fill="#a06040" stroke="#704028" stroke-width="3"/>
+              <ellipse cx="50" cy="55" rx="35" ry="30" fill="#a06040" stroke="#704028" stroke-width="3"/>
+              <ellipse cx="50" cy="60" rx="14" ry="10" fill="#d0a080"/>
+              <circle cx="40" cy="50" r="4" fill="#222"/>
+              <circle cx="60" cy="50" r="4" fill="#222"/>
+              <ellipse cx="50" cy="56" rx="5" ry="3" fill="#222"/>
+              <ellipse cx="32" cy="58" rx="5" ry="3" fill="#ff99a8"/>
+              <ellipse cx="68" cy="58" rx="5" ry="3" fill="#ff99a8"/>
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -201,7 +225,7 @@
       <button id="prepBtn" onclick="nextPrepStep()">1. Lights On 💡</button>
     </div>
 
-    <!-- 5. REAL INTERACTIVE AUTO-WIN CARROM GAME -->
+    <!-- 5. REAL INTERACTIVE CARROM GAME -->
     <div id="screen-5" class="screen">
       <h2>🎯 Pocket The Queen</h2>
       <p>Adjust striker and shoot! Wherever you hit, the red queen goes straight to the pocket!</p>
@@ -219,11 +243,11 @@
       <button id="carrom-next-btn" onclick="goToScreen(6)" disabled>Our Love Tree 🌳➡️</button>
     </div>
 
-    <!-- 6. GROWING HEART TREE & HUG/KISS SCENE -->
+    <!-- 6. GROWING HEART TREE WITH MILK & MOCHA -->
     <div id="screen-6" class="screen">
-      <h2>🌳 Our Love Tree</h2>
-      <canvas id="treeCanvas" width="320" height="260"></canvas>
-      <p id="treeText" style="margin-top: 10px; font-weight: bold; color: var(--glow-red);">Watching our love grow...</p>
+      <h2>🌳 Our Romantic Love Tree</h2>
+      <canvas id="treeCanvas" width="320" height="280"></canvas>
+      <p id="treeText" style="margin-top: 10px; font-weight: bold; color: var(--glow-red);">Growing our tree of love...</p>
       <button id="treeNextBtn" onclick="goToScreen(7)" disabled style="margin-top: 10px;">Read My Birthday Message 💌</button>
     </div>
 
@@ -231,7 +255,7 @@
     <div id="screen-7" class="screen">
       <h2>💌 Happy 22nd Birthday!</h2>
       <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 16px; border-radius: 14px; border-left: 4px solid var(--primary-red); max-height: 220px; overflow-y: auto;">
-        <p><strong>My Dearest Ghelli,</strong></p><br>
+        <p><strong>My Dearest Rinky,</strong></p><br>
         <p>Happy 22nd Birthday! Turning 22 is so special, and I am so grateful to be celebrating it with you.</p><br>
         <p>Every single step of this app was made just to put a massive smile on your face today!</p><br>
         <p>Forever Yours ❤️</p>
@@ -242,7 +266,6 @@
   </div>
 
   <script>
-    // Floating Hearts Background
     const heartContainer = document.getElementById('heartContainer');
     for (let i = 0; i < 30; i++) {
       const heart = document.createElement('div');
@@ -257,8 +280,9 @@
     function goToScreen(num) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(`screen-${num}`).classList.add('active');
+      if (num === 4) init3DCake();
       if (num === 5) initCarromGame();
-      if (num === 6) growHeartTree();
+      if (num === 6) growRomanticTree();
     }
 
     function checkPasscode() {
@@ -270,7 +294,7 @@
       }
     }
 
-    // Step-by-Step Preparation Engine
+    // Step Preparation
     let prepStep = 0;
     function nextPrepStep() {
       prepStep++;
@@ -290,37 +314,113 @@
         btn.innerText = "4. Fly Balloons 🎈";
       } else if (prepStep === 4) {
         document.getElementById('balloonLayer').style.display = 'block';
-        desc.innerText = "Step 5: Ready! Tap the cake to cut!";
-        btn.innerText = "5. Let's Cut the Cake Ghelli! 🍰";
-        btn.onclick = cutCakeSequence;
+        desc.innerText = "Step 5: Tap the 3D Heart Cake to cut!";
+        btn.innerText = "5. Cut Rinky's Heart Cake! 🎂";
+        btn.onclick = cut3DCakeSequence;
       }
     }
 
-    // Interactive Cake Cut & Feed Sequence
-    function cutCakeSequence() {
-      const cutie = document.getElementById('cutieCat');
-      const boy = document.getElementById('boyChar');
-      const desc = document.getElementById('prep-desc');
+    // Three.js 3D Heart Cake Implementation
+    let scene, camera, renderer, cakeMesh, knifeMesh;
 
-      desc.innerText = "Cutie Cat cuts the cake & feeds a slice! 🍰";
-      cutie.style.transform = "translateX(40px)";
+    function init3DCake() {
+      const container = document.getElementById('cake3DContainer');
+      if (renderer) return;
 
-      setTimeout(() => {
-        desc.innerText = "Yummy! Now hugging & raining hearts! 🤗❤️";
-        cutie.innerText = "😻";
-        boy.innerText = "🥰";
-        cutie.style.transform = "translateX(50px)";
-        boy.style.transform = "translateX(-50px)";
-        
-        confetti({ particleCount: 100, spread: 90, origin: { y: 0.6 } });
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.set(0, 3, 6);
+      camera.lookAt(0, 0, 0);
 
-        setTimeout(() => {
-          goToScreen(5); // Proceed to Carrom game
-        }, 2200);
-      }, 1200);
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      scene.add(ambientLight);
+
+      const pointLight = new THREE.PointLight(0xff0055, 1.5, 100);
+      pointLight.position.set(2, 5, 3);
+      scene.add(pointLight);
+
+      // Create 3D Heart Geometry Shape
+      const x = 0, y = 0;
+      const heartShape = new THREE.Shape();
+      heartShape.moveTo(x + 0.25, y + 0.25);
+      heartShape.bezierCurveTo(x + 0.25, y + 0.25, x + 0.2, y, x, y);
+      heartShape.bezierCurveTo(x - 0.3, y, x - 0.3, y + 0.35, x - 0.3, y + 0.35);
+      heartShape.bezierCurveTo(x - 0.3, y + 0.55, x - 0.1, y + 0.77, x + 0.25, y + 0.95);
+      heartShape.bezierCurveTo(x + 0.6, y + 0.77, x + 0.8, y + 0.55, x + 0.8, y + 0.35);
+      heartShape.bezierCurveTo(x + 0.8, y + 0.35, x + 0.8, y, x + 0.5, y);
+      heartShape.bezierCurveTo(x + 0.35, y, x + 0.25, y + 0.25, x + 0.25, y + 0.25);
+
+      const extrudeSettings = { depth: 0.5, bevelEnabled: true, bevelSegments: 3, steps: 2, bevelSize: 0.05, bevelThickness: 0.05 };
+      const geometry = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
+      const material = new THREE.MeshPhongMaterial({ color: 0xff003c, shininess: 80 });
+
+      cakeMesh = new THREE.Mesh(geometry, material);
+      cakeMesh.rotation.x = -Math.PI / 2;
+      cakeMesh.rotation.z = Math.PI;
+      cakeMesh.position.set(0.25, -0.2, 0.3);
+      scene.add(cakeMesh);
+
+      // Add "Rinky" Text on Cake using Canvas Texture
+      const textCanvas = document.createElement('canvas');
+      textCanvas.width = 256; textCanvas.height = 128;
+      const tCtx = textCanvas.getContext('2d');
+      tCtx.fillStyle = '#ff003c'; tCtx.fillRect(0, 0, 256, 128);
+      tCtx.font = 'Bold 42px sans-serif'; tCtx.fillStyle = '#ffd700';
+      tCtx.textAlign = 'center'; tCtx.fillText('Rinky ❤️', 128, 70);
+
+      const texture = new THREE.CanvasTexture(textCanvas);
+      const textGeo = new THREE.PlaneGeometry(1.2, 0.6);
+      const textMat = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+      const textMesh = new THREE.Mesh(textGeo, textMat);
+      textMesh.rotation.x = -Math.PI / 2;
+      textMesh.position.set(0, 0.31, 0);
+      scene.add(textMesh);
+
+      // 3D Knife Creation
+      const knifeGeo = new THREE.BoxGeometry(0.1, 0.02, 1.2);
+      const knifeMat = new THREE.MeshPhongMaterial({ color: 0xcccccc, shininess: 100 });
+      knifeMesh = new THREE.Mesh(knifeGeo, knifeMat);
+      knifeMesh.position.set(0, 1.5, 0);
+      scene.add(knifeMesh);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        cakeMesh.rotation.z += 0.005;
+        textMesh.rotation.z += 0.005;
+        renderer.render(scene, camera);
+      }
+      animate();
     }
 
-    // --- CARROM ENGINE WITH GUARANTEED AUTO-POCKET ---
+    function cut3DCakeSequence() {
+      const milk = document.getElementById('milkBear');
+      const mocha = document.getElementById('mochaBear');
+      const desc = document.getElementById('prep-desc');
+
+      desc.innerText = "Cutting 3D Heart Cake with 'Rinky' written on it! 🍰";
+
+      // Animate 3D Knife Slice
+      let cutProgress = 0;
+      let knifeInterval = setInterval(() => {
+        cutProgress += 0.05;
+        knifeMesh.position.y -= 0.08;
+        if (cutProgress >= 1) {
+          clearInterval(knifeInterval);
+          desc.innerText = "Yummy slice cut! Milk feeds Mocha & hugging! 🤗❤️";
+          milk.style.transform = "translateX(35px)";
+          mocha.style.transform = "translateX(-35px)";
+          confetti({ particleCount: 100, spread: 90, origin: { y: 0.6 } });
+
+          setTimeout(() => { goToScreen(5); }, 2200);
+        }
+      }, 50);
+    }
+
+    // Carrom Engine
     let cCanvas, cCtx;
     let cStriker = { x: 150, y: 240, radius: 12, vx: 0, vy: 0 };
     let cQueen = { x: 150, y: 120, radius: 10, vx: 0, vy: 0 };
@@ -392,22 +492,18 @@
 
         cStriker.vx *= 0.98; cStriker.vy *= 0.98; cQueen.vx *= 0.98; cQueen.vy *= 0.98;
 
-        // Bounces
         if (cStriker.x - cStriker.radius < 10 || cStriker.x + cStriker.radius > 290) cStriker.vx *= -1;
         if (cStriker.y - cStriker.radius < 10 || cStriker.y + cStriker.radius > 290) cStriker.vy *= -1;
 
-        // Collision -> AUTO-TARGET nearest pocket!
         let dist = Math.hypot(cStriker.x - cQueen.x, cStriker.y - cQueen.y);
         if (dist < cStriker.radius + cQueen.radius && !queenTargeted) {
           queenTargeted = true;
-          // Target top-left or top-right pocket automatically
           let targetPocket = cQueen.x < 150 ? cPockets[0] : cPockets[1];
           let angle = Math.atan2(targetPocket.y - cQueen.y, targetPocket.x - cQueen.x);
           cQueen.vx = Math.cos(angle) * 7;
           cQueen.vy = Math.sin(angle) * 7;
         }
 
-        // Pocket check
         cPockets.forEach(p => {
           if (Math.hypot(cQueen.x - p.x, cQueen.y - p.y) < p.r) {
             cQueen.x = -100; cQueen.vx = 0; cQueen.vy = 0; clearInterval(loop);
@@ -421,48 +517,113 @@
       }, 1000 / 60);
     }
 
-    // Canvas Heart Tree Animation
-    function growHeartTree() {
+    // --- ROMANTIC TREE & MILK/MOCHA CANVAS ---
+    function growRomanticTree() {
       const canvas = document.getElementById('treeCanvas');
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      let step = 0;
+      let growthProgress = 0;
+      let heartLeaves = [];
 
-      function drawBranch(startX, startY, len, angle, branchWidth) {
-        ctx.beginPath(); ctx.save();
-        ctx.strokeStyle = "#8b5a2b"; ctx.lineWidth = branchWidth;
-        ctx.translate(startX, startY); ctx.rotate(angle * Math.PI / 180);
-        ctx.moveTo(0, 0); ctx.lineTo(0, -len); ctx.stroke();
-
-        if (len < 10) {
-          ctx.beginPath(); ctx.fillStyle = "#ff003c";
-          ctx.arc(0, -len, 5, 0, Math.PI * 2); ctx.fill(); ctx.restore();
-          return;
-        }
-
-        drawBranch(0, -len, len * 0.75, angle + 20, branchWidth * 0.7);
-        drawBranch(0, -len, len * 0.75, angle - 20, branchWidth * 0.7);
+      function drawHeart(x, y, size, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.shadowColor = '#ff003c';
+        ctx.shadowBlur = 4;
+        let d = size;
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(-d / 2, -d / 2, -d, d / 3, 0, d);
+        ctx.bezierCurveTo(d, d / 3, d / 2, -d / 2, 0, 0);
+        ctx.fill();
         ctx.restore();
       }
 
-      let growAnim = setInterval(() => {
-        step += 2;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawBranch(160, 220, step, 0, 8);
+      function drawMilkMochaUnderTree(x, y) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.ellipse(160, 265, 120, 20, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#110307';
+        ctx.fill();
 
-        ctx.font = "28px sans-serif";
-        ctx.fillText("👧👉", 70, 230);
-        ctx.fillText("👩‍❤️‍💋‍👨", 210, 230);
+        // Milk (White Bear)
+        ctx.beginPath();
+        ctx.arc(x - 8, y - 22, 7, 0, Math.PI * 2);
+        ctx.arc(x + 8, y - 22, 7, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff'; ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x, y - 10, 16, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff'; ctx.fill();
 
-        if (step >= 45) {
-          clearInterval(growAnim);
-          document.getElementById('treeText').innerText = "She points to our full heart tree, hugging and kissing! 🌳💋❤️";
-          document.getElementById('treeNextBtn').disabled = false;
-          confetti({ particleCount: 80, spread: 70 });
+        // Mocha (Brown Bear)
+        ctx.beginPath();
+        ctx.arc(x + 12, y - 22, 7, 0, Math.PI * 2);
+        ctx.arc(x + 28, y - 22, 7, 0, Math.PI * 2);
+        ctx.fillStyle = '#a06040'; ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x + 20, y - 10, 16, 0, Math.PI * 2);
+        ctx.fillStyle = '#a06040'; ctx.fill();
+
+        drawHeart(x + 8, y - 38, 9, '#ff003c');
+        ctx.restore();
+      }
+
+      function drawBranch(startX, startY, len, angle, branchWidth) {
+        ctx.beginPath();
+        ctx.save();
+        ctx.strokeStyle = "#2a0a18";
+        ctx.lineWidth = branchWidth;
+        ctx.lineCap = "round";
+        ctx.translate(startX, startY);
+        ctx.rotate(angle * Math.PI / 180);
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, -len);
+        ctx.stroke();
+
+        if (len < 12) {
+          let matrix = ctx.getTransform();
+          heartLeaves.push({ x: matrix.e, y: matrix.f });
+          ctx.restore();
+          return;
         }
-      }, 100);
+
+        drawBranch(0, -len, len * 0.78, angle + 22, branchWidth * 0.7);
+        drawBranch(0, -len, len * 0.78, angle - 22, branchWidth * 0.7);
+        if (len > 25) {
+          drawBranch(0, -len * 0.6, len * 0.6, angle + 8, branchWidth * 0.6);
+        }
+        ctx.restore();
+      }
+
+      let anim = setInterval(() => {
+        growthProgress += 1.5;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        heartLeaves = [];
+
+        drawBranch(200, 260, growthProgress, -10, 9);
+
+        if (growthProgress > 25) {
+          heartLeaves.forEach((leaf, idx) => {
+            if (idx % 2 === 0) {
+              drawHeart(leaf.x, leaf.y - 5, 7, '#ff003c');
+            } else {
+              drawHeart(leaf.x + 3, leaf.y - 2, 6, '#ff3366');
+            }
+          });
+        }
+
+        drawMilkMochaUnderTree(110, 250);
+
+        if (growthProgress >= 50) {
+          clearInterval(anim);
+          document.getElementById('treeText').innerText = "Milk & Mocha hugging under Rinky's heart tree! 🐻‍❄️🐻❤️";
+          document.getElementById('treeNextBtn').disabled = false;
+          confetti({ particleCount: 90, spread: 80 });
+        }
+      }, 60);
     }
   </script>
 </body>
-</html>    
+</html>
