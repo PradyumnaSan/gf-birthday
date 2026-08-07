@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Happy 22nd Birthday Rinky! ❤️</title>
+  <title>Happy Birthday Ghelli ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --bg: #0d0106;
-      --card-bg: rgba(28, 4, 14, 0.92);
+      --card-bg: rgba(28, 4, 14, 0.94);
       --primary-red: #ff0055;
       --deep-red: #80002a;
       --glow-pink: #ff6699;
@@ -24,9 +24,9 @@
       min-height: 100vh; padding: 12px; overflow-x: hidden; position: relative;
     }
 
-    /* Ambient Floating Hearts */
+    /* Red Hearts Background */
     .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
-    .floating-heart { position: absolute; bottom: -50px; color: var(--primary-red); opacity: 0.6; animation: floatUp linear infinite; filter: drop-shadow(0 0 8px var(--primary-red)); }
+    .floating-heart { position: absolute; bottom: -50px; color: var(--primary-red); opacity: 0.7; animation: floatUp linear infinite; filter: drop-shadow(0 0 8px var(--primary-red)); }
 
     @keyframes floatUp {
       0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
@@ -34,41 +34,30 @@
       100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
     }
 
-    /* Flying Balloons Layer */
-    .balloon-layer {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 25; overflow: hidden; display: none;
-    }
+    .heavy-shower .floating-heart { animation-duration: 2s !important; opacity: 0.9; }
 
-    .balloon {
-      position: absolute; bottom: -60px; font-size: 2.2rem;
-      animation: flyBalloonsUp 4s ease-in-out infinite;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
-    }
-
-    @keyframes flyBalloonsUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      50% { transform: translateY(-150px) rotate(8deg); }
-      100% { transform: translateY(-340px) rotate(-8deg); opacity: 0; }
-    }
-
-    /* Main Container Card */
     .card {
-      width: 100%; max-width: 400px;
+      width: 100%; max-width: 420px;
       background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 0, 85, 0.4); padding: 24px 18px; border-radius: 28px;
-      box-shadow: 0 0 50px rgba(255, 0, 85, 0.35); text-align: center; min-height: 620px;
+      border: 1px solid rgba(255, 0, 85, 0.4); padding: 20px 16px; border-radius: 28px;
+      box-shadow: 0 0 50px rgba(255, 0, 85, 0.35); text-align: center; min-height: 640px;
       display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 10;
     }
 
-    .screen { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; animation: fadeIn 0.4s ease-in-out; }
-    .screen.active { display: flex; }
+    .page { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; animation: fadeIn 0.4s ease-in-out; }
+    .page.active { display: flex; }
 
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
     h1 { color: var(--primary-red); font-size: 1.8rem; margin-bottom: 8px; text-shadow: 0 0 14px rgba(255, 0, 85, 0.8); }
     h2 { color: var(--glow-pink); font-size: 1.3rem; margin-bottom: 12px; text-shadow: 0 0 10px rgba(255, 102, 153, 0.6); }
-    p { font-size: 0.95rem; line-height: 1.5; color: var(--text-sub); margin-bottom: 15px; }
+    p { font-size: 0.95rem; line-height: 1.5; color: var(--text-sub); margin-bottom: 12px; }
+
+    input, textarea {
+      padding: 12px; font-size: 1rem; border: 2px solid var(--primary-red);
+      border-radius: 14px; margin: 10px 0; width: 100%;
+      outline: none; background: rgba(0,0,0,0.6); color: white; box-shadow: inset 0 0 10px rgba(255, 0, 85, 0.3);
+    }
 
     button {
       background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
@@ -78,112 +67,138 @@
     }
     button:active { transform: scale(0.96); }
 
-    /* Studio Media Box */
-    .gif-display-box {
-      width: 100%; height: 260px; background: rgba(10, 1, 5, 0.8);
-      border-radius: 20px; border: 2px solid var(--primary-red);
-      overflow: hidden; display: flex; justify-content: center; align-items: center;
-      position: relative; box-shadow: 0 0 20px rgba(255, 0, 85, 0.25);
+    .quiz-opt-btn {
+      background: rgba(255, 0, 85, 0.15); border: 1px solid var(--primary-red);
+      margin: 6px 0; text-align: left; padding: 12px; border-radius: 12px; color: white; width: 100%;
     }
 
-    .gif-display-box img {
-      width: 100%; height: 100%; object-fit: contain; padding: 10px;
-    }
-
-    /* Polaroid Photo Frame for Memory Images Carousel */
-    .polaroid-frame {
-      background: #ffffff;
-      padding: 12px 12px 20px 12px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-      transform: rotate(-1.5deg);
-      transition: all 0.3s ease;
-      width: 100%;
-      margin: 8px 0;
-    }
-
-    .polaroid-frame img {
-      width: 100%;
-      height: 210px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .polaroid-caption {
-      color: #222222;
-      font-weight: bold;
-      font-size: 0.95rem;
-      margin-top: 8px;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-    }
-
-    /* Carrom Interactive Stage */
     .carrom-wrapper { position: relative; width: 300px; height: 300px; margin: 10px auto; }
     #carromCanvas { background: #e0be96; border: 10px solid #5a2a18; border-radius: 16px; touch-action: none; }
-
     .slider-container { width: 100%; margin: 8px 0; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-sub); }
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
+
+    .img-frame {
+      width: 100%; height: 220px; object-fit: cover; border-radius: 16px;
+      border: 2px solid var(--primary-red); margin: 10px 0;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+    }
+
+    /* Page 6: Heart-Shaped Photo Collage Grid */
+    .heart-collage-container {
+      width: 280px; height: 280px; margin: 10px auto; position: relative;
+      clip-path: path('M 140 260 C 140 260 20 180 20 100 C 20 40 70 20 110 50 C 140 75 140 75 140 75 C 140 75 140 75 170 50 C 210 20 260 40 260 100 C 260 180 140 260 140 260 Z');
+      background: var(--primary-red); padding: 4px; display: grid;
+      grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 4px;
+      box-shadow: 0 0 25px rgba(255, 0, 85, 0.6);
+    }
+
+    .heart-collage-container img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 4px;
+    }
+
+    /* Flip Card Animation */
+    .flip-card {
+      background-color: transparent; width: 100%; height: 220px;
+      perspective: 1000px; margin: 10px 0;
+    }
+    .flip-card-inner {
+      position: relative; width: 100%; height: 100%; text-align: center;
+      transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer;
+    }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden;
+      backface-visibility: hidden; border-radius: 18px; border: 2px solid var(--primary-red);
+      padding: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .flip-card-front { background: rgba(30, 5, 15, 0.95); }
+    .flip-card-back { background: rgba(15, 2, 8, 0.98); transform: rotateY(180deg); overflow-y: auto; text-align: left; }
   </style>
 </head>
 <body>
 
+  <audio id="bgAudio" loop src="bg_music.mp3"></audio>
   <div class="heart-bg" id="heartContainer"></div>
 
   <div class="card">
 
-    <!-- 1. PASSWORD SCREEN -->
-    <div id="screen-1" class="screen active">
+    <!-- PAGE 1: Intro Page -->
+    <div id="page-1" class="page active">
+      <h1>Happy Birthday "Ghelli" ❤️</h1>
+      <img src="img11.jpeg" class="img-frame" alt="Happy Birthday Ghelli" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
+      <p style="margin-top:10px;">Lots of red hearts everywhere just for you!</p>
+      <button onclick="goToPage(2)">Continue 💖</button>
+    </div>
+
+    <!-- PAGE 2: Password Page -->
+    <div id="page-2" class="page">
       <h1>🔒 Password</h1>
-      <input type="password" id="passcode" placeholder="Enter Password" inputmode="numeric" style="padding:14px; font-size:1.2rem; border:2px solid var(--primary-red); border-radius:14px; margin:20px 0; text-align:center; width:85%; outline:none; background:rgba(0,0,0,0.6); color:white;">
+      <p>Enter the secret passcode to unlock your birthday surprise:</p>
+      <input type="password" id="passcode" placeholder="Enter Password" inputmode="numeric">
       <button onclick="checkPasscode()">Unlock ❤️</button>
       <p id="error-msg" style="color:var(--primary-red); display:none; margin-top:10px;">Incorrect Password!</p>
     </div>
 
-    <!-- 2. 22ND BIRTHDAY REVEAL -->
-    <div id="screen-2" class="screen">
-      <h1>✨ 10th August 2026 ✨</h1>
-      <h2>Happy 22nd Birthday Rinky! 🎉</h2>
-      <p>Born on 10th Aug 2004, today you officially turn 22 years beautiful!</p>
-      <div style="font-size: 4rem; margin: 20px 0;">👑🎂💖</div>
-      <button onclick="goToScreen(3)">I Have a Surprise For You! 🎁</button>
-    </div>
-
-    <!-- 3. SURPRISE QUESTION -->
-    <div id="screen-3" class="screen">
-      <h2>🎁 Birthday Surprise</h2>
-      <p>I have a special surprise prepared for you Rinky, do you want to see it?</p>
-      <div style="display: flex; gap: 10px; width: 100%; margin-top: 20px;">
-        <button onclick="goToScreen(4)" style="background: linear-gradient(135deg, #00c853, #007e33);">YES! 😍</button>
-        <button onclick="alert('Wrong answer! Click Yes! 😜')">NO 😜</button>
-      </div>
-    </div>
-
-    <!-- 4. CAKE CUTTING WITH ANIMATED FLYING BALLOONS -->
-    <div id="screen-4" class="screen">
-      <h2>🎂 Cake Cutting Celebration</h2>
-      
-      <div class="gif-display-box">
-        <!-- Flying Balloons Layer -->
-        <div class="balloon-layer" id="balloonLayer">
-          <span class="balloon" style="left: 8%; animation-delay: 0s;">🎈</span>
-          <span class="balloon" style="left: 28%; animation-delay: 0.8s;">🎈</span>
-          <span class="balloon" style="left: 52%; animation-delay: 0.3s;">🎈</span>
-          <span class="balloon" style="left: 75%; animation-delay: 1.2s;">🎈</span>
-          <span class="balloon" style="left: 88%; animation-delay: 0.5s;">🎈</span>
+    <!-- PAGE 3: Quiz Page -->
+    <div id="page-3" class="page">
+      <h2>🧠 Quiz Time!</h2>
+      <div id="quizContainer" style="width:100%;">
+        <!-- Question 1 -->
+        <div id="q1" class="q-block">
+          <p><strong>1) Where we first met after we were friends?</strong></p>
+          <button class="quiz-opt-btn" onclick="answerQ1(false)">(a) Temple</button>
+          <button class="quiz-opt-btn" onclick="answerQ1(true)">(b) College gate</button>
+          <button class="quiz-opt-btn" onclick="answerQ1(false)">(c) Hostel</button>
+          <button class="quiz-opt-btn" onclick="answerQ1(false)">(d) Never met</button>
         </div>
 
-        <img id="cakeGif" src="cake.gif" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3JpZXc3ZXp0eWxsandxb3F6cDRwbGFxeTF3d2V1Ynkxb2xpdjF1YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LpDmM2w93M628b3aUX/giphy.gif'" alt="Milk and Mocha Cake Cut">
-      </div>
+        <!-- Question 1 Answer Image -->
+        <div id="q1-reveal" style="display:none;">
+          <img src="img12.jpeg" class="img-frame" alt="College Gate Memory" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop'">
+          <p style="color:var(--glow-pink);">Lots of hearts for our special memory! ❤️</p>
+          <button onclick="showQ2()">Next Question ➡️</button>
+        </div>
 
-      <p id="prep-desc" style="margin-top:12px; font-weight:bold;">Milk & Mocha cutting Rinky's special white birthday cake! 🍰</p>
-      <button id="cakeCutBtn" onclick="cutCakeSequence()">Release Balloons & Cut Cake! 🎈🍰</button>
+        <!-- Question 2 -->
+        <div id="q2" class="q-block" style="display:none;">
+          <p><strong>2) Where / In which place in Odisha did we first kiss?</strong></p>
+          <button class="quiz-opt-btn" onclick="answerQ2()">(a) Auto</button>
+          <button class="quiz-opt-btn" onclick="answerQ2()">(b) Movie</button>
+          <button class="quiz-opt-btn" onclick="answerQ2()">(c) Near your college</button>
+          <button class="quiz-opt-btn" onclick="answerQ2()">(d) Never kissed</button>
+        </div>
+
+        <!-- Question 3 -->
+        <div id="q3" class="q-block" style="display:none;">
+          <p><strong>3) Our best memory that holds you in relation?</strong></p>
+          <textarea id="q3Answer" rows="3" placeholder="Type your answer here..."></textarea>
+          <button onclick="answerQ3()">Submit Answer 💌</button>
+        </div>
+
+        <!-- Question 4 -->
+        <div id="q4" class="q-block" style="display:none;">
+          <p><strong>4) Do you hate me?</strong></p>
+          <button class="quiz-opt-btn" onclick="finishQuiz()">(a) Not</button>
+          <button class="quiz-opt-btn" onclick="finishQuiz()">(b) Absolutely no</button>
+          <button class="quiz-opt-btn" onclick="finishQuiz()">(c) Of course no</button>
+          <button class="quiz-opt-btn" onclick="finishQuiz()">(d) Never</button>
+        </div>
+
+        <!-- Quiz Gallery (img5, img9, img10) -->
+        <div id="quiz-complete-gallery" style="display:none;">
+          <h3>Quiz Complete! ❤️</h3>
+          <img id="galleryImg" src="img5.jpeg" class="img-frame" alt="Memory" onerror="handleGalleryErr(this)">
+          <button onclick="nextGalleryImg()" style="margin-top:4px;">Next Image 📸</button>
+          <button onclick="goToPage(4)" style="margin-top:8px; background: linear-gradient(135deg, #00c853, #007e33);">Continue to Games 🎮➡️</button>
+        </div>
+      </div>
     </div>
 
-    <!-- 5. REAL INTERACTIVE CARROM GAME -->
-    <div id="screen-5" class="screen">
+    <!-- PAGE 4: Game Page -->
+    <div id="page-4" class="page">
       <h2>🎯 Pocket The Queen</h2>
-      <p>Adjust striker and shoot! Wherever you hit, the red queen goes straight to the pocket!</p>
-      
+      <p>Adjust striker and shoot!</p>
+
       <div class="carrom-wrapper">
         <canvas id="carromCanvas" width="300" height="300"></canvas>
       </div>
@@ -194,113 +209,190 @@
       </div>
 
       <p id="carrom-status" style="font-weight: bold; min-height: 24px; color: var(--glow-pink);"></p>
-      <button id="carrom-next-btn" onclick="goToScreen(6)" disabled>Our Love Tree 🌳➡️</button>
+
+      <div id="postWinBox" style="display:none; width:100%;">
+        <img src="img6.jpeg" class="img-frame" alt="Victory Memory" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
+        <p style="font-weight:bold; color:var(--glow-pink); margin-top:6px;">Are you ready for more entire?</p>
+        <div style="display:flex; gap:10px; width:100%; margin-top:8px;">
+          <button onclick="goToPage(5)" style="background: linear-gradient(135deg, #00c853, #007e33);">YES! 😍</button>
+          <button onclick="alert('Wrong answer! Click Yes! 😜')">NO 😜</button>
+        </div>
+      </div>
     </div>
 
-    <!-- 6. MILK & MOCHA ROMANTIC HEART TREE SCENE -->
-    <div id="screen-6" class="screen">
-      <h2>🌳 Our Romantic Love Tree</h2>
-      
-      <div class="gif-display-box">
-        <img id="treeGif" src="tree.gif" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGdmaGl3bWV1YTBpbm16enpxY3l5bXF6ZmFvOHd4YXRxbjlud21mYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K3T49y31Qo94M/giphy.gif'" alt="Milk and Mocha Under Heart Tree">
+    <!-- PAGE 5: Cake Cutting Celebration -->
+    <div id="page-5" class="page">
+      <h2>🎂 Cake Cutting Celebration</h2>
+
+      <div style="width: 100%; height: 260px; background: rgba(0,0,0,0.6); border-radius: 20px; border: 2px solid var(--primary-red); overflow: hidden; position: relative;">
+        <video id="birthdayVideo" width="100%" height="100%" style="object-fit: cover;" loop playsinline>
+          <source src="cake_cut.mp4" type="video/mp4">
+        </video>
       </div>
 
-      <p style="margin-top: 12px; font-weight: bold; color: var(--glow-pink);">Milk & Mocha hugging under our blooming heart tree! 🐻‍❄️🐻❤️</p>
-      <button onclick="goToScreen(7)">Our Memories 📸➡️</button>
+      <p id="cakeDesc" style="margin-top:12px; font-weight:bold;">Tap below to start video celebration!</p>
+      <button id="cutCakeBtn" onclick="playCakeVideoSequence()">Play Video & Shower Hearts! 🎈🍰❤️</button>
+      <button id="page5NextBtn" onclick="goToPage(6)" style="display:none; margin-top:8px;">Next Page ➡️</button>
     </div>
 
-    <!-- 7. PHOTO MEMORIES CAROUSEL (img1, img2, img3...) -->
-    <div id="screen-7" class="screen">
-      <h2>📸 Our Special Memories</h2>
+    <!-- PAGE 6: Heart Full Collage Memories Page (Before 7th Page) -->
+    <div id="page-6" class="page">
+      <h2>📸 Heart Full Memories Collage</h2>
 
-      <!-- Polaroid Memory Carousel -->
-      <div class="polaroid-frame" id="polaroidBox">
-        <img id="memoryImg" src="img1.jpg" onerror="handleImgError(this)" alt="Our Memory Together">
-        <div class="polaroid-caption" id="memoryCaption">Memory #1: You & Me Forever ❤️</div>
+      <!-- Heart-Shaped Image Grid using remaining images -->
+      <div class="heart-collage-container">
+        <img src="img2.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img3.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img4.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img5.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img7.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img8.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img9.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img10.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img12.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
       </div>
 
-      <div style="display: flex; gap: 8px; width: 100%; margin-top: 4px;">
-        <button onclick="nextMemoryImage()" style="background: linear-gradient(135deg, #00c853, #007e33); padding: 10px;">Next Memory 📸</button>
+      <!-- Card Flip Shayari -->
+      <div class="flip-card" id="shayariCard" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>💌 Shayari For Her</h3>
+            <p style="margin-top:8px; font-style:italic; font-size:0.85rem;">(Tap card to open)</p>
+          </div>
+          <div class="flip-card-back">
+            <p style="font-size:0.85rem; line-height:1.5;">
+              <em>
+                With you by my side, my worries cease.<br>
+                Each moment with you is a treasure I hold,<br>
+                In the warmth of your love, I find pure gold. ❤️
+              </em>
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 10px 12px; border-radius: 12px; border-left: 4px solid var(--primary-red); margin-top: 8px; width: 100%;">
-        <p><strong>My Dearest Rinky,</strong></p>
-        <p style="margin-top: 2px; font-size: 0.88rem;">Happy 22nd Birthday! Every single step of this app was made just to put a massive smile on your face today!</p>
-        <p style="margin-top: 2px; text-align: right; font-size: 0.88rem;"><strong>Forever Yours ❤️</strong></p>
+      <button onclick="goToPage(7)">Continue to Final Page 💌➡️</button>
+    </div>
+
+    <!-- PAGE 7: The Alveris Page (With img1 placed at the end) -->
+    <div id="page-7" class="page">
+      <h2>💌 Birthday Wish (Last Part)</h2>
+
+      <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 12px; border-radius: 16px; border-left: 4px solid var(--primary-red); max-height: 180px; overflow-y: auto; margin-bottom: 8px;">
+        <p>In this materialistic world of love, I would like to express my love to you in a deeply truthful love. In these days of our relation I hurted you more than loving you and I say now "no more". You deserve every single part of love from me.</p><br>
+        <p>The lines above written is one of my feelings for you. You are a major part of my life. Life of me without you is unbearable for me. I really love you very much, and I am very grateful to have you in my life otherwise it would have been a curse for me. We will talk more when we meet and a hug from you is an outmost thing needed to heal me and a slap from you needed to make me correct.</p>
       </div>
 
-      <button onclick="confetti({ particleCount: 150, spread: 100 });" style="margin-top: 8px; padding: 12px;">Celebrate 🎉</button>
+      <!-- img1 Added Right Here at the End -->
+      <img src="img1.jpeg" class="img-frame" alt="Special Final Memory" style="height: 140px; margin: 4px 0;" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
+
+      <!-- Final Alveris Project Note -->
+      <div style="background: rgba(255, 0, 85, 0.15); border: 1px dashed var(--primary-red); padding: 8px; border-radius: 12px; margin-top: 4px; width: 100%;">
+        <p style="font-weight: bold; color: var(--glow-pink); font-size:0.9rem;">"is the first project of ALVERIS"</p>
+        <p style="font-size: 0.8rem;">I hope you would like it.</p>
+      </div>
+
+      <button onclick="confetti({ particleCount: 150, spread: 100 });" style="margin-top: 8px;">Celebrate 🎉</button>
     </div>
 
   </div>
 
   <script>
-    // Ambient Floating Hearts
     const heartContainer = document.getElementById('heartContainer');
-    for (let i = 0; i < 30; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'floating-heart'; heart.innerText = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
-      heart.style.animationDelay = (Math.random() * 5) + 's';
-      heartContainer.appendChild(heart);
+    function createHearts(count) {
+      heartContainer.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart'; heart.innerText = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        heart.style.animationDelay = (Math.random() * 4) + 's';
+        heartContainer.appendChild(heart);
+      }
+    }
+    createHearts(30);
+
+    function triggerHeavyHeartShower() {
+      document.body.classList.add('heavy-shower');
+      createHearts(60);
     }
 
-    function goToScreen(num) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(`screen-${num}`).classList.add('active');
-      if (num === 5) initCarromGame();
+    function goToPage(num) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(`page-${num}`).classList.add('active');
+
+      const video = document.getElementById('birthdayVideo');
+      const bgAudio = document.getElementById('bgAudio');
+
+      if (num === 4) initCarromGame();
+      if (num === 5) {
+        video.play();
+        bgAudio.play().catch(e => console.log('Audio playing'));
+      } else {
+        video.pause();
+      }
     }
 
     function checkPasscode() {
       if (document.getElementById('passcode').value === '1008') {
         confetti({ particleCount: 50, spread: 60 });
-        goToScreen(2);
+        goToPage(3);
       } else {
         document.getElementById('error-msg').style.display = 'block';
       }
     }
 
-    function cutCakeSequence() {
-      const balloons = document.getElementById('balloonLayer');
-      const desc = document.getElementById('prep-desc');
-
-      balloons.style.display = 'block';
-      desc.innerText = "Balloons flying & white cake cut! Feeding slice & hugging! 🎈🍰❤️";
-
-      confetti({ particleCount: 120, spread: 100, origin: { y: 0.6 } });
-
-      setTimeout(() => {
-        goToScreen(5);
-      }, 2800);
+    function answerQ1(isCorrect) {
+      document.getElementById('q1').style.display = 'none';
+      document.getElementById('q1-reveal').style.display = 'block';
+      triggerHeavyHeartShower();
+      confetti({ particleCount: 60, spread: 70 });
     }
 
-    // --- PHOTO MEMORIES CAROUSEL SYSTEM (img1, img2, img3...) ---
-    let currentImgIndex = 1;
-    const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
-
-    function nextMemoryImage() {
-      currentImgIndex++;
-      const img = document.getElementById('memoryImg');
-      const caption = document.getElementById('memoryCaption');
-      
-      // Try loading img2.jpg, img3.jpg, img4.jpg, etc.
-      img.src = `img${currentImgIndex}.jpg`;
-      caption.innerText = `Memory #${currentImgIndex}: Beautiful Moments ❤️`;
-      
-      confetti({ particleCount: 40, spread: 50 });
+    function showQ2() {
+      document.getElementById('q1-reveal').style.display = 'none';
+      document.getElementById('q2').style.display = 'block';
     }
 
-    function handleImgError(imgElement) {
-      // If higher image number is not found, loop back to img1.jpg
-      if (currentImgIndex > 1) {
-        currentImgIndex = 1;
-        imgElement.src = 'img1.jpg';
-        document.getElementById('memoryCaption').innerText = "Memory #1: You & Me Forever ❤️";
-      } else {
-        // Backup placeholder if img1 is not found
-        imgElement.src = 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';
-      }
+    function answerQ2() {
+      document.getElementById('q2').style.display = 'none';
+      document.getElementById('q3').style.display = 'block';
+    }
+
+    function answerQ3() {
+      document.getElementById('q3').style.display = 'none';
+      document.getElementById('q4').style.display = 'block';
+    }
+
+    let galleryIdx = 0;
+    const galleryImgs = ['img5.jpeg', 'img9.jpeg', 'img10.jpeg'];
+
+    function finishQuiz() {
+      document.getElementById('q4').style.display = 'none';
+      document.getElementById('quiz-complete-gallery').style.display = 'block';
+      triggerHeavyHeartShower();
+      confetti({ particleCount: 100, spread: 90 });
+    }
+
+    function nextGalleryImg() {
+      galleryIdx = (galleryIdx + 1) % galleryImgs.length;
+      document.getElementById('galleryImg').src = galleryImgs[galleryIdx];
+    }
+
+    function handleGalleryErr(imgElement) {
+      imgElement.src = 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';
+    }
+
+    function playCakeVideoSequence() {
+      const video = document.getElementById('birthdayVideo');
+      const bgAudio = document.getElementById('bgAudio');
+      video.play();
+      bgAudio.play().catch(e => console.log('Audio playing'));
+
+      triggerHeavyHeartShower();
+      confetti({ particleCount: 120, spread: 100 });
+      document.getElementById('cakeDesc').innerText = "Raining hearts heavy shower! Enjoy the celebration! ❤️";
+      document.getElementById('page5NextBtn').style.display = 'block';
     }
 
     // Carrom Engine
@@ -347,7 +439,9 @@
     function resetCarromBoard() {
       cStriker = { x: parseFloat(document.getElementById('strikerPos').value), y: 240, radius: 12, vx: 0, vy: 0 };
       cQueen = { x: 150, y: 120, radius: 10, vx: 0, vy: 0 }; shotFired = false;
-      document.getElementById('carrom-status').innerText = ""; renderCarrom();
+      document.getElementById('carrom-status').innerText = "";
+      document.getElementById('postWinBox').style.display = "none";
+      renderCarrom();
     }
 
     function renderCarrom() {
@@ -390,9 +484,9 @@
         cPockets.forEach(p => {
           if (Math.hypot(cQueen.x - p.x, cQueen.y - p.y) < p.r) {
             cQueen.x = -100; cQueen.vx = 0; cQueen.vy = 0; clearInterval(loop);
-            document.getElementById('carrom-status').innerText = "QUEEN POCKETED! PERFECT SHOT! 🎯❤️";
-            document.getElementById('carrom-next-btn').disabled = false;
-            confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+            document.getElementById('carrom-status').innerText = "QUEEN POCKETED! YOU WIN! 🎯❤️";
+            document.getElementById('postWinBox').style.display = "block";
+            confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
           }
         });
 
