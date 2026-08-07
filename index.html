@@ -5,15 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Happy 22nd Birthday Rinky! ❤️</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Three.js Library for 3D Graphics -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root {
-      --bg: #0a0003;
-      --card-bg: rgba(25, 3, 10, 0.88);
-      --primary-red: #ff003c;
-      --deep-red: #800020;
-      --glow-red: #ff3366;
+      --bg: #0d0106;
+      --card-bg: rgba(28, 4, 14, 0.92);
+      --primary-red: #ff0055;
+      --deep-red: #80002a;
+      --glow-pink: #ff6699;
       --text: #ffffff;
       --text-sub: #ffccd5;
     }
@@ -21,13 +19,14 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
 
     body {
-      background: #050002; color: var(--text);
+      background: var(--bg); color: var(--text);
       display: flex; justify-content: center; align-items: center;
       min-height: 100vh; padding: 12px; overflow-x: hidden; position: relative;
     }
 
+    /* Ambient Floating Hearts */
     .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
-    .floating-heart { position: absolute; bottom: -50px; color: var(--primary-red); opacity: 0.7; animation: floatUp linear infinite; filter: drop-shadow(0 0 8px var(--primary-red)); }
+    .floating-heart { position: absolute; bottom: -50px; color: var(--primary-red); opacity: 0.6; animation: floatUp linear infinite; filter: drop-shadow(0 0 8px var(--primary-red)); }
 
     @keyframes floatUp {
       0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
@@ -35,11 +34,30 @@
       100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
     }
 
+    /* Flying Balloons Layer */
+    .balloon-layer {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 25; overflow: hidden; display: none;
+    }
+
+    .balloon {
+      position: absolute; bottom: -60px; font-size: 2.2rem;
+      animation: flyBalloonsUp 4s ease-in-out infinite;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+    }
+
+    @keyframes flyBalloonsUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateY(-150px) rotate(8deg); }
+      100% { transform: translateY(-340px) rotate(-8deg); opacity: 0; }
+    }
+
+    /* Main Container Card */
     .card {
       width: 100%; max-width: 400px;
-      background: var(--card-bg); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
-      border: 1px solid rgba(255, 0, 60, 0.35); padding: 24px 18px; border-radius: 28px;
-      box-shadow: 0 0 40px rgba(255, 0, 60, 0.3); text-align: center; min-height: 620px;
+      background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 0, 85, 0.4); padding: 24px 18px; border-radius: 28px;
+      box-shadow: 0 0 50px rgba(255, 0, 85, 0.35); text-align: center; min-height: 620px;
       display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 10;
     }
 
@@ -48,51 +66,63 @@
 
     @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-    h1 { color: var(--primary-red); font-size: 1.8rem; margin-bottom: 8px; text-shadow: 0 0 14px rgba(255, 0, 60, 0.7); }
-    h2 { color: var(--glow-red); font-size: 1.3rem; margin-bottom: 12px; text-shadow: 0 0 10px rgba(255, 51, 102, 0.5); }
+    h1 { color: var(--primary-red); font-size: 1.8rem; margin-bottom: 8px; text-shadow: 0 0 14px rgba(255, 0, 85, 0.8); }
+    h2 { color: var(--glow-pink); font-size: 1.3rem; margin-bottom: 12px; text-shadow: 0 0 10px rgba(255, 102, 153, 0.6); }
     p { font-size: 0.95rem; line-height: 1.5; color: var(--text-sub); margin-bottom: 15px; }
-
-    input {
-      padding: 14px; font-size: 1.2rem; border: 2px solid var(--primary-red);
-      border-radius: 14px; margin: 20px 0; text-align: center; width: 85%;
-      outline: none; background: rgba(0,0,0,0.6); color: white; box-shadow: inset 0 0 10px rgba(255, 0, 60, 0.2);
-    }
 
     button {
       background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
       color: white; border: none; padding: 14px 28px; font-size: 1rem; font-weight: 700;
       border-radius: 14px; cursor: pointer; width: 100%; margin-top: 10px;
-      box-shadow: 0 0 18px rgba(255, 0, 60, 0.4); transition: all 0.2s;
+      box-shadow: 0 0 20px rgba(255, 0, 85, 0.5); transition: all 0.2s;
     }
     button:active { transform: scale(0.96); }
 
-    /* 3D Cake Stage */
-    .room-stage {
-      width: 100%; height: 280px; background: #120208; border-radius: 18px;
-      border: 2px solid var(--primary-red); position: relative; overflow: hidden;
-      display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+    /* Studio Media Box */
+    .gif-display-box {
+      width: 100%; height: 260px; background: rgba(10, 1, 5, 0.8);
+      border-radius: 20px; border: 2px solid var(--primary-red);
+      overflow: hidden; display: flex; justify-content: center; align-items: center;
+      position: relative; box-shadow: 0 0 20px rgba(255, 0, 85, 0.25);
     }
-    .lights-on { background: linear-gradient(180deg, #3a0d1d 0%, #120208 100%); }
 
-    .balloon-layer { position: absolute; width: 100%; height: 100%; top: 0; left: 0; display: none; pointer-events: none; z-index: 15; }
-    .balloon { position: absolute; bottom: -40px; font-size: 2rem; animation: floatUpBalloons 4s ease-in infinite; }
-    @keyframes floatUpBalloons { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-300px); opacity: 0; } }
-
-    #cake3DContainer { width: 100%; height: 210px; position: relative; z-index: 5; }
-
-    .stage-bears {
-      position: absolute; bottom: 8px; width: 100%;
-      display: flex; justify-content: space-between; padding: 0 20px; z-index: 20;
+    .gif-display-box img {
+      width: 100%; height: 100%; object-fit: contain; padding: 10px;
     }
-    .bear { width: 60px; height: 60px; transition: all 0.5s ease; }
 
+    /* Polaroid Photo Frame for Memory Images Carousel */
+    .polaroid-frame {
+      background: #ffffff;
+      padding: 12px 12px 20px 12px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      transform: rotate(-1.5deg);
+      transition: all 0.3s ease;
+      width: 100%;
+      margin: 8px 0;
+    }
+
+    .polaroid-frame img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .polaroid-caption {
+      color: #222222;
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-top: 8px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    /* Carrom Interactive Stage */
     .carrom-wrapper { position: relative; width: 300px; height: 300px; margin: 10px auto; }
     #carromCanvas { background: #e0be96; border: 10px solid #5a2a18; border-radius: 16px; touch-action: none; }
 
     .slider-container { width: 100%; margin: 8px 0; display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--text-sub); }
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
-
-    #treeCanvas { width: 100%; height: 280px; background: rgba(15, 2, 7, 0.95); border-radius: 18px; border: 2px solid var(--primary-red); }
   </style>
 </head>
 <body>
@@ -104,12 +134,12 @@
     <!-- 1. PASSWORD SCREEN -->
     <div id="screen-1" class="screen active">
       <h1>🔒 Password</h1>
-      <input type="password" id="passcode" placeholder="Enter Password" inputmode="numeric">
+      <input type="password" id="passcode" placeholder="Enter Password" inputmode="numeric" style="padding:14px; font-size:1.2rem; border:2px solid var(--primary-red); border-radius:14px; margin:20px 0; text-align:center; width:85%; outline:none; background:rgba(0,0,0,0.6); color:white;">
       <button onclick="checkPasscode()">Unlock ❤️</button>
       <p id="error-msg" style="color:var(--primary-red); display:none; margin-top:10px;">Incorrect Password!</p>
     </div>
 
-    <!-- 2. 22ND BIRTHDAY ANNOUNCEMENT -->
+    <!-- 2. 22ND BIRTHDAY REVEAL -->
     <div id="screen-2" class="screen">
       <h1>✨ 10th August 2026 ✨</h1>
       <h2>Happy 22nd Birthday Rinky! 🎉</h2>
@@ -128,50 +158,25 @@
       </div>
     </div>
 
-    <!-- 4. WHITE 3D HEART CAKE CUTTING STAGE -->
+    <!-- 4. CAKE CUTTING WITH ANIMATED FLYING BALLOONS -->
     <div id="screen-4" class="screen">
-      <h2 id="prep-title">🎂 3D White Cake Scene</h2>
+      <h2>🎂 Cake Cutting Celebration</h2>
       
-      <div class="room-stage" id="roomStage">
+      <div class="gif-display-box">
+        <!-- Flying Balloons Layer -->
         <div class="balloon-layer" id="balloonLayer">
-          <span class="balloon" style="left: 10%;">🎈</span>
-          <span class="balloon" style="left: 30%; animation-delay: 1s;">🎈</span>
-          <span class="balloon" style="left: 60%; animation-delay: 0.5s;">🎈</span>
-          <span class="balloon" style="left: 80%; animation-delay: 1.5s;">🎈</span>
+          <span class="balloon" style="left: 8%; animation-delay: 0s;">🎈</span>
+          <span class="balloon" style="left: 28%; animation-delay: 0.8s;">🎈</span>
+          <span class="balloon" style="left: 52%; animation-delay: 0.3s;">🎈</span>
+          <span class="balloon" style="left: 75%; animation-delay: 1.2s;">🎈</span>
+          <span class="balloon" style="left: 88%; animation-delay: 0.5s;">🎈</span>
         </div>
-        
-        <div id="cake3DContainer"></div>
 
-        <div class="stage-bears">
-          <!-- Milk (White Bear - Her) -->
-          <div class="bear" id="milkBear">
-            <svg viewBox="0 0 100 100">
-              <circle cx="30" cy="25" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="3"/>
-              <circle cx="70" cy="25" r="12" fill="#ffffff" stroke="#e0e0e0" stroke-width="3"/>
-              <ellipse cx="50" cy="55" rx="35" ry="30" fill="#ffffff" stroke="#e0e0e0" stroke-width="3"/>
-              <circle cx="40" cy="50" r="4" fill="#222"/><circle cx="60" cy="50" r="4" fill="#222"/>
-              <ellipse cx="50" cy="58" rx="5" ry="3" fill="#222"/>
-              <ellipse cx="32" cy="58" rx="5" ry="3" fill="#ffb3c1"/><ellipse cx="68" cy="58" rx="5" ry="3" fill="#ffb3c1"/>
-            </svg>
-          </div>
-
-          <!-- Mocha (Brown Bear - You) -->
-          <div class="bear" id="mochaBear">
-            <svg viewBox="0 0 100 100">
-              <circle cx="30" cy="25" r="12" fill="#a06040" stroke="#704028" stroke-width="3"/>
-              <circle cx="70" cy="25" r="12" fill="#a06040" stroke="#704028" stroke-width="3"/>
-              <ellipse cx="50" cy="55" rx="35" ry="30" fill="#a06040" stroke="#704028" stroke-width="3"/>
-              <ellipse cx="50" cy="60" rx="14" ry="10" fill="#d0a080"/>
-              <circle cx="40" cy="50" r="4" fill="#222"/><circle cx="60" cy="50" r="4" fill="#222"/>
-              <ellipse cx="50" cy="56" rx="5" ry="3" fill="#222"/>
-              <ellipse cx="32" cy="58" rx="5" ry="3" fill="#ff99a8"/><ellipse cx="68" cy="58" rx="5" ry="3" fill="#ff99a8"/>
-            </svg>
-          </div>
-        </div>
+        <img id="cakeGif" src="cake.gif" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3JpZXc3ZXp0eWxsandxb3F6cDRwbGFxeTF3d2V1Ynkxb2xpdjF1YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LpDmM2w93M628b3aUX/giphy.gif'" alt="Milk and Mocha Cake Cut">
       </div>
 
-      <p id="prep-desc" style="margin-top:10px; font-weight:bold;">Step 1: Turn the lights on!</p>
-      <button id="prepBtn" onclick="nextPrepStep()">1. Lights On 💡</button>
+      <p id="prep-desc" style="margin-top:12px; font-weight:bold;">Milk & Mocha cutting Rinky's special white birthday cake! 🍰</p>
+      <button id="cakeCutBtn" onclick="cutCakeSequence()">Release Balloons & Cut Cake! 🎈🍰</button>
     </div>
 
     <!-- 5. REAL INTERACTIVE CARROM GAME -->
@@ -188,33 +193,49 @@
         <input type="range" id="strikerPos" min="60" max="240" value="150" oninput="updateStrikerX(this.value)">
       </div>
 
-      <p id="carrom-status" style="font-weight: bold; min-height: 24px; color: var(--glow-red);"></p>
+      <p id="carrom-status" style="font-weight: bold; min-height: 24px; color: var(--glow-pink);"></p>
       <button id="carrom-next-btn" onclick="goToScreen(6)" disabled>Our Love Tree 🌳➡️</button>
     </div>
 
-    <!-- 6. GROWING HEART TREE WITH MILK & MOCHA -->
+    <!-- 6. MILK & MOCHA ROMANTIC HEART TREE SCENE -->
     <div id="screen-6" class="screen">
       <h2>🌳 Our Romantic Love Tree</h2>
-      <canvas id="treeCanvas" width="320" height="280"></canvas>
-      <p id="treeText" style="margin-top: 10px; font-weight: bold; color: var(--glow-red);">Growing our tree of love...</p>
-      <button id="treeNextBtn" onclick="goToScreen(7)" disabled style="margin-top: 10px;">Read My Birthday Message 💌</button>
+      
+      <div class="gif-display-box">
+        <img id="treeGif" src="tree.gif" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGdmaGl3bWV1YTBpbm16enpxY3l5bXF6ZmFvOHd4YXRxbjlud21mYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K3T49y31Qo94M/giphy.gif'" alt="Milk and Mocha Under Heart Tree">
+      </div>
+
+      <p style="margin-top: 12px; font-weight: bold; color: var(--glow-pink);">Milk & Mocha hugging under our blooming heart tree! 🐻‍❄️🐻❤️</p>
+      <button onclick="goToScreen(7)">Our Memories 📸➡️</button>
     </div>
 
-    <!-- 7. FINAL BIRTHDAY MESSAGE -->
+    <!-- 7. PHOTO MEMORIES CAROUSEL (img1, img2, img3...) -->
     <div id="screen-7" class="screen">
-      <h2>💌 Happy 22nd Birthday!</h2>
-      <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 16px; border-radius: 14px; border-left: 4px solid var(--primary-red); max-height: 220px; overflow-y: auto;">
-        <p><strong>My Dearest Rinky,</strong></p><br>
-        <p>Happy 22nd Birthday! Turning 22 is so special, and I am so grateful to be celebrating it with you.</p><br>
-        <p>Every single step of this app was made just to put a massive smile on your face today!</p><br>
-        <p>Forever Yours ❤️</p>
+      <h2>📸 Our Special Memories</h2>
+
+      <!-- Polaroid Memory Carousel -->
+      <div class="polaroid-frame" id="polaroidBox">
+        <img id="memoryImg" src="img1.jpg" onerror="handleImgError(this)" alt="Our Memory Together">
+        <div class="polaroid-caption" id="memoryCaption">Memory #1: You & Me Forever ❤️</div>
       </div>
-      <button onclick="confetti({ particleCount: 100, spread: 80 });">Celebrate 🎉</button>
+
+      <div style="display: flex; gap: 8px; width: 100%; margin-top: 4px;">
+        <button onclick="nextMemoryImage()" style="background: linear-gradient(135deg, #00c853, #007e33); padding: 10px;">Next Memory 📸</button>
+      </div>
+
+      <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 10px 12px; border-radius: 12px; border-left: 4px solid var(--primary-red); margin-top: 8px; width: 100%;">
+        <p><strong>My Dearest Rinky,</strong></p>
+        <p style="margin-top: 2px; font-size: 0.88rem;">Happy 22nd Birthday! Every single step of this app was made just to put a massive smile on your face today!</p>
+        <p style="margin-top: 2px; text-align: right; font-size: 0.88rem;"><strong>Forever Yours ❤️</strong></p>
+      </div>
+
+      <button onclick="confetti({ particleCount: 150, spread: 100 });" style="margin-top: 8px; padding: 12px;">Celebrate 🎉</button>
     </div>
 
   </div>
 
   <script>
+    // Ambient Floating Hearts
     const heartContainer = document.getElementById('heartContainer');
     for (let i = 0; i < 30; i++) {
       const heart = document.createElement('div');
@@ -228,9 +249,7 @@
     function goToScreen(num) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(`screen-${num}`).classList.add('active');
-      if (num === 4) init3DWhiteHeartCake();
       if (num === 5) initCarromGame();
-      if (num === 6) growRomanticTree();
     }
 
     function checkPasscode() {
@@ -242,179 +261,46 @@
       }
     }
 
-    let prepStep = 0;
-    function nextPrepStep() {
-      prepStep++;
-      const stage = document.getElementById('roomStage');
+    function cutCakeSequence() {
+      const balloons = document.getElementById('balloonLayer');
       const desc = document.getElementById('prep-desc');
-      const btn = document.getElementById('prepBtn');
 
-      if (prepStep === 1) {
-        stage.classList.add('lights-on');
-        desc.innerText = "Step 2: Start background music!";
-        btn.innerText = "2. Play Music 🎵";
-      } else if (prepStep === 2) {
-        desc.innerText = "Step 3: Add birthday decorations!";
-        btn.innerText = "3. Decorate 🎀";
-      } else if (prepStep === 3) {
-        desc.innerText = "Step 4: Release birthday balloons!";
-        btn.innerText = "4. Fly Balloons 🎈";
-      } else if (prepStep === 4) {
-        document.getElementById('balloonLayer').style.display = 'block';
-        desc.innerText = "Step 5: Tap the button below to slice 3D White Cake!";
-        btn.innerText = "5. Cut Rinky's White Heart Cake! 🎂";
-        btn.onclick = execute3DCakeCuttingAnimation;
-      }
+      balloons.style.display = 'block';
+      desc.innerText = "Balloons flying & white cake cut! Feeding slice & hugging! 🎈🍰❤️";
+
+      confetti({ particleCount: 120, spread: 100, origin: { y: 0.6 } });
+
+      setTimeout(() => {
+        goToScreen(5);
+      }, 2800);
     }
 
-    // --- THREE.JS REAL WHITE 3D HEART CAKE & CUTTING ANIMATION ---
-    let scene, camera, renderer, mainCakeGroup, cakeSliceGroup, knifeGroup;
+    // --- PHOTO MEMORIES CAROUSEL SYSTEM (img1, img2, img3...) ---
+    let currentImgIndex = 1;
+    const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
 
-    function init3DWhiteHeartCake() {
-      const container = document.getElementById('cake3DContainer');
-      if (renderer) return;
-
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-      camera.position.set(0, 3.5, 5.5);
-      camera.lookAt(0, 0, 0);
-
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      container.appendChild(renderer.domElement);
-
-      // Lighting
-      const light1 = new THREE.DirectionalLight(0xffffff, 1.2);
-      light1.position.set(2, 5, 4);
-      scene.add(light1);
-      const ambientLight = new THREE.AmbientLight(0xfff0f5, 0.8);
-      scene.add(ambientLight);
-
-      // Main White Heart Shape
-      const shape = new THREE.Shape();
-      shape.moveTo(0, 0.3);
-      shape.bezierCurveTo(0, 0.3, -0.3, 0.8, -0.7, 0.8);
-      shape.bezierCurveTo(-1.1, 0.8, -1.1, 0.3, -1.1, 0.3);
-      shape.bezierCurveTo(-1.1, -0.1, -0.7, -0.5, 0, -1.0);
-      shape.bezierCurveTo(0.7, -0.5, 1.1, -0.1, 1.1, 0.3);
-      shape.bezierCurveTo(1.1, 0.3, 1.1, 0.8, 0.7, 0.8);
-      shape.bezierCurveTo(0.3, 0.8, 0, 0.3, 0, 0.3);
-
-      const extrudeSettings = { depth: 0.6, bevelEnabled: true, bevelSegments: 4, steps: 2, bevelSize: 0.08, bevelThickness: 0.08 };
+    function nextMemoryImage() {
+      currentImgIndex++;
+      const img = document.getElementById('memoryImg');
+      const caption = document.getElementById('memoryCaption');
       
-      // WHITE FROSTING MATERIAL
-      const whiteFrostingMat = new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 90 });
-      const pinkInnerLayerMat = new THREE.MeshPhongMaterial({ color: 0xff3366, shininess: 50 });
-
-      mainCakeGroup = new THREE.Group();
-
-      // Main White Cake Body
-      const cakeGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
-      const cakeMesh = new THREE.Mesh(cakeGeo, whiteFrostingMat);
-      cakeMesh.rotation.x = -Math.PI / 2;
-      mainCakeGroup.add(cakeMesh);
-
-      // "Rinky" Text Canvas Overlay on Top of White Cake
-      const textCanvas = document.createElement('canvas');
-      textCanvas.width = 256; textCanvas.height = 128;
-      const tCtx = textCanvas.getContext('2d');
-      tCtx.fillStyle = '#ffffff'; tCtx.fillRect(0, 0, 256, 128);
-      tCtx.font = 'Bold 38px sans-serif'; tCtx.fillStyle = '#ff003c';
-      tCtx.textAlign = 'center'; tCtx.fillText('Rinky ❤️', 128, 70);
-
-      const textTexture = new THREE.CanvasTexture(textCanvas);
-      const textGeo = new THREE.PlaneGeometry(1.4, 0.7);
-      const textMat = new THREE.MeshBasicMaterial({ map: textTexture, transparent: true });
-      const textMesh = new THREE.Mesh(textGeo, textMat);
-      textMesh.rotation.x = -Math.PI / 2;
-      textMesh.position.set(0, 0.69, -0.1);
-      mainCakeGroup.add(textMesh);
-
-      // Candles
-      for (let i = -0.3; i <= 0.3; i += 0.6) {
-        const candleGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.4);
-        const candleMat = new THREE.MeshPhongMaterial({ color: 0xffccd5 });
-        const candle = new THREE.Mesh(candleGeo, candleMat);
-        candle.position.set(i, 0.8, -0.3);
-        
-        // Flame
-        const flameGeo = new THREE.ConeGeometry(0.04, 0.1, 8);
-        const flameMat = new THREE.MeshBasicMaterial({ color: 0xffaa00 });
-        const flame = new THREE.Mesh(flameGeo, flameMat);
-        flame.position.y = 0.25;
-        candle.add(flame);
-        mainCakeGroup.add(candle);
-      }
-
-      scene.add(mainCakeGroup);
-
-      // Separate 3D Cake Slice (For Cut Animation)
-      cakeSliceGroup = new THREE.Group();
-      const sliceGeo = new THREE.ConeGeometry(0.5, 0.65, 3);
-      const sliceMesh = new THREE.Mesh(sliceGeo, pinkInnerLayerMat);
-      sliceMesh.rotation.y = Math.PI / 6;
-      cakeSliceGroup.add(sliceMesh);
-      cakeSliceGroup.position.set(0, 0.3, 0.2);
-      cakeSliceGroup.visible = false;
-      scene.add(cakeSliceGroup);
-
-      // 3D Metallic Knife
-      knifeGroup = new THREE.Group();
-      const bladeGeo = new THREE.BoxGeometry(0.05, 0.01, 1.4);
-      const bladeMat = new THREE.MeshPhongMaterial({ color: 0xdddddd, shininess: 100 });
-      const blade = new THREE.Mesh(bladeGeo, bladeMat);
-      knifeGroup.add(blade);
-      knifeGroup.position.set(0, 1.8, 0);
-      scene.add(knifeGroup);
-
-      // Render Loop
-      function animate() {
-        requestAnimationFrame(animate);
-        mainCakeGroup.rotation.y += 0.005;
-        renderer.render(scene, camera);
-      }
-      animate();
+      // Try loading img2.jpg, img3.jpg, img4.jpg, etc.
+      img.src = `img${currentImgIndex}.jpg`;
+      caption.innerText = `Memory #${currentImgIndex}: Beautiful Moments ❤️`;
+      
+      confetti({ particleCount: 40, spread: 50 });
     }
 
-    // Executing Real 3D Cut
-    function execute3DCakeCuttingAnimation() {
-      const milk = document.getElementById('milkBear');
-      const mocha = document.getElementById('mochaBear');
-      const desc = document.getElementById('prep-desc');
-
-      desc.innerText = "Slicing Rinky's 3D White Cake... 🔪🎂";
-
-      let progress = 0;
-      let cutAnim = setInterval(() => {
-        progress += 0.04;
-        
-        // Lower Knife Down Into Cake
-        knifeGroup.position.y = 1.8 - (progress * 1.3);
-        knifeGroup.rotation.z = Math.sin(progress * 10) * 0.1;
-
-        if (progress >= 1) {
-          clearInterval(cutAnim);
-          
-          // Separate Cut Slice Animation
-          cakeSliceGroup.visible = true;
-          let slideProgress = 0;
-          let slideAnim = setInterval(() => {
-            slideProgress += 0.05;
-            cakeSliceGroup.position.z += 0.04; // Slides outward
-            knifeGroup.position.y += 0.06; // Retracts knife
-
-            if (slideProgress >= 1) {
-              clearInterval(slideAnim);
-              desc.innerText = "Yummy white cake slice cut! Milk & Mocha hugging! 🤗❤️";
-              milk.style.transform = "translateX(35px)";
-              mocha.style.transform = "translateX(-35px)";
-              confetti({ particleCount: 100, spread: 90, origin: { y: 0.6 } });
-
-              setTimeout(() => { goToScreen(5); }, 2200);
-            }
-          }, 30);
-        }
-      }, 40);
+    function handleImgError(imgElement) {
+      // If higher image number is not found, loop back to img1.jpg
+      if (currentImgIndex > 1) {
+        currentImgIndex = 1;
+        imgElement.src = 'img1.jpg';
+        document.getElementById('memoryCaption').innerText = "Memory #1: You & Me Forever ❤️";
+      } else {
+        // Backup placeholder if img1 is not found
+        imgElement.src = 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';
+      }
     }
 
     // Carrom Engine
@@ -470,9 +356,9 @@
         cCtx.beginPath(); cCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); cCtx.fillStyle = '#111'; cCtx.fill();
       });
       cCtx.beginPath(); cCtx.arc(cQueen.x, cQueen.y, cQueen.radius, 0, Math.PI * 2);
-      cCtx.fillStyle = '#ff003c'; cCtx.shadowColor = '#ff003c'; cCtx.shadowBlur = 10; cCtx.fill(); cCtx.shadowBlur = 0;
+      cCtx.fillStyle = '#ff0055'; cCtx.shadowColor = '#ff0055'; cCtx.shadowBlur = 10; cCtx.fill(); cCtx.shadowBlur = 0;
       cCtx.beginPath(); cCtx.arc(cStriker.x, cStriker.y, cStriker.radius, 0, Math.PI * 2);
-      cCtx.fillStyle = '#fff'; cCtx.fill(); cCtx.strokeStyle = '#ff003c'; cCtx.lineWidth = 2; cCtx.stroke();
+      cCtx.fillStyle = '#fff'; cCtx.fill(); cCtx.strokeStyle = '#ff0055'; cCtx.lineWidth = 2; cCtx.stroke();
 
       if (isAiming) {
         cCtx.beginPath(); cCtx.moveTo(cStriker.x, cStriker.y);
@@ -512,96 +398,6 @@
 
         renderCarrom();
       }, 1000 / 60);
-    }
-
-    // --- ROMANTIC TREE & MILK/MOCHA CANVAS ---
-    function growRomanticTree() {
-      const canvas = document.getElementById('treeCanvas');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      let growthProgress = 0;
-      let heartLeaves = [];
-
-      function drawHeart(x, y, size, color) {
-        ctx.save(); ctx.translate(x, y); ctx.beginPath(); ctx.fillStyle = color;
-        ctx.shadowColor = '#ff003c'; ctx.shadowBlur = 4;
-        let d = size;
-        ctx.moveTo(0, 0);
-        ctx.bezierCurveTo(-d / 2, -d / 2, -d, d / 3, 0, d);
-        ctx.bezierCurveTo(d, d / 3, d / 2, -d / 2, 0, 0);
-        ctx.fill(); ctx.restore();
-      }
-
-      function drawMilkMochaUnderTree(x, y) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(160, 265, 120, 20, 0, 0, Math.PI * 2);
-        ctx.fillStyle = '#110307'; ctx.fill();
-
-        // Milk (White Bear)
-        ctx.beginPath();
-        ctx.arc(x - 8, y - 22, 7, 0, Math.PI * 2);
-        ctx.arc(x + 8, y - 22, 7, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff'; ctx.fill();
-        ctx.beginPath();
-        ctx.arc(x, y - 10, 16, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff'; ctx.fill();
-
-        // Mocha (Brown Bear)
-        ctx.beginPath();
-        ctx.arc(x + 12, y - 22, 7, 0, Math.PI * 2);
-        ctx.arc(x + 28, y - 22, 7, 0, Math.PI * 2);
-        ctx.fillStyle = '#a06040'; ctx.fill();
-        ctx.beginPath();
-        ctx.arc(x + 20, y - 10, 16, 0, Math.PI * 2);
-        ctx.fillStyle = '#a06040'; ctx.fill();
-
-        drawHeart(x + 8, y - 38, 9, '#ff003c');
-        ctx.restore();
-      }
-
-      function drawBranch(startX, startY, len, angle, branchWidth) {
-        ctx.beginPath(); ctx.save(); ctx.strokeStyle = "#2a0a18";
-        ctx.lineWidth = branchWidth; ctx.lineCap = "round";
-        ctx.translate(startX, startY); ctx.rotate(angle * Math.PI / 180);
-        ctx.moveTo(0, 0); ctx.lineTo(0, -len); ctx.stroke();
-
-        if (len < 12) {
-          let matrix = ctx.getTransform();
-          heartLeaves.push({ x: matrix.e, y: matrix.f });
-          ctx.restore(); return;
-        }
-
-        drawBranch(0, -len, len * 0.78, angle + 22, branchWidth * 0.7);
-        drawBranch(0, -len, len * 0.78, angle - 22, branchWidth * 0.7);
-        if (len > 25) { drawBranch(0, -len * 0.6, len * 0.6, angle + 8, branchWidth * 0.6); }
-        ctx.restore();
-      }
-
-      let anim = setInterval(() => {
-        growthProgress += 1.5;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        heartLeaves = [];
-
-        drawBranch(200, 260, growthProgress, -10, 9);
-
-        if (growthProgress > 25) {
-          heartLeaves.forEach((leaf, idx) => {
-            if (idx % 2 === 0) { drawHeart(leaf.x, leaf.y - 5, 7, '#ff003c'); }
-            else { drawHeart(leaf.x + 3, leaf.y - 2, 6, '#ff3366'); }
-          });
-        }
-
-        drawMilkMochaUnderTree(110, 250);
-
-        if (growthProgress >= 50) {
-          clearInterval(anim);
-          document.getElementById('treeText').innerText = "Milk & Mocha hugging under Rinky's heart tree! 🐻‍❄️🐻❤️";
-          document.getElementById('treeNextBtn').disabled = false;
-          confetti({ particleCount: 90, spread: 80 });
-        }
-      }, 60);
     }
   </script>
 </body>
