@@ -80,7 +80,7 @@
     .img-frame {
       width: 100%; height: 220px; object-fit: cover; border-radius: 16px;
       border: 2px solid var(--primary-red); margin: 10px 0;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.3); cursor: pointer;
     }
 
     /* Page 6: Heart-Shaped Photo Collage Grid */
@@ -93,7 +93,28 @@
     }
 
     .heart-collage-container img {
-      width: 100%; height: 100%; object-fit: cover; border-radius: 4px;
+      width: 100%; height: 100%; object-fit: cover; border-radius: 4px; cursor: pointer; transition: transform 0.2s;
+    }
+    .heart-collage-container img:active { transform: scale(0.92); }
+
+    /* FULLSCREEN PHOTO LIGHTBOX MODAL */
+    .photo-lightbox {
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(10px);
+      z-index: 999; justify-content: center; align-items: center; flex-direction: column;
+      padding: 20px; animation: fadeIn 0.3s ease;
+    }
+    .photo-lightbox.active { display: flex; }
+
+    .photo-lightbox img {
+      max-width: 92vw; max-height: 78vh; object-fit: contain;
+      border-radius: 16px; border: 2px solid var(--primary-red);
+      box-shadow: 0 0 35px rgba(255, 0, 85, 0.6);
+    }
+
+    .close-lightbox-btn {
+      margin-top: 18px; width: auto; padding: 10px 30px;
+      background: var(--primary-red); border-radius: 20px; font-size: 0.95rem;
     }
 
     /* Flip Card Animation */
@@ -120,12 +141,18 @@
   <audio id="bgAudio" loop src="bg_music.mp3"></audio>
   <div class="heart-bg" id="heartContainer"></div>
 
+  <!-- FULLSCREEN PHOTO LIGHTBOX MODAL -->
+  <div class="photo-lightbox" id="photoLightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" src="" alt="Full Photo View">
+    <button class="close-lightbox-btn" onclick="closeLightbox()">Close Photo ✕</button>
+  </div>
+
   <div class="card">
 
     <!-- PAGE 1: Intro Page -->
     <div id="page-1" class="page active">
       <h1>Happy Birthday "Ghelli" ❤️</h1>
-      <img src="img11.jpeg" class="img-frame" alt="Happy Birthday Ghelli" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
+      <img src="img11.jpeg" class="img-frame" alt="Happy Birthday Ghelli" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
       <p style="margin-top:10px;">Lots of red hearts everywhere just for you!</p>
       <button onclick="goToPage(2)">Continue 💖</button>
     </div>
@@ -154,8 +181,8 @@
 
         <!-- Question 1 Answer Image -->
         <div id="q1-reveal" style="display:none;">
-          <img src="img12.jpeg" class="img-frame" alt="College Gate Memory" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop'">
-          <p style="color:var(--glow-pink);">Lots of hearts for our special memory! ❤️</p>
+          <img src="img12.jpeg" class="img-frame" alt="College Gate Memory" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop'">
+          <p style="color:var(--glow-pink);">Tap photo to make it full size! ❤️</p>
           <button onclick="showQ2()">Next Question ➡️</button>
         </div>
 
@@ -187,7 +214,8 @@
         <!-- Quiz Gallery (img5, img9, img10) -->
         <div id="quiz-complete-gallery" style="display:none;">
           <h3>Quiz Complete! ❤️</h3>
-          <img id="galleryImg" src="img5.jpeg" class="img-frame" alt="Memory" onerror="handleGalleryErr(this)">
+          <img id="galleryImg" src="img5.jpeg" class="img-frame" alt="Memory" onclick="openLightbox(this.src)" onerror="handleGalleryErr(this)">
+          <p style="font-size:0.8rem; color:var(--glow-pink);">Tap image to expand full size!</p>
           <button onclick="nextGalleryImg()" style="margin-top:4px;">Next Image 📸</button>
           <button onclick="goToPage(4)" style="margin-top:8px; background: linear-gradient(135deg, #00c853, #007e33);">Continue to Games 🎮➡️</button>
         </div>
@@ -211,7 +239,7 @@
       <p id="carrom-status" style="font-weight: bold; min-height: 24px; color: var(--glow-pink);"></p>
 
       <div id="postWinBox" style="display:none; width:100%;">
-        <img src="img6.jpeg" class="img-frame" alt="Victory Memory" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
+        <img src="img6.jpeg" class="img-frame" alt="Victory Memory" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
         <p style="font-weight:bold; color:var(--glow-pink); margin-top:6px;">Are you ready for more entire?</p>
         <div style="display:flex; gap:10px; width:100%; margin-top:8px;">
           <button onclick="goToPage(5)" style="background: linear-gradient(135deg, #00c853, #007e33);">YES! 😍</button>
@@ -238,18 +266,19 @@
     <!-- PAGE 6: Heart Full Collage Memories Page (Before 7th Page) -->
     <div id="page-6" class="page">
       <h2>📸 Heart Full Memories Collage</h2>
+      <p style="font-size: 0.8rem; margin-bottom: 6px; color: var(--glow-pink);">Tap any photo to expand it full screen! 🔍</p>
 
-      <!-- Heart-Shaped Image Grid using remaining images -->
+      <!-- Heart-Shaped Image Grid -->
       <div class="heart-collage-container">
-        <img src="img2.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img3.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img4.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img5.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img7.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img8.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img9.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img10.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
-        <img src="img12.jpeg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img2.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img3.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img4.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img5.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img7.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img8.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img9.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img10.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
+        <img src="img12.jpeg" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=300'">
       </div>
 
       <!-- Card Flip Shayari -->
@@ -284,7 +313,7 @@
       </div>
 
       <!-- img1 Added Right Here at the End -->
-      <img src="img1.jpeg" class="img-frame" alt="Special Final Memory" style="height: 140px; margin: 4px 0;" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
+      <img src="img1.jpeg" class="img-frame" alt="Special Final Memory" style="height: 140px; margin: 4px 0;" onclick="openLightbox(this.src)" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop'">
 
       <!-- Final Alveris Project Note -->
       <div style="background: rgba(255, 0, 85, 0.15); border: 1px dashed var(--primary-red); padding: 8px; border-radius: 12px; margin-top: 4px; width: 100%;">
@@ -298,6 +327,16 @@
   </div>
 
   <script>
+    // FULLSCREEN LIGHTBOX FUNCTIONS
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('photoLightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('photoLightbox').classList.remove('active');
+    }
+
     const heartContainer = document.getElementById('heartContainer');
     function createHearts(count) {
       heartContainer.innerHTML = '';
