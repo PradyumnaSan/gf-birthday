@@ -151,7 +151,7 @@
       <h1>Happy birthday darling! ❤️</h1>
       <img src="img11.jpeg" class="img-frame" alt="Intro" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
       <p>Lots of red hearts everywhere just for you!</p>
-      <button onclick="startAudioAndNext(2)">Continue 💖</button>
+      <button onclick="goToPage(2)">Continue 💖</button>
     </div>
 
     <!-- PAGE 2 -->
@@ -326,13 +326,14 @@
     }
 
     let audioStarted = false;
-    function startAudioAndNext(pageNum) { playAudio(); goToPage(pageNum); }
     function playAudio() {
       const bgAudio = document.getElementById('bgAudio');
-      if (bgAudio) { bgAudio.play().then(() => { audioStarted = true; }).catch(e => {}); }
+      if (bgAudio && !audioStarted) {
+        bgAudio.play().then(() => { audioStarted = true; }).catch(e => {});
+      }
     }
-    document.addEventListener('touchstart', () => { if (!audioStarted) playAudio(); }, { once: true });
-    document.addEventListener('click', () => { if (!audioStarted) playAudio(); }, { once: true });
+    document.addEventListener('touchstart', playAudio, { once: true });
+    document.addEventListener('click', playAudio, { once: true });
 
     const heartContainer = document.getElementById('heartContainer');
     function createHearts(count) {
@@ -365,7 +366,7 @@
     }
 
     function goToPage(num) {
-      if (num !== 7) playAudio();
+      playAudio();
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(`page-${num}`).classList.add('active');
       const video = document.getElementById('birthdayVideo');
@@ -529,7 +530,6 @@
           cQueen.vx = Math.cos(angle) * 7; cQueen.vy = Math.sin(angle) * 7;
         }
 
-        cPockets.items?.forEach(...) // standard loop optimization
         cPockets.forEach(p => {
           if (Math.hypot(cQueen.x - p.x, cQueen.y - p.y) < p.r) {
             cQueen.x = -100; cQueen.vx = 0; cQueen.vy = 0; clearInterval(loop);
