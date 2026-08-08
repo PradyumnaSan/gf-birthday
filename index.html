@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #0d0106;
-      --card-bg: rgba(28, 4, 14, 0.94);
+      --card-bg: rgba(28, 4, 14, 0.96);
       --primary-red: #ff0055;
       --deep-red: #80002a;
       --glow-pink: #ff6699;
@@ -20,132 +20,107 @@
     body {
       background: var(--bg); color: var(--text);
       display: flex; justify-content: center; align-items: center;
-      min-height: 100vh; padding: 12px; overflow-x: hidden; position: relative;
+      min-height: 100vh; padding: 10px; overflow: hidden; position: relative;
     }
 
-    /* Floating Red Hearts Background */
+    /* Red Hearts Shower Background */
     .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
-    .floating-heart { position: absolute; bottom: -50px; color: var(--primary-red); opacity: 0.75; animation: floatUp linear infinite; filter: drop-shadow(0 0 8px var(--primary-red)); }
+    .floating-heart { position: absolute; bottom: -50px; color: var(--primary-red); opacity: 0.8; animation: floatUp linear infinite; filter: drop-shadow(0 0 8px var(--primary-red)); }
 
     @keyframes floatUp {
       0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.85; }
-      100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translateY(-110vh) scale(1.4) rotate(360deg); opacity: 0; }
     }
 
-    .heavy-shower .floating-heart { animation-duration: 1.8s !important; opacity: 0.95; }
+    .heavy-shower .floating-heart { animation-duration: 1.5s !important; opacity: 1; }
 
-    /* Strict 9:16 Aspect Ratio Main Container Card */
+    /* Strict 9:16 Aspect Ratio Card - Perfectly Filled */
     .card {
       width: 100%; max-width: 380px;
-      aspect-ratio: 9 / 16; height: calc(100vh - 24px); max-height: 675px;
+      aspect-ratio: 9 / 16; height: calc(100vh - 20px); max-height: 680px;
       background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 0, 85, 0.4); padding: 18px 14px; border-radius: 24px;
-      box-shadow: 0 0 50px rgba(255, 0, 85, 0.35); text-align: center;
+      border: 2px solid rgba(255, 0, 85, 0.6); padding: 14px; border-radius: 24px;
+      box-shadow: 0 0 40px rgba(255, 0, 85, 0.4); text-align: center;
       display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 10;
       overflow: hidden;
     }
 
-    .page { display: none; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%; animation: fadeIn 0.4s ease-in-out; overflow-y: auto; }
+    .page { display: none; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; width: 100%; animation: fadeIn 0.3s ease-in-out; }
     .page.active { display: flex; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 
-    h1 { color: var(--primary-red); font-size: 1.6rem; margin-bottom: 6px; text-shadow: 0 0 14px rgba(255, 0, 85, 0.8); }
-    h2 { color: var(--glow-pink); font-size: 1.2rem; margin-bottom: 8px; text-shadow: 0 0 10px rgba(255, 102, 153, 0.6); }
-    p { font-size: 0.88rem; line-height: 1.4; color: var(--text-sub); margin-bottom: 8px; }
+    h1 { color: var(--primary-red); font-size: 1.5rem; text-shadow: 0 0 12px rgba(255, 0, 85, 0.8); flex-shrink: 0; }
+    h2 { color: var(--glow-pink); font-size: 1.15rem; text-shadow: 0 0 8px rgba(255, 102, 153, 0.6); flex-shrink: 0; }
+    p { font-size: 0.85rem; line-height: 1.35; color: var(--text-sub); flex-shrink: 0; }
 
     input, textarea {
-      padding: 10px; font-size: 0.95rem; border: 2px solid var(--primary-red);
-      border-radius: 12px; margin: 8px 0; width: 100%;
-      outline: none; background: rgba(0,0,0,0.6); color: white; box-shadow: inset 0 0 10px rgba(255, 0, 85, 0.3);
+      padding: 8px 10px; font-size: 0.9rem; border: 2px solid var(--primary-red);
+      border-radius: 10px; width: 100%; outline: none; background: rgba(0,0,0,0.7); color: white;
+      box-shadow: inset 0 0 8px rgba(255, 0, 85, 0.3); flex-shrink: 0;
     }
 
     button {
       background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
-      color: white; border: none; padding: 12px 24px; font-size: 0.95rem; font-weight: 700;
-      border-radius: 12px; cursor: pointer; width: 100%; margin-top: 6px;
-      box-shadow: 0 0 18px rgba(255, 0, 85, 0.5); transition: all 0.2s; flex-shrink: 0;
+      color: white; border: none; padding: 10px 20px; font-size: 0.9rem; font-weight: 700;
+      border-radius: 10px; cursor: pointer; width: 100%;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.5); transition: all 0.2s; flex-shrink: 0;
     }
     button:active { transform: scale(0.96); }
 
     .quiz-opt-btn {
-      background: rgba(255, 0, 85, 0.15); border: 1px solid var(--primary-red);
-      margin: 4px 0; text-align: left; padding: 10px; border-radius: 10px; color: white; width: 100%; cursor: pointer; font-size: 0.88rem;
+      background: rgba(255, 0, 85, 0.2); border: 1px solid var(--primary-red);
+      text-align: left; padding: 8px 10px; border-radius: 8px; color: white; width: 100%; cursor: pointer; font-size: 0.82rem; flex-shrink: 0;
     }
 
-    .carrom-wrapper { position: relative; width: 260px; height: 260px; margin: 6px auto; flex-shrink: 0; }
-    #carromCanvas { background: #e0be96; border: 8px solid #5a2a18; border-radius: 14px; touch-action: none; }
-    .slider-container { width: 100%; margin: 6px 0; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-sub); }
+    .carrom-wrapper { position: relative; width: 230px; height: 230px; margin: auto; flex-shrink: 0; }
+    #carromCanvas { background: #e0be96; border: 6px solid #5a2a18; border-radius: 12px; touch-action: none; }
+    .slider-container { width: 100%; display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-sub); flex-shrink: 0; }
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
 
     .img-frame {
-      width: 100%; height: 180px; object-fit: cover; border-radius: 14px;
-      border: 2px solid var(--primary-red); margin: 6px 0;
-      box-shadow: 0 0 12px rgba(255, 0, 85, 0.3); cursor: pointer; flex-shrink: 0;
+      width: 100%; height: 170px; object-fit: cover; border-radius: 12px;
+      border: 2px solid var(--primary-red); box-shadow: 0 0 10px rgba(255, 0, 85, 0.4); cursor: pointer; flex-shrink: 0; background: rgba(0,0,0,0.5);
     }
 
-    /* Auto-Slideshow Container with Mocha Kiss Overlay */
+    /* Slideshow Container */
     .slideshow-box {
-      position: relative; width: 100%; height: 200px; border-radius: 14px;
-      border: 2px solid var(--primary-red); overflow: hidden; margin: 6px 0; flex-shrink: 0;
+      position: relative; width: 100%; height: 180px; border-radius: 12px;
+      border: 2px solid var(--primary-red); overflow: hidden; flex-shrink: 0; background: rgba(0,0,0,0.5);
     }
-    .slideshow-box img.slide-img {
-      width: 100%; height: 100%; object-fit: cover; cursor: pointer;
-    }
+    .slideshow-box img.slide-img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
     .mocha-kiss-overlay {
-      position: absolute; bottom: 6px; right: 6px; width: 65px; height: 65px;
-      pointer-events: none; filter: drop-shadow(0 0 8px rgba(255, 0, 85, 0.8));
+      position: absolute; bottom: 4px; right: 4px; width: 60px; height: 60px;
+      pointer-events: none; filter: drop-shadow(0 0 6px rgba(255, 0, 85, 0.9));
     }
 
-    /* Page 6: Heart-Shaped Photo Collage Grid */
+    /* Heart Collage Grid */
     .heart-collage-container {
-      width: 240px; height: 240px; margin: 6px auto; position: relative; flex-shrink: 0;
-      clip-path: path('M 120 220 C 120 220 16 155 16 85 C 16 34 58 16 93 42 C 120 62 120 62 120 62 C 120 62 120 62 147 42 C 182 16 224 34 224 85 C 224 155 120 220 120 220 Z');
-      background: var(--primary-red); padding: 3px; display: grid;
-      grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 3px;
-      box-shadow: 0 0 20px rgba(255, 0, 85, 0.6);
+      width: 210px; height: 210px; margin: auto; position: relative; flex-shrink: 0;
+      clip-path: path('M 105 195 C 105 195 14 135 14 74 C 14 30 51 14 81 38 C 105 56 105 56 105 56 C 105 56 105 56 129 38 C 159 14 196 30 196 74 C 196 135 105 195 105 195 Z');
+      background: var(--primary-red); padding: 2px; display: grid;
+      grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px;
+      box-shadow: 0 0 20px rgba(255, 0, 85, 0.7);
     }
+    .heart-collage-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; cursor: pointer; }
 
-    .heart-collage-container img {
-      width: 100%; height: 100%; object-fit: cover; border-radius: 3px; cursor: pointer; transition: transform 0.2s;
-    }
-    .heart-collage-container img:active { transform: scale(0.92); }
-
-    /* Fullscreen Photo Lightbox Modal */
+    /* Lightbox Modal */
     .photo-lightbox {
       display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.94); backdrop-filter: blur(10px);
-      z-index: 999; justify-content: center; align-items: center; flex-direction: column;
-      padding: 16px; animation: fadeIn 0.3s ease;
+      background: rgba(0, 0, 0, 0.95); z-index: 999; justify-content: center; align-items: center; flex-direction: column; padding: 15px;
     }
     .photo-lightbox.active { display: flex; }
+    .photo-lightbox img { max-width: 92vw; max-height: 75vh; object-fit: contain; border-radius: 12px; border: 2px solid var(--primary-red); }
+    .close-lightbox-btn { margin-top: 12px; width: auto; padding: 8px 22px; background: var(--primary-red); border-radius: 16px; font-size: 0.85rem; }
 
-    .photo-lightbox img {
-      max-width: 90vw; max-height: 75vh; object-fit: contain;
-      border-radius: 14px; border: 2px solid var(--primary-red);
-      box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
-    }
-
-    .close-lightbox-btn {
-      margin-top: 14px; width: auto; padding: 8px 24px;
-      background: var(--primary-red); border-radius: 18px; font-size: 0.9rem;
-    }
-
-    /* Flip Card Animation */
-    .flip-card {
-      background-color: transparent; width: 100%; height: 140px;
-      perspective: 1000px; margin: 6px 0; flex-shrink: 0;
-    }
-    .flip-card-inner {
-      position: relative; width: 100%; height: 100%; text-align: center;
-      transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer;
-    }
+    /* Flip Card */
+    .flip-card { background-color: transparent; width: 100%; height: 120px; perspective: 1000px; flex-shrink: 0; }
+    .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
     .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
     .flip-card-front, .flip-card-back {
-      position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden;
-      backface-visibility: hidden; border-radius: 14px; border: 2px solid var(--primary-red);
-      padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+      border-radius: 12px; border: 2px solid var(--primary-red); padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
     .flip-card-front { background: rgba(30, 5, 15, 0.95); }
     .flip-card-back { background: rgba(15, 2, 8, 0.98); transform: rotateY(180deg); overflow-y: auto; text-align: left; }
@@ -153,45 +128,39 @@
 </head>
 <body>
 
-  <!-- Audio Element with Autoplay Fix -->
-  <audio id="bgAudio" loop preload="auto">
-    <source src="bg_music.mp3" type="audio/mpeg">
-  </audio>
-
+  <audio id="bgAudio" loop preload="auto"><source src="bg_music.mp3" type="audio/mpeg"></audio>
   <div class="heart-bg" id="heartContainer"></div>
 
-  <!-- Fullscreen Photo Lightbox Overlay -->
   <div class="photo-lightbox" id="photoLightbox" onclick="closeLightbox()">
-    <img id="lightboxImg" src="" alt="Enlarged Photo View">
-    <button class="close-lightbox-btn" onclick="closeLightbox()">Close Photo ✕</button>
+    <img id="lightboxImg" src="" alt="Full View">
+    <button class="close-lightbox-btn" onclick="closeLightbox()">Close ✕</button>
   </div>
 
   <div class="card">
 
-    <!-- PAGE 1: Intro Page -->
+    <!-- PAGE 1 -->
     <div id="page-1" class="page active">
       <h1>Happy birthday darling! ❤️</h1>
-      <img src="img11.jpeg" class="img-frame" alt="Happy Birthday Ghelli" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+      <img src="img11.jpeg" class="img-frame" alt="Intro" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
       <p>Lots of red hearts everywhere just for you!</p>
       <button onclick="startAudioAndNext(2)">Continue 💖</button>
     </div>
 
-    <!-- PAGE 2: Password Page -->
+    <!-- PAGE 2 -->
     <div id="page-2" class="page">
       <h1>🔒 Password</h1>
-      <p>Enter the secret passcode to unlock your birthday surprise:</p>
+      <p>Enter the secret passcode to unlock your surprise:</p>
       <input type="password" id="passcode" placeholder="Enter Password" inputmode="numeric">
       <button onclick="checkPasscode()">Unlock ❤️</button>
-      <p id="error-msg" style="color:var(--primary-red); display:none; margin-top:6px;">Incorrect Password!</p>
+      <p id="error-msg" style="color:var(--primary-red); display:none;">Incorrect Password!</p>
     </div>
 
-    <!-- PAGE 3: Quiz Page -->
+    <!-- PAGE 3 -->
     <div id="page-3" class="page">
       <h2>🧠 Quiz Time!</h2>
-      <div id="quizContainer" style="width:100%;">
+      <div id="quizContainer" style="width:100%; display:flex; flex-direction:column; justify-content:center; gap:6px;">
         
-        <!-- Question 1 -->
-        <div id="q1" class="q-block">
+        <div id="q1" class="q-block" style="display:flex; flex-direction:column; gap:4px;">
           <p><strong>1) Where we first met after we were friends?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ1()">(a) Temple</button>
           <button class="quiz-opt-btn" onclick="answerQ1()">(b) College gate</button>
@@ -199,15 +168,13 @@
           <button class="quiz-opt-btn" onclick="answerQ1()">(d) Never met</button>
         </div>
 
-        <!-- Question 1 Reveal (img12.jpeg + Right Answer Message) -->
         <div id="q1-reveal" style="display:none;">
-          <img src="img12.jpeg" class="img-frame" alt="College Gate Memory" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-          <p style="color:var(--glow-pink); font-weight:bold; font-size:1rem; margin-top:6px;">Right answer, I love you baby ❤️</p>
-          <button onclick="showQ2()">Next Question ➡️</button>
+          <img src="img12.jpeg" class="img-frame" style="height:140px;" alt="Q1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+          <p style="color:var(--glow-pink); font-weight:bold; margin:4px 0;">Right answer, I love you baby ❤️</p>
+          <button onclick="showQ2()">Next ➡️</button>
         </div>
 
-        <!-- Question 2 -->
-        <div id="q2" class="q-block" style="display:none;">
+        <div id="q2" class="q-block" style="display:none; flex-direction:column; gap:4px;">
           <p><strong>2) Where / In which place in Odisha did we first kiss?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ2()">(a) Auto</button>
           <button class="quiz-opt-btn" onclick="answerQ2()">(b) Movie</button>
@@ -216,24 +183,22 @@
         </div>
 
         <div id="q2-reveal" style="display:none;">
-          <p style="color:var(--glow-pink); font-weight:bold; font-size:1rem; margin: 16px 0;">Right answer, I love you baby ❤️</p>
-          <button onclick="showQ3()">Next Question ➡️</button>
+          <p style="color:var(--glow-pink); font-weight:bold; margin:10px 0;">Right answer, I love you baby ❤️</p>
+          <button onclick="showQ3()">Next ➡️</button>
         </div>
 
-        <!-- Question 3 -->
-        <div id="q3" class="q-block" style="display:none;">
+        <div id="q3" class="q-block" style="display:none; flex-direction:column; gap:4px;">
           <p><strong>3) Our best memory that holds you in relation?</strong></p>
-          <textarea id="q3Answer" rows="2" placeholder="Type your answer here..."></textarea>
-          <button onclick="answerQ3()">Submit Answer 💌</button>
+          <textarea id="q3Answer" rows="2" placeholder="Type answer..."></textarea>
+          <button onclick="answerQ3()">Submit 💌</button>
         </div>
 
         <div id="q3-reveal" style="display:none;">
-          <p style="color:var(--glow-pink); font-weight:bold; font-size:1rem; margin: 16px 0;">Right answer, I love you baby ❤️</p>
-          <button onclick="showQ4()">Next Question ➡️</button>
+          <p style="color:var(--glow-pink); font-weight:bold; margin:10px 0;">Right answer, I love you baby ❤️</p>
+          <button onclick="showQ4()">Next ➡️</button>
         </div>
 
-        <!-- Question 4 -->
-        <div id="q4" class="q-block" style="display:none;">
+        <div id="q4" class="q-block" style="display:none; flex-direction:column; gap:4px;">
           <p><strong>4) Do you hate me?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ4()">(a) Not</button>
           <button class="quiz-opt-btn" onclick="answerQ4()">(b) Absolutely no</button>
@@ -242,74 +207,60 @@
         </div>
 
         <div id="q4-reveal" style="display:none;">
-          <p style="color:var(--glow-pink); font-weight:bold; font-size:1rem; margin: 16px 0;">Right answer, I love you baby ❤️</p>
+          <p style="color:var(--glow-pink); font-weight:bold; margin:10px 0;">Right answer, I love you baby ❤️</p>
           <button onclick="finishQuiz()">See Memories 📸➡️</button>
         </div>
 
-        <!-- Quiz Complete Memories Auto-Slideshow (Heading "Memories" + Mocha Kissing) -->
         <div id="quiz-complete-gallery" style="display:none;">
           <h2>Memories</h2>
-          
           <div class="slideshow-box">
             <img id="autoSlideImg" class="slide-img" src="img5.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-            <img class="mocha-kiss-overlay" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3JpZXc3ZXp0eWxsandxb3F6cDRwbGFxeTF3d2V1Ynkxb2xpdjF1YSZlcD12MV9pbnRlcm5hbF_naWZfYnlfaWQmY3Q9cw/M1O0FUpIe20Xm/giphy.gif" alt="Mocha Kissing">
+            <img class="mocha-kiss-overlay" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3JpZXc3ZXp0eWxsandxb3F6cDRwbGFxeTF3d2V1Ynkxb2xpdjF1YSZlcD12MV9pbnRlcm5hbF_naWZfYnlfaWQmY3Q9cw/M1O0FUpIe20Xm/giphy.gif" alt="Kiss">
           </div>
-
-          <p style="font-size:0.8rem; color:var(--glow-pink);">Auto-sliding our special moments... ❤️</p>
           <button onclick="goToPage(4)" style="margin-top:6px; background: linear-gradient(135deg, #00c853, #007e33);">Continue to Games 🎮➡️</button>
         </div>
 
       </div>
     </div>
 
-    <!-- PAGE 4: Game Page -->
+    <!-- PAGE 4 -->
     <div id="page-4" class="page">
       <h2>🎯 Pocket The Queen</h2>
       <p>Adjust striker and shoot!</p>
-
       <div class="carrom-wrapper">
-        <canvas id="carromCanvas" width="260" height="260"></canvas>
+        <canvas id="carromCanvas" width="230" height="230"></canvas>
       </div>
-
       <div class="slider-container">
         <span>Position:</span>
-        <input type="range" id="strikerPos" min="50" max="210" value="130" oninput="updateStrikerX(this.value)">
+        <input type="range" id="strikerPos" min="40" max="190" value="115" oninput="updateStrikerX(this.value)">
       </div>
-
-      <p id="carrom-status" style="font-weight: bold; min-height: 20px; color: var(--glow-pink); font-size: 0.85rem;"></p>
-
-      <!-- Post-Win Heading: "Are you ready to celebrate!" -->
+      <p id="carrom-status" style="font-weight: bold; color: var(--glow-pink); height:16px;"></p>
       <div id="postWinBox" style="display:none; width:100%;">
-        <img src="img6.jpeg" class="img-frame" style="height:140px;" alt="Victory Memory" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+        <img src="img6.jpeg" class="img-frame" style="height:120px;" alt="Win" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
         <h2>Are you ready to celebrate!</h2>
-        <div style="display:flex; gap:8px; width:100%; margin-top:6px;">
+        <div style="display:flex; gap:6px; width:100%; margin-top:4px;">
           <button onclick="goToPage(5)" style="background: linear-gradient(135deg, #00c853, #007e33);">YES! 😍</button>
           <button onclick="alert('Wrong answer! Click Yes! 😜')">NO 😜</button>
         </div>
       </div>
     </div>
 
-    <!-- PAGE 5: Cake Cutting Celebration -->
+    <!-- PAGE 5 -->
     <div id="page-5" class="page">
       <h2>🎂 Cake Cutting Celebration</h2>
-
-      <div style="width: 100%; height: 220px; background: rgba(0,0,0,0.6); border-radius: 16px; border: 2px solid var(--primary-red); overflow: hidden; position: relative;">
+      <div style="width: 100%; height: 190px; background: rgba(0,0,0,0.6); border-radius: 12px; border: 2px solid var(--primary-red); overflow: hidden; position: relative;">
         <video id="birthdayVideo" width="100%" height="100%" style="object-fit: cover;" loop playsinline>
           <source src="cake_cut.mp4" type="video/mp4">
         </video>
       </div>
-
-      <p id="cakeDesc" style="margin-top:8px; font-weight:bold;">Tap below to start video celebration!</p>
+      <p id="cakeDesc" style="font-weight:bold;">Tap below to start celebration!</p>
       <button id="cutCakeBtn" onclick="playCakeVideoSequence()">Play Video & Shower Hearts! 🎈🍰❤️</button>
-      <button id="page5NextBtn" onclick="goToPage(6)" style="display:none; margin-top:6px;">Next Page ➡️</button>
+      <button id="page5NextBtn" onclick="goToPage(6)" style="display:none;">Next Page ➡️</button>
     </div>
 
-    <!-- PAGE 6: Heart Full Collage Memories Page -->
+    <!-- PAGE 6 -->
     <div id="page-6" class="page">
-      <h2>📸 Heart Full Memories Collage</h2>
-      <p style="font-size: 0.75rem; margin-bottom: 4px; color: var(--glow-pink);">Tap any photo to expand it full size! 🔍</p>
-
-      <!-- Heart-Shaped Image Grid -->
+      <h2>📸 Heart Full Memories</h2>
       <div class="heart-collage-container">
         <img src="img2.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
         <img src="img3.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
@@ -321,69 +272,48 @@
         <img src="img10.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
         <img src="img12.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
       </div>
-
-      <!-- Shayari Card -->
       <div class="flip-card" id="shayariCard" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <h3>💌 Shayari For Her</h3>
-            <p style="margin-top:4px; font-style:italic; font-size:0.8rem;">(Tap card to open)</p>
+            <p style="font-style:italic; font-size:0.78rem;">(Tap to open)</p>
           </div>
           <div class="flip-card-back">
-            <p style="font-size:0.8rem; line-height:1.4;">
-              <em>
-                With you by my side, my worries cease.<br>
-                Each moment with you is a treasure I hold,<br>
-                In the warmth of your love, I find pure gold. ❤️
-              </em>
+            <p style="font-size:0.78rem; line-height:1.35;">
+              <em>With you by my side, my worries cease. Each moment with you is a treasure I hold, in the warmth of your love, I find pure gold. ❤️</em>
             </p>
           </div>
         </div>
       </div>
-
-      <button onclick="goToPage(7)">Continue to Final Page 💌➡️</button>
+      <button onclick="goToPage(7)">Final Page 💌➡️</button>
     </div>
 
-    <!-- PAGE 7: The Alveris Page (With img1 & img13 placed at the end) -->
+    <!-- PAGE 7 -->
     <div id="page-7" class="page">
-      <h2>💌 Birthday Wish (Last Part)</h2>
-
-      <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 10px; border-radius: 14px; border-left: 3px solid var(--primary-red); max-height: 140px; overflow-y: auto; margin-bottom: 6px;">
-        <p>In this materialistic world of love, I would like to express my love to you in a deeply truthful love. In these days of our relation I hurted you more than loving you and I say now "no more". You deserve every single part of love from me.</p><br>
-        <p>The lines above written is one of my feelings for you. You are a major part of my life. Life of me without you is unbearable for me. I really love you very much, and I am very grateful to have you in my life otherwise it would have been a curse for me. We will talk more when we meet and a hug from you is an outmost thing needed to heal me and a slap from you needed to make me correct.</p>
+      <h2>💌 Birthday Wish</h2>
+      <div style="text-align: left; background: rgba(0,0,0,0.6); padding: 8px 10px; border-radius: 10px; border-left: 3px solid var(--primary-red); max-height: 110px; overflow-y: auto;">
+        <p style="font-size: 0.8rem;">In this materialistic world of love, I would like to express my love to you in a deeply truthful love. In these days of our relation I hurted you more than loving you and I say now "no more". You deserve every single part of love from me.</p>
       </div>
-
-      <!-- img1.jpeg & img13.jpeg Added at the End -->
-      <div style="display:flex; gap:6px; width:100%; margin: 4px 0;">
-        <img src="img1.jpeg" class="img-frame" style="height: 100px; margin:0;" alt="Special Final Memory 1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img13.jpeg" class="img-frame" style="height: 100px; margin:0;" alt="Special Final Memory 13" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+      <div style="display:flex; gap:6px; width:100%;">
+        <img src="img1.jpeg" class="img-frame" style="height: 85px; margin:0;" alt="Img1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+        <img src="img13.jpeg" class="img-frame" style="height: 85px; margin:0;" alt="Img13" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
       </div>
-
-      <!-- Final Software Project Text -->
-      <div style="background: rgba(255, 0, 85, 0.15); border: 1px dashed var(--primary-red); padding: 6px; border-radius: 10px; margin-top: 4px; width: 100%;">
-        <p style="font-weight: bold; color: var(--glow-pink); font-size:0.85rem;">"This is the first software project of ALVERIS"</p>
-        <p style="font-size: 0.75rem;">I hope you would like it.</p>
+      <div style="background: rgba(255, 0, 85, 0.15); border: 1px dashed var(--primary-red); padding: 6px; border-radius: 8px; width: 100%;">
+        <p style="font-weight: bold; color: var(--glow-pink); font-size:0.8rem;">"This is the first software project of ALVERIS"</p>
       </div>
-
-      <button onclick="triggerRedHeartsShower()" style="margin-top: 6px;">Shower Hearts & Celebrate ❤️🎉</button>
+      <button onclick="triggerRedHeartsShower()">Shower Hearts & Celebrate ❤️🎉</button>
     </div>
 
   </div>
 
   <script>
-    // Universal Robust Image Fallback Handler
     function handleImgFallback(img) {
       const src = img.getAttribute('src');
-      if (src.endsWith('.jpeg')) {
-        img.src = src.replace('.jpeg', '.jpg');
-      } else if (src.endsWith('.jpg')) {
-        img.src = src.replace('.jpg', '.png');
-      } else {
-        img.src = 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';
-      }
+      if (src.endsWith('.jpeg')) img.src = src.replace('.jpeg', '.jpg');
+      else if (src.endsWith('.jpg')) img.src = src.replace('.jpg', '.png');
+      else img.src = 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';
     }
 
-    // Fullscreen Lightbox Functions
     function openLightbox(src) {
       document.getElementById('lightboxImg').src = src;
       document.getElementById('photoLightbox').classList.add('active');
@@ -393,28 +323,15 @@
       document.getElementById('photoLightbox').classList.remove('active');
     }
 
-    // Audio Autoplay Fix Engine
     let audioStarted = false;
-    function startAudioAndNext(pageNum) {
-      playAudio();
-      goToPage(pageNum);
-    }
-
+    function startAudioAndNext(pageNum) { playAudio(); goToPage(pageNum); }
     function playAudio() {
       const bgAudio = document.getElementById('bgAudio');
-      if (bgAudio) {
-        bgAudio.play().then(() => {
-          audioStarted = true;
-        }).catch(e => {
-          console.log("Audio waiting for touch interaction");
-        });
-      }
+      if (bgAudio) { bgAudio.play().then(() => { audioStarted = true; }).catch(e => {}); }
     }
-
     document.addEventListener('touchstart', () => { if (!audioStarted) playAudio(); }, { once: true });
     document.addEventListener('click', () => { if (!audioStarted) playAudio(); }, { once: true });
 
-    // Red Hearts Shower Generator
     const heartContainer = document.getElementById('heartContainer');
     function createHearts(count) {
       heartContainer.innerHTML = '';
@@ -422,27 +339,23 @@
         const heart = document.createElement('div');
         heart.className = 'floating-heart'; heart.innerText = '❤️';
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+        heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
         heart.style.animationDelay = (Math.random() * 3) + 's';
         heartContainer.appendChild(heart);
       }
     }
-    createHearts(30);
+    createHearts(35);
 
     function triggerHeavyHeartShower() {
       document.body.classList.add('heavy-shower');
       createHearts(70);
     }
-
-    function triggerRedHeartsShower() {
-      triggerHeavyHeartShower();
-    }
+    function triggerRedHeartsShower() { triggerHeavyHeartShower(); }
 
     function goToPage(num) {
       playAudio();
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(`page-${num}`).classList.add('active');
-
       const video = document.getElementById('birthdayVideo');
       if (num === 4) initCarromGame();
       if (num === 5) { video.play(); } else { video.pause(); }
@@ -457,104 +370,88 @@
       }
     }
 
-    // Quiz Navigation & Feedback
     function answerQ1() {
       document.getElementById('q1').style.display = 'none';
       document.getElementById('q1-reveal').style.display = 'block';
       triggerHeavyHeartShower();
     }
-
     function showQ2() {
       document.getElementById('q1-reveal').style.display = 'none';
       document.getElementById('q2').style.display = 'block';
     }
-
     function answerQ2() {
       document.getElementById('q2').style.display = 'none';
       document.getElementById('q2-reveal').style.display = 'block';
       triggerHeavyHeartShower();
     }
-
     function showQ3() {
       document.getElementById('q2-reveal').style.display = 'none';
       document.getElementById('q3').style.display = 'block';
     }
-
     function answerQ3() {
       document.getElementById('q3').style.display = 'none';
       document.getElementById('q3-reveal').style.display = 'block';
       triggerHeavyHeartShower();
     }
-
     function showQ4() {
       document.getElementById('q3-reveal').style.display = 'none';
       document.getElementById('q4').style.display = 'block';
     }
-
     function answerQ4() {
       document.getElementById('q4').style.display = 'none';
       document.getElementById('q4-reveal').style.display = 'block';
       triggerHeavyHeartShower();
     }
 
-    // Auto-Slideshow Logic
     let slideIdx = 0;
     const galleryImgs = ['img5.jpeg', 'img9.jpeg', 'img10.jpeg'];
     let autoSlideTimer = null;
-
     function finishQuiz() {
       document.getElementById('q4-reveal').style.display = 'none';
       document.getElementById('quiz-complete-gallery').style.display = 'block';
       triggerHeavyHeartShower();
-
       if (!autoSlideTimer) {
         autoSlideTimer = setInterval(() => {
           slideIdx = (slideIdx + 1) % galleryImgs.length;
           document.getElementById('autoSlideImg').src = galleryImgs[slideIdx];
-        }, 2500);
+        }, 2200);
       }
     }
 
     function playCakeVideoSequence() {
       const video = document.getElementById('birthdayVideo');
-      video.play();
-      playAudio();
-
+      video.play(); playAudio();
       triggerHeavyHeartShower();
-      document.getElementById('cakeDesc').innerText = "Raining hearts heavy shower! Enjoy the celebration! ❤️";
+      document.getElementById('cakeDesc').innerText = "Raining hearts heavy shower! Enjoy! ❤️";
       document.getElementById('page5NextBtn').style.display = 'block';
     }
 
-    // Carrom Engine
     let cCanvas, cCtx;
-    let cStriker = { x: 130, y: 210, radius: 10, vx: 0, vy: 0 };
-    let cQueen = { x: 130, y: 100, radius: 9, vx: 0, vy: 0 };
+    let cStriker = { x: 115, y: 190, radius: 9, vx: 0, vy: 0 };
+    let cQueen = { x: 115, y: 90, radius: 8, vx: 0, vy: 0 };
     let cPockets = [
-      { x: 20, y: 20, r: 16 }, { x: 240, y: 20, r: 16 },
-      { x: 20, y: 240, r: 16 }, { x: 240, y: 240, r: 16 }
+      { x: 16, y: 16, r: 14 }, { x: 214, y: 16, r: 14 },
+      { x: 16, y: 214, r: 14 }, { x: 214, y: 214, r: 14 }
     ];
     let isAiming = false, dragStart = { x: 0, y: 0 }, dragCurrent = { x: 0, y: 0 }, shotFired = false;
 
     function initCarromGame() {
       cCanvas = document.getElementById('carromCanvas'); cCtx = cCanvas.getContext('2d');
       resetCarromBoard();
-
       cCanvas.addEventListener('pointerdown', e => {
         if (shotFired) return;
         const rect = cCanvas.getBoundingClientRect();
         const px = e.clientX - rect.left, py = e.clientY - rect.top;
-        if (Math.hypot(px - cStriker.x, py - cStriker.y) < 30) {
+        if (Math.hypot(px - cStriker.x, py - cStriker.y) < 25) {
           isAiming = true; dragStart = { x: px, y: py }; dragCurrent = { x: px, y: py };
         }
       });
-
       cCanvas.addEventListener('pointermove', e => {
         if (!isAiming) return;
         const rect = cCanvas.getBoundingClientRect();
         dragCurrent = { x: e.clientX - rect.left, y: e.clientY - rect.top };
         renderCarrom();
       });
-
       cCanvas.addEventListener('pointerup', () => {
         if (!isAiming) return;
         isAiming = false; shotFired = true;
@@ -567,27 +464,27 @@
 
     function updateStrikerX(val) { if (!shotFired) { cStriker.x = parseFloat(val); renderCarrom(); } }
     function resetCarromBoard() {
-      cStriker = { x: parseFloat(document.getElementById('strikerPos').value), y: 210, radius: 10, vx: 0, vy: 0 };
-      cQueen = { x: 130, y: 100, radius: 9, vx: 0, vy: 0 }; shotFired = false;
+      cStriker = { x: parseFloat(document.getElementById('strikerPos').value), y: 190, radius: 9, vx: 0, vy: 0 };
+      cQueen = { x: 115, y: 90, radius: 8, vx: 0, vy: 0 }; shotFired = false;
       document.getElementById('carrom-status').innerText = "";
       document.getElementById('postWinBox').style.display = "none";
       renderCarrom();
     }
 
     function renderCarrom() {
-      cCtx.clearRect(0, 0, 260, 260);
+      cCtx.clearRect(0, 0, 230, 230);
       cPockets.forEach(p => {
         cCtx.beginPath(); cCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); cCtx.fillStyle = '#111'; cCtx.fill();
       });
       cCtx.beginPath(); cCtx.arc(cQueen.x, cQueen.y, cQueen.radius, 0, Math.PI * 2);
-      cCtx.fillStyle = '#ff0055'; cCtx.shadowColor = '#ff0055'; cCtx.shadowBlur = 10; cCtx.fill(); cCtx.shadowBlur = 0;
+      cCtx.fillStyle = '#ff0055'; cCtx.shadowColor = '#ff0055'; cCtx.shadowBlur = 8; cCtx.fill(); cCtx.shadowBlur = 0;
       cCtx.beginPath(); cCtx.arc(cStriker.x, cStriker.y, cStriker.radius, 0, Math.PI * 2);
       cCtx.fillStyle = '#fff'; cCtx.fill(); cCtx.strokeStyle = '#ff0055'; cCtx.lineWidth = 2; cCtx.stroke();
 
       if (isAiming) {
         cCtx.beginPath(); cCtx.moveTo(cStriker.x, cStriker.y);
         cCtx.lineTo(cStriker.x + (dragStart.x - dragCurrent.x) * 2, cStriker.y + (dragStart.y - dragCurrent.y) * 2);
-        cCtx.strokeStyle = 'rgba(255,255,255,0.7)'; cCtx.setLineDash([4, 4]); cCtx.stroke(); cCtx.setLineDash([]);
+        cCtx.strokeStyle = 'rgba(255,255,255,0.7)'; cCtx.setLineDash([3, 3]); cCtx.stroke(); cCtx.setLineDash([]);
       }
     }
 
@@ -596,19 +493,17 @@
       let loop = setInterval(() => {
         cStriker.x += cStriker.vx; cStriker.y += cStriker.vy;
         cQueen.x += cQueen.vx; cQueen.y += cQueen.vy;
-
         cStriker.vx *= 0.98; cStriker.vy *= 0.98; cQueen.vx *= 0.98; cQueen.vy *= 0.98;
 
-        if (cStriker.x - cStriker.radius < 10 || cStriker.x + cStriker.radius > 250) cStriker.vx *= -1;
-        if (cStriker.y - cStriker.radius < 10 || cStriker.y + cStriker.radius > 250) cStriker.vy *= -1;
+        if (cStriker.x - cStriker.radius < 8 || cStriker.x + cStriker.radius > 222) cStriker.vx *= -1;
+        if (cStriker.y - cStriker.radius < 8 || cStriker.y + cStriker.radius > 222) cStriker.vy *= -1;
 
         let dist = Math.hypot(cStriker.x - cQueen.x, cStriker.y - cQueen.y);
         if (dist < cStriker.radius + cQueen.radius && !queenTargeted) {
           queenTargeted = true;
-          let targetPocket = cQueen.x < 130 ? cPockets[0] : cPockets[1];
+          let targetPocket = cQueen.x < 115 ? cPockets[0] : cPockets[1];
           let angle = Math.atan2(targetPocket.y - cQueen.y, targetPocket.x - cQueen.x);
-          cQueen.vx = Math.cos(angle) * 7;
-          cQueen.vy = Math.sin(angle) * 7;
+          cQueen.vx = Math.cos(angle) * 7; cQueen.vy = Math.sin(angle) * 7;
         }
 
         cPockets.forEach(p => {
@@ -619,7 +514,6 @@
             triggerHeavyHeartShower();
           }
         });
-
         renderCarrom();
       }, 1000 / 60);
     }
