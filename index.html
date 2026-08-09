@@ -92,8 +92,12 @@
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
 
     .img-frame {
-      width: 100%; max-height: 135px; object-fit: cover; border-radius: 10px;
+      width: 100%; max-height: 125px; object-fit: cover; border-radius: 10px;
       border: 2px solid var(--primary-red); box-shadow: 0 0 8px rgba(255, 0, 85, 0.4); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
+    }
+
+    .sticker-img {
+      width: 60px; height: 60px; object-fit: contain; margin-bottom: 2px; filter: drop-shadow(0 0 6px var(--primary-red)); flex-shrink: 0;
     }
 
     .slideshow-box {
@@ -110,7 +114,6 @@
     }
     @keyframes pulseBadge { from { transform: scale(1); } to { transform: scale(1.08); } }
 
-    /* Single Perfect Collage Container Frame */
     .collage-frame {
       width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px;
       border: 2px solid var(--primary-red); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
@@ -165,12 +168,13 @@
       <p id="error-msg" style="color:var(--primary-red); display:none;">Incorrect Password!</p>
     </div>
 
-    <!-- PAGE 3 -->
+    <!-- PAGE 3: Quiz with sticker1.png applied on each question -->
     <div id="page-3" class="page">
       <h2>🧠 Quiz Time!</h2>
       <div id="quizContainer" style="width:100%; display:flex; flex-direction:column; gap:4px; justify-content:center; align-items:center;">
         
-        <div id="q1" class="q-block" style="width:100%; display:flex; flex-direction:column; gap:4px;">
+        <div id="q1" class="q-block" style="width:100%; display:flex; flex-direction:column; gap:4px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
           <p><strong>1) Where we first met after we were friends?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ1()">(a) Temple</button>
           <button class="quiz-opt-btn" onclick="answerQ1()">(b) College gate</button>
@@ -178,13 +182,15 @@
           <button class="quiz-opt-btn" onclick="answerQ1()">(d) Never met</button>
         </div>
 
-        <div id="q1-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
-          <img src="img12.jpeg" class="img-frame" style="max-height:120px;" alt="Q1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+        <div id="q1-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="img12.jpeg" class="img-frame" style="max-height:100px;" alt="Q1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ2()">Next ➡️</button>
         </div>
 
-        <div id="q2" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px;">
+        <div id="q2" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
           <p><strong>2) Where / In which place in Odisha did we first kiss?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ2()">(a) Auto</button>
           <button class="quiz-opt-btn" onclick="answerQ2()">(b) Movie</button>
@@ -192,23 +198,27 @@
           <button class="quiz-opt-btn" onclick="answerQ2()">(d) Never kissed</button>
         </div>
 
-        <div id="q2-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
+        <div id="q2-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ3()">Next ➡️</button>
         </div>
 
-        <div id="q3" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px;">
+        <div id="q3" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
           <p><strong>3) Our best memory that holds you in relation?</strong></p>
           <textarea id="q3Answer" rows="2" placeholder="Type answer..."></textarea>
           <button onclick="answerQ3()">Submit 💌</button>
         </div>
 
-        <div id="q3-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
+        <div id="q3-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ4()">Next ➡️</button>
         </div>
 
-        <div id="q4" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px;">
+        <div id="q4" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
           <p><strong>4) Do you hate me?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ4()">(a) Not</button>
           <button class="quiz-opt-btn" onclick="answerQ4()">(b) Absolutely no</button>
@@ -216,12 +226,13 @@
           <button class="quiz-opt-btn" onclick="answerQ4()">(d) Never</button>
         </div>
 
-        <div id="q4-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
+        <div id="q4-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="finishQuiz()">See Memories 📸➡️</button>
         </div>
 
-        <div id="quiz-complete-gallery" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
+        <div id="quiz-complete-gallery" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
           <h2>Memories</h2>
           <div class="slideshow-box">
             <img id="autoSlideImg" class="slide-img" src="img5.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
@@ -268,7 +279,7 @@
       <button id="page5NextBtn" onclick="goToPage(6)" style="display:none;">Next Page ➡️</button>
     </div>
 
-    <!-- PAGE 6: Utilizing your single uploaded collage.jpeg file -->
+    <!-- PAGE 6 -->
     <div id="page-6" class="page">
       <h2>📸 Heart Full Memories</h2>
       <img src="collage.jpeg" class="collage-frame" alt="Our Memories Collage" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
@@ -288,7 +299,7 @@
       <button onclick="goToFinalVideoPage()">Final Animated Ending 🎬➡️</button>
     </div>
 
-    <!-- PAGE 7: Strict 9:16 Video Page -->
+    <!-- PAGE 7: 9:16 Video Page -->
     <div id="page-7" class="page" style="justify-content: center; align-items: center; padding: 0;">
       <div style="width: 100%; height: 100%; background: #000; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
         <video id="finalEndVideo" width="100%" height="100%" style="object-fit: cover;" playsinline>
@@ -305,7 +316,7 @@
       const src = img.getAttribute('src');
       if (src.endsWith('.jpeg')) img.src = src.replace('.jpeg', '.jpg');
       else if (src.endsWith('.jpg')) img.src = src.replace('.jpg', '.png');
-      else img.src = 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';
+      else if (src.endsWith('.png')) img.src = 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop';
     }
 
     function openLightbox(src) {
