@@ -96,7 +96,7 @@
       border: 2px solid var(--primary-red); box-shadow: 0 0 8px rgba(255, 0, 85, 0.4); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
     }
 
-    /* Passport size photo styling for each unique sticker */
+    /* Passport size photo sticker styling */
     .sticker-img {
       width: 95px; height: 120px; object-fit: cover; border-radius: 6px; border: 2px solid var(--primary-red); box-shadow: 0 0 10px rgba(255, 0, 85, 0.6); margin-bottom: 2px; flex-shrink: 0; cursor: pointer;
     }
@@ -169,7 +169,7 @@
       <p id="error-msg" style="color:var(--primary-red); display:none;">Incorrect Password!</p>
     </div>
 
-    <!-- PAGE 3: Quiz with sticker1.png, sticker2.png, sticker3.png displayed in passport size -->
+    <!-- PAGE 3: Quiz Time -->
     <div id="page-3" class="page">
       <h2>🧠 Quiz Time!</h2>
       <div id="quizContainer" style="width:100%; display:flex; flex-direction:column; gap:4px; justify-content:center; align-items:center;">
@@ -206,8 +206,8 @@
           <button onclick="showQ3()">Next ➡️</button>
         </div>
 
-        <!-- Question 3 with sticker3.png -->
-        <div id="q3" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
+        <!-- Question 3 with sticker3.png and private email submission via Formspree -->
+        <div id="q3" class="q-block" style="width:100%; display:flex; flex-direction:column; gap:4px; align-items:center;">
           <img src="sticker3.png" class="sticker-img" alt="Sticker 3" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p><strong>3) Our best memory that holds you in relation?</strong></p>
           <textarea id="q3Answer" rows="2" placeholder="Type answer..."></textarea>
@@ -220,7 +220,7 @@
           <button onclick="showQ4()">Next ➡️</button>
         </div>
 
-        <!-- Question 4 with sticker3.png or sticker1.png -->
+        <!-- Question 4 with sticker3.png -->
         <div id="q4" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
           <img src="sticker3.png" class="sticker-img" alt="Sticker" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p><strong>4) Do you hate me?</strong></p>
@@ -423,11 +423,26 @@
       document.getElementById('q2-reveal').style.display = 'none';
       document.getElementById('q3').style.display = 'flex';
     }
+
+    // Sends her answer privately to your email via Formspree using your endpoint URL
     function answerQ3() {
+      const answerText = document.getElementById('q3Answer').value;
+      if (!answerText.trim()) {
+        alert('Please type an answer first! ❤️');
+        return;
+      }
+
+      fetch('https://formspree.io/f/mvkpkoql', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ memory_answer: answerText })
+      }).catch(err => console.log('Email dispatch error'));
+
       document.getElementById('q3').style.display = 'none';
       document.getElementById('q3-reveal').style.display = 'flex';
       triggerHeavyHeartShower();
     }
+
     function showQ4() {
       document.getElementById('q3-reveal').style.display = 'none';
       document.getElementById('q4').style.display = 'flex';
