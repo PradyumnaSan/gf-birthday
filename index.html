@@ -41,7 +41,7 @@
       100% { transform: translateY(-115vh) scale(1.7) rotate(360deg); opacity: 0; }
     }
 
-    /* Strict 4:5 Compact Card - Perfectly Short and Fully Visible */
+    /* Strict 4:5 Compact Card for Pages 1-6 */
     .card {
       width: 100%; max-width: 360px;
       aspect-ratio: 4 / 5; height: auto; max-height: 85vh;
@@ -49,6 +49,13 @@
       padding: 14px 14px; border-radius: 20px; box-shadow: 0 0 35px rgba(255, 0, 85, 0.4);
       text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
       position: relative; z-index: 10; overflow: hidden;
+    }
+
+    /* Special 9:16 Ratio Container for Page 7 (Final Video) */
+    .card.ratio-9-16 {
+      aspect-ratio: 9 / 16;
+      max-height: 92vh;
+      padding: 8px;
     }
 
     .page { display: none; flex-direction: column; align-items: center; justify-content: space-between; width: 100%; height: 100%; gap: 6px; animation: fadeIn 0.3s ease-in-out; }
@@ -103,14 +110,11 @@
     }
     @keyframes pulseBadge { from { transform: scale(1); } to { transform: scale(1.08); } }
 
-    .heart-collage-container {
-      width: 140px; height: 140px; margin: auto; position: relative; flex-shrink: 0;
-      clip-path: path('M 70 130 C 70 130 8 90 8 50 C 8 20 34 8 60 28 C 70 38 70 38 70 38 C 70 38 70 38 80 28 C 106 8 132 20 132 50 C 132 90 70 130 70 130 Z');
-      background: var(--primary-red); padding: 2px; display: grid;
-      grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px;
-      box-shadow: 0 0 14px rgba(255, 0, 85, 0.7);
+    /* Single Perfect Collage Container Frame */
+    .collage-frame {
+      width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px;
+      border: 2px solid var(--primary-red); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
     }
-    .heart-collage-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; cursor: pointer; }
 
     .photo-lightbox {
       display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -142,7 +146,7 @@
     <button class="close-lightbox-btn" onclick="closeLightbox()">Close ✕</button>
   </div>
 
-  <div class="card">
+  <div class="card" id="mainCard">
 
     <!-- PAGE 1 -->
     <div id="page-1" class="page active">
@@ -264,20 +268,10 @@
       <button id="page5NextBtn" onclick="goToPage(6)" style="display:none;">Next Page ➡️</button>
     </div>
 
-    <!-- PAGE 6 -->
+    <!-- PAGE 6: Utilizing your single uploaded collage.jpeg file -->
     <div id="page-6" class="page">
       <h2>📸 Heart Full Memories</h2>
-      <div class="heart-collage-container">
-        <img src="img2.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img3.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img4.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img5.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img7.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img8.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img9.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img10.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-        <img src="img12.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
-      </div>
+      <img src="collage.jpeg" class="collage-frame" alt="Our Memories Collage" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
       <div class="flip-card" id="shayariCard" onclick="this.classList.toggle('flipped')">
         <div class="flip-card-inner">
           <div class="flip-card-front">
@@ -294,9 +288,9 @@
       <button onclick="goToFinalVideoPage()">Final Animated Ending 🎬➡️</button>
     </div>
 
-    <!-- PAGE 7: 9:16 Video Page -->
+    <!-- PAGE 7: Strict 9:16 Video Page -->
     <div id="page-7" class="page" style="justify-content: center; align-items: center; padding: 0;">
-      <div style="width: 100%; aspect-ratio: 9 / 16; max-height: 100%; background: #000; border-radius: 10px; border: 2px solid var(--primary-red); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+      <div style="width: 100%; height: 100%; background: #000; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
         <video id="finalEndVideo" width="100%" height="100%" style="object-fit: cover;" playsinline>
           <source src="final_end.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -366,7 +360,14 @@
       document.getElementById(`page-${num}`).classList.add('active');
       const video = document.getElementById('birthdayVideo');
       const finalVideo = document.getElementById('finalEndVideo');
+      const mainCard = document.getElementById('mainCard');
       
+      if (num === 7) {
+        mainCard.classList.add('ratio-9-16');
+      } else {
+        mainCard.classList.remove('ratio-9-16');
+      }
+
       if (num === 4) initCarromGame();
       if (num === 5) { video.play(); } else { video.pause(); }
       if (num === 7) {
