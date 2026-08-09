@@ -20,7 +20,7 @@
     body {
       background: var(--bg); color: var(--text);
       display: flex; justify-content: center; align-items: center;
-      min-height: 100vh; padding: 10px; overflow: hidden; position: relative;
+      min-height: 100vh; padding: 8px; overflow: hidden; position: relative;
     }
 
     .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
@@ -33,7 +33,7 @@
     }
 
     .heart-front-shower { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 998; overflow: hidden; display: none; }
-    .front-heart { position: absolute; bottom: -60px; color: #ff1a75; font-size: 1.5rem; animation: floatFrontUp linear infinite; filter: drop-shadow(0 0 12px #ff0055); }
+    .front-heart { position: absolute; bottom: -60px; color: #ff1a75; font-size: 1.4rem; animation: floatFrontUp linear infinite; filter: drop-shadow(0 0 12px #ff0055); }
 
     @keyframes floatFrontUp {
       0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
@@ -41,91 +41,91 @@
       100% { transform: translateY(-115vh) scale(1.7) rotate(360deg); opacity: 0; }
     }
 
-    /* 4:5 Aspect Ratio Screen Layout */
+    /* Strict 4:5 Compact Card - Perfectly Short and Fully Visible */
     .card {
-      width: 100%; max-width: 400px;
-      aspect-ratio: 4 / 5; height: auto; max-height: 90vh;
+      width: 100%; max-width: 360px;
+      aspect-ratio: 4 / 5; height: auto; max-height: 85vh;
       background: var(--card-bg); border: 2px solid rgba(255, 0, 85, 0.6);
-      padding: 20px 18px; border-radius: 24px; box-shadow: 0 0 40px rgba(255, 0, 85, 0.4);
+      padding: 14px 14px; border-radius: 20px; box-shadow: 0 0 35px rgba(255, 0, 85, 0.4);
       text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
-      position: relative; z-index: 10; overflow-y: auto;
+      position: relative; z-index: 10; overflow: hidden;
     }
 
-    .page { display: none; flex-direction: column; align-items: center; justify-content: space-between; width: 100%; height: 100%; gap: 10px; animation: fadeIn 0.3s ease-in-out; }
+    .page { display: none; flex-direction: column; align-items: center; justify-content: space-between; width: 100%; height: 100%; gap: 6px; animation: fadeIn 0.3s ease-in-out; }
     .page.active { display: flex; }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    h1 { color: var(--primary-red); font-size: 1.6rem; text-shadow: 0 0 12px rgba(255, 0, 85, 0.8); }
-    h2 { color: var(--glow-pink); font-size: 1.2rem; text-shadow: 0 0 8px rgba(255, 102, 153, 0.6); }
-    p { font-size: 0.9rem; line-height: 1.4; color: var(--text-sub); }
+    h1 { color: var(--primary-red); font-size: 1.35rem; text-shadow: 0 0 10px rgba(255, 0, 85, 0.8); flex-shrink: 0; }
+    h2 { color: var(--glow-pink); font-size: 1.1rem; text-shadow: 0 0 6px rgba(255, 102, 153, 0.6); flex-shrink: 0; }
+    p { font-size: 0.82rem; line-height: 1.3; color: var(--text-sub); flex-shrink: 0; }
 
     input, textarea {
-      padding: 10px 12px; font-size: 0.95rem; border: 2px solid var(--primary-red);
-      border-radius: 10px; width: 100%; outline: none; background: rgba(0,0,0,0.85); color: white;
-      box-shadow: inset 0 0 8px rgba(255, 0, 85, 0.3);
+      padding: 8px 10px; font-size: 0.88rem; border: 2px solid var(--primary-red);
+      border-radius: 9px; width: 100%; outline: none; background: rgba(0,0,0,0.85); color: white;
+      box-shadow: inset 0 0 6px rgba(255, 0, 85, 0.3); flex-shrink: 0;
     }
 
     button {
       background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
-      color: white; border: none; padding: 12px 20px; font-size: 0.95rem; font-weight: 700;
-      border-radius: 10px; cursor: pointer; width: 100%;
-      box-shadow: 0 0 14px rgba(255, 0, 85, 0.6); transition: all 0.2s; flex-shrink: 0;
+      color: white; border: none; padding: 10px 16px; font-size: 0.88rem; font-weight: 700;
+      border-radius: 9px; cursor: pointer; width: 100%;
+      box-shadow: 0 0 12px rgba(255, 0, 85, 0.6); transition: all 0.2s; flex-shrink: 0;
     }
     button:active { transform: scale(0.96); }
 
     .quiz-opt-btn {
       background: rgba(255, 0, 85, 0.22); border: 1.5px solid var(--primary-red);
-      text-align: left; padding: 10px 14px; border-radius: 9px; color: white; width: 100%; cursor: pointer; font-size: 0.9rem;
+      text-align: left; padding: 8px 10px; border-radius: 8px; color: white; width: 100%; cursor: pointer; font-size: 0.82rem; flex-shrink: 0;
     }
 
-    .carrom-wrapper { position: relative; width: 200px; height: 200px; margin: auto; flex-shrink: 0; }
-    #carromCanvas { background: #e0be96; border: 5px solid #5a2a18; border-radius: 12px; touch-action: none; }
-    .slider-container { width: 100%; display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--text-sub); }
+    .carrom-wrapper { position: relative; width: 160px; height: 160px; margin: auto; flex-shrink: 0; }
+    #carromCanvas { background: #e0be96; border: 4px solid #5a2a18; border-radius: 10px; touch-action: none; }
+    .slider-container { width: 100%; display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--text-sub); flex-shrink: 0; }
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
 
     .img-frame {
-      width: 100%; max-height: 180px; object-fit: cover; border-radius: 12px;
-      border: 2px solid var(--primary-red); box-shadow: 0 0 10px rgba(255, 0, 85, 0.4); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
+      width: 100%; max-height: 135px; object-fit: cover; border-radius: 10px;
+      border: 2px solid var(--primary-red); box-shadow: 0 0 8px rgba(255, 0, 85, 0.4); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
     }
 
     .slideshow-box {
-      position: relative; width: 100%; max-height: 180px; border-radius: 12px;
+      position: relative; width: 100%; max-height: 135px; border-radius: 10px;
       border: 2px solid var(--primary-red); overflow: hidden; background: rgba(0,0,0,0.6); flex-shrink: 0;
     }
-    .slideshow-box img.slide-img { width: 100%; max-height: 180px; object-fit: cover; cursor: pointer; display: block; margin: auto; }
+    .slideshow-box img.slide-img { width: 100%; max-height: 135px; object-fit: cover; cursor: pointer; display: block; margin: auto; }
     
     .kiss-badge {
-      position: absolute; bottom: 6px; right: 6px; background: rgba(13, 1, 6, 0.92);
-      border: 1.5px solid var(--primary-red); padding: 4px 10px; border-radius: 8px;
-      font-size: 0.78rem; color: var(--glow-pink); font-weight: bold;
+      position: absolute; bottom: 4px; right: 4px; background: rgba(13, 1, 6, 0.92);
+      border: 1px solid var(--primary-red); padding: 3px 8px; border-radius: 7px;
+      font-size: 0.72rem; color: var(--glow-pink); font-weight: bold;
       animation: pulseBadge 1.2s infinite alternate;
     }
     @keyframes pulseBadge { from { transform: scale(1); } to { transform: scale(1.08); } }
 
     .heart-collage-container {
-      width: 190px; height: 190px; margin: auto; position: relative; flex-shrink: 0;
-      clip-path: path('M 95 175 C 95 175 12 122 12 67 C 12 27 46 12 74 35 C 95 50 95 50 95 50 C 95 50 95 50 116 35 C 144 12 178 27 178 67 C 178 122 95 175 95 175 Z');
+      width: 140px; height: 140px; margin: auto; position: relative; flex-shrink: 0;
+      clip-path: path('M 70 130 C 70 130 8 90 8 50 C 8 20 34 8 60 28 C 70 38 70 38 70 38 C 70 38 70 38 80 28 C 106 8 132 20 132 50 C 132 90 70 130 70 130 Z');
       background: var(--primary-red); padding: 2px; display: grid;
       grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px;
-      box-shadow: 0 0 16px rgba(255, 0, 85, 0.7);
+      box-shadow: 0 0 14px rgba(255, 0, 85, 0.7);
     }
     .heart-collage-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; cursor: pointer; }
 
     .photo-lightbox {
       display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0, 0, 0, 0.96); z-index: 999; justify-content: center; align-items: center; flex-direction: column; padding: 20px;
+      background: rgba(0, 0, 0, 0.96); z-index: 999; justify-content: center; align-items: center; flex-direction: column; padding: 15px;
     }
     .photo-lightbox.active { display: flex; }
-    .photo-lightbox img { max-width: 95vw; max-height: 82vh; object-fit: contain; border-radius: 14px; border: 2px solid var(--primary-red); }
-    .close-lightbox-btn { margin-top: 14px; width: auto; padding: 8px 24px; background: var(--primary-red); border-radius: 16px; font-size: 0.9rem; }
+    .photo-lightbox img { max-width: 95vw; max-height: 82vh; object-fit: contain; border-radius: 12px; border: 2px solid var(--primary-red); }
+    .close-lightbox-btn { margin-top: 10px; width: auto; padding: 6px 20px; background: var(--primary-red); border-radius: 14px; font-size: 0.85rem; }
 
-    .flip-card { background-color: transparent; width: 100%; height: 95px; perspective: 1000px; flex-shrink: 0; }
+    .flip-card { background-color: transparent; width: 100%; height: 75px; perspective: 1000px; flex-shrink: 0; }
     .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
     .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
     .flip-card-front, .flip-card-back {
       position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden;
-      border-radius: 10px; border: 2px solid var(--primary-red); padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      border-radius: 8px; border: 2px solid var(--primary-red); padding: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
     .flip-card-front { background: rgba(30, 5, 15, 0.95); }
     .flip-card-back { background: rgba(15, 2, 8, 0.98); transform: rotateY(180deg); overflow-y: auto; text-align: left; }
@@ -164,9 +164,9 @@
     <!-- PAGE 3 -->
     <div id="page-3" class="page">
       <h2>🧠 Quiz Time!</h2>
-      <div id="quizContainer" style="width:100%; display:flex; flex-direction:column; gap:8px; justify-content:center; align-items:center;">
+      <div id="quizContainer" style="width:100%; display:flex; flex-direction:column; gap:4px; justify-content:center; align-items:center;">
         
-        <div id="q1" class="q-block" style="width:100%; display:flex; flex-direction:column; gap:6px;">
+        <div id="q1" class="q-block" style="width:100%; display:flex; flex-direction:column; gap:4px;">
           <p><strong>1) Where we first met after we were friends?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ1()">(a) Temple</button>
           <button class="quiz-opt-btn" onclick="answerQ1()">(b) College gate</button>
@@ -174,13 +174,13 @@
           <button class="quiz-opt-btn" onclick="answerQ1()">(d) Never met</button>
         </div>
 
-        <div id="q1-reveal" style="display:none; width:100%; flex-direction:column; gap:8px; align-items:center;">
-          <img src="img12.jpeg" class="img-frame" style="max-height:160px;" alt="Q1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+        <div id="q1-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
+          <img src="img12.jpeg" class="img-frame" style="max-height:120px;" alt="Q1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ2()">Next ➡️</button>
         </div>
 
-        <div id="q2" class="q-block" style="display:none; width:100%; flex-direction:column; gap:6px;">
+        <div id="q2" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px;">
           <p><strong>2) Where / In which place in Odisha did we first kiss?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ2()">(a) Auto</button>
           <button class="quiz-opt-btn" onclick="answerQ2()">(b) Movie</button>
@@ -188,23 +188,23 @@
           <button class="quiz-opt-btn" onclick="answerQ2()">(d) Never kissed</button>
         </div>
 
-        <div id="q2-reveal" style="display:none; width:100%; flex-direction:column; gap:8px; align-items:center;">
+        <div id="q2-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ3()">Next ➡️</button>
         </div>
 
-        <div id="q3" class="q-block" style="display:none; width:100%; flex-direction:column; gap:6px;">
+        <div id="q3" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px;">
           <p><strong>3) Our best memory that holds you in relation?</strong></p>
           <textarea id="q3Answer" rows="2" placeholder="Type answer..."></textarea>
           <button onclick="answerQ3()">Submit 💌</button>
         </div>
 
-        <div id="q3-reveal" style="display:none; width:100%; flex-direction:column; gap:8px; align-items:center;">
+        <div id="q3-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ4()">Next ➡️</button>
         </div>
 
-        <div id="q4" class="q-block" style="display:none; width:100%; flex-direction:column; gap:6px;">
+        <div id="q4" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px;">
           <p><strong>4) Do you hate me?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ4()">(a) Not</button>
           <button class="quiz-opt-btn" onclick="answerQ4()">(b) Absolutely no</button>
@@ -212,12 +212,12 @@
           <button class="quiz-opt-btn" onclick="answerQ4()">(d) Never</button>
         </div>
 
-        <div id="q4-reveal" style="display:none; width:100%; flex-direction:column; gap:8px; align-items:center;">
+        <div id="q4-reveal" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="finishQuiz()">See Memories 📸➡️</button>
         </div>
 
-        <div id="quiz-complete-gallery" style="display:none; width:100%; flex-direction:column; gap:8px; align-items:center;">
+        <div id="quiz-complete-gallery" style="display:none; width:100%; flex-direction:column; gap:6px; align-items:center;">
           <h2>Memories</h2>
           <div class="slideshow-box">
             <img id="autoSlideImg" class="slide-img" src="img5.jpeg" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
@@ -234,17 +234,17 @@
       <h2>🎯 Pocket The Queen</h2>
       <p>Adjust striker and shoot!</p>
       <div class="carrom-wrapper">
-        <canvas id="carromCanvas" width="200" height="200"></canvas>
+        <canvas id="carromCanvas" width="160" height="160"></canvas>
       </div>
       <div class="slider-container">
         <span>Position:</span>
-        <input type="range" id="strikerPos" min="25" max="175" value="100" oninput="updateStrikerX(this.value)">
+        <input type="range" id="strikerPos" min="20" max="140" value="80" oninput="updateStrikerX(this.value)">
       </div>
-      <p id="carrom-status" style="font-weight: bold; color: var(--glow-pink); height:14px;"></p>
-      <div id="postWinBox" style="display:none; width:100%; flex-direction:column; gap:6px;">
-        <img src="img6.jpeg" class="img-frame" style="max-height:120px;" alt="Win" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+      <p id="carrom-status" style="font-weight: bold; color: var(--glow-pink); height:12px;"></p>
+      <div id="postWinBox" style="display:none; width:100%; flex-direction:column; gap:4px;">
+        <img src="img6.jpeg" class="img-frame" style="max-height:95px;" alt="Win" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
         <h2>Are you ready to celebrate!</h2>
-        <div style="display:flex; gap:6px; width:100%;">
+        <div style="display:flex; gap:4px; width:100%;">
           <button onclick="goToPage(5)" style="background: linear-gradient(135deg, #00c853, #007e33);">YES! 😍</button>
           <button onclick="alert('Wrong answer! Click Yes! 😜')">NO 😜</button>
         </div>
@@ -254,7 +254,7 @@
     <!-- PAGE 5 -->
     <div id="page-5" class="page">
       <h2>🎂 Cake Cutting Celebration</h2>
-      <div style="width: 100%; max-height: 180px; background: rgba(0,0,0,0.6); border-radius: 10px; border: 2px solid var(--primary-red); overflow: hidden;">
+      <div style="width: 100%; max-height: 140px; background: rgba(0,0,0,0.6); border-radius: 8px; border: 2px solid var(--primary-red); overflow: hidden;">
         <video id="birthdayVideo" width="100%" height="100%" style="object-fit: cover;" loop playsinline>
           <source src="cake_cut.mp4" type="video/mp4">
         </video>
@@ -282,10 +282,10 @@
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <h3>💌 Shayari For Her</h3>
-            <p style="font-style:italic; font-size:0.75rem;">(Tap to open)</p>
+            <p style="font-style:italic; font-size:0.7rem;">(Tap to open)</p>
           </div>
           <div class="flip-card-back">
-            <p style="font-size:0.75rem; line-height:1.3;">
+            <p style="font-size:0.7rem; line-height:1.2;">
               <em>With you by my side, my worries cease. Each moment with you is a treasure I hold, in the warmth of your love, I find pure gold. ❤️</em>
             </p>
           </div>
@@ -296,7 +296,7 @@
 
     <!-- PAGE 7: 9:16 Video Page -->
     <div id="page-7" class="page" style="justify-content: center; align-items: center; padding: 0;">
-      <div style="width: 100%; aspect-ratio: 9 / 16; max-height: 100%; background: #000; border-radius: 12px; border: 2px solid var(--primary-red); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+      <div style="width: 100%; aspect-ratio: 9 / 16; max-height: 100%; background: #000; border-radius: 10px; border: 2px solid var(--primary-red); overflow: hidden; display: flex; align-items: center; justify-content: center;">
         <video id="finalEndVideo" width="100%" height="100%" style="object-fit: cover;" playsinline>
           <source src="final_end.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -446,11 +446,11 @@
     }
 
     let cCanvas, cCtx;
-    let cStriker = { x: 100, y: 170, radius: 8, vx: 0, vy: 0 };
-    let cQueen = { x: 100, y: 85, radius: 7, vx: 0, vy: 0 };
+    let cStriker = { x: 80, y: 140, radius: 7, vx: 0, vy: 0 };
+    let cQueen = { x: 80, y: 70, radius: 6, vx: 0, vy: 0 };
     let cPockets = [
-      { x: 14, y: 14, r: 11 }, { x: 186, y: 14, r: 11 },
-      { x: 14, y: 186, r: 11 }, { x: 186, y: 186, r: 11 }
+      { x: 12, y: 12, r: 10 }, { x: 148, y: 12, r: 10 },
+      { x: 12, y: 148, r: 10 }, { x: 148, y: 148, r: 10 }
     ];
     let isAiming = false, dragStart = { x: 0, y: 0 }, dragCurrent = { x: 0, y: 0 }, shotFired = false;
 
@@ -461,7 +461,7 @@
         if (shotFired) return;
         const rect = cCanvas.getBoundingClientRect();
         const px = e.clientX - rect.left, py = e.clientY - rect.top;
-        if (Math.hypot(px - cStriker.x, py - cStriker.y) < 22) {
+        if (Math.hypot(px - cStriker.x, py - cStriker.y) < 18) {
           isAiming = true; dragStart = { x: px, y: py }; dragCurrent = { x: px, y: py };
         }
       });
@@ -483,15 +483,15 @@
 
     function updateStrikerX(val) { if (!shotFired) { cStriker.x = parseFloat(val); renderCarrom(); } }
     function resetCarromBoard() {
-      cStriker = { x: parseFloat(document.getElementById('strikerPos').value), y: 170, radius: 8, vx: 0, vy: 0 };
-      cQueen = { x: 100, y: 85, radius: 7, vx: 0, vy: 0 }; shotFired = false;
+      cStriker = { x: parseFloat(document.getElementById('strikerPos').value), y: 140, radius: 7, vx: 0, vy: 0 };
+      cQueen = { x: 80, y: 70, radius: 6, vx: 0, vy: 0 }; shotFired = false;
       document.getElementById('carrom-status').innerText = "";
       document.getElementById('postWinBox').style.display = "none";
       renderCarrom();
     }
 
     function renderCarrom() {
-      cCtx.clearRect(0, 0, 200, 200);
+      cCtx.clearRect(0, 0, 160, 160);
       cPockets.forEach(p => {
         cCtx.beginPath(); cCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); cCtx.fillStyle = '#111'; cCtx.fill();
       });
@@ -514,13 +514,13 @@
         cQueen.x += cQueen.vx; cQueen.y += cQueen.vy;
         cStriker.vx *= 0.98; cStriker.vy *= 0.98; cQueen.vx *= 0.98; cQueen.vy *= 0.98;
 
-        if (cStriker.x - cStriker.radius < 7 || cStriker.x + cStriker.radius > 193) cStriker.vx *= -1;
-        if (cStriker.y - cStriker.radius < 7 || cStriker.y + cStriker.radius > 193) cStriker.vy *= -1;
+        if (cStriker.x - cStriker.radius < 6 || cStriker.x + cStriker.radius > 154) cStriker.vx *= -1;
+        if (cStriker.y - cStriker.radius < 6 || cStriker.y + cStriker.radius > 154) cStriker.vy *= -1;
 
         let dist = Math.hypot(cStriker.x - cQueen.x, cStriker.y - cQueen.y);
         if (dist < cStriker.radius + cQueen.radius && !queenTargeted) {
           queenTargeted = true;
-          let targetPocket = cQueen.x < 100 ? cPockets[0] : cPockets[1];
+          let targetPocket = cQueen.x < 80 ? cPockets[0] : cPockets[1];
           let angle = Math.atan2(targetPocket.y - cQueen.y, targetPocket.x - cQueen.x);
           cQueen.vx = Math.cos(angle) * 7; cQueen.vy = Math.sin(angle) * 7;
         }
