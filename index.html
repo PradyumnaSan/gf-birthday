@@ -92,19 +92,20 @@
     .slider-container input[type=range] { flex: 1; accent-color: var(--primary-red); }
 
     .img-frame {
-      width: 100%; max-height: 125px; object-fit: cover; border-radius: 10px;
+      width: 100%; max-height: 110px; object-fit: cover; border-radius: 10px;
       border: 2px solid var(--primary-red); box-shadow: 0 0 8px rgba(255, 0, 85, 0.4); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
     }
 
+    /* Passport size photo styling for each unique sticker */
     .sticker-img {
-      width: 60px; height: 60px; object-fit: contain; margin-bottom: 2px; filter: drop-shadow(0 0 6px var(--primary-red)); flex-shrink: 0;
+      width: 95px; height: 120px; object-fit: cover; border-radius: 6px; border: 2px solid var(--primary-red); box-shadow: 0 0 10px rgba(255, 0, 85, 0.6); margin-bottom: 2px; flex-shrink: 0; cursor: pointer;
     }
 
     .slideshow-box {
-      position: relative; width: 100%; max-height: 135px; border-radius: 10px;
+      position: relative; width: 100%; max-height: 120px; border-radius: 10px;
       border: 2px solid var(--primary-red); overflow: hidden; background: rgba(0,0,0,0.6); flex-shrink: 0;
     }
-    .slideshow-box img.slide-img { width: 100%; max-height: 135px; object-fit: cover; cursor: pointer; display: block; margin: auto; }
+    .slideshow-box img.slide-img { width: 100%; max-height: 120px; object-fit: cover; cursor: pointer; display: block; margin: auto; }
     
     .kiss-badge {
       position: absolute; bottom: 4px; right: 4px; background: rgba(13, 1, 6, 0.92);
@@ -115,7 +116,7 @@
     @keyframes pulseBadge { from { transform: scale(1); } to { transform: scale(1.08); } }
 
     .collage-frame {
-      width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px;
+      width: 100%; max-height: 150px; object-fit: cover; border-radius: 10px;
       border: 2px solid var(--primary-red); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); cursor: pointer; background: rgba(0,0,0,0.6); flex-shrink: 0;
     }
 
@@ -168,13 +169,14 @@
       <p id="error-msg" style="color:var(--primary-red); display:none;">Incorrect Password!</p>
     </div>
 
-    <!-- PAGE 3: Quiz with sticker1.png applied on each question -->
+    <!-- PAGE 3: Quiz with sticker1.png, sticker2.png, sticker3.png displayed in passport size -->
     <div id="page-3" class="page">
       <h2>🧠 Quiz Time!</h2>
       <div id="quizContainer" style="width:100%; display:flex; flex-direction:column; gap:4px; justify-content:center; align-items:center;">
         
+        <!-- Question 1 with sticker1.png -->
         <div id="q1" class="q-block" style="width:100%; display:flex; flex-direction:column; gap:4px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker 1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p><strong>1) Where we first met after we were friends?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ1()">(a) Temple</button>
           <button class="quiz-opt-btn" onclick="answerQ1()">(b) College gate</button>
@@ -183,14 +185,14 @@
         </div>
 
         <div id="q1-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
-          <img src="img12.jpeg" class="img-frame" style="max-height:100px;" alt="Q1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker 1" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ2()">Next ➡️</button>
         </div>
 
+        <!-- Question 2 with sticker2.png -->
         <div id="q2" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="sticker2.png" class="sticker-img" alt="Sticker 2" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p><strong>2) Where / In which place in Odisha did we first kiss?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ2()">(a) Auto</button>
           <button class="quiz-opt-btn" onclick="answerQ2()">(b) Movie</button>
@@ -199,26 +201,28 @@
         </div>
 
         <div id="q2-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="sticker2.png" class="sticker-img" alt="Sticker 2" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ3()">Next ➡️</button>
         </div>
 
+        <!-- Question 3 with sticker3.png -->
         <div id="q3" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="sticker3.png" class="sticker-img" alt="Sticker 3" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p><strong>3) Our best memory that holds you in relation?</strong></p>
           <textarea id="q3Answer" rows="2" placeholder="Type answer..."></textarea>
           <button onclick="answerQ3()">Submit 💌</button>
         </div>
 
         <div id="q3-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="sticker3.png" class="sticker-img" alt="Sticker 3" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="showQ4()">Next ➡️</button>
         </div>
 
+        <!-- Question 4 (Reusing sticker1.png or default if preferred) -->
         <div id="q4" class="q-block" style="display:none; width:100%; flex-direction:column; gap:4px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p><strong>4) Do you hate me?</strong></p>
           <button class="quiz-opt-btn" onclick="answerQ4()">(a) Not</button>
           <button class="quiz-opt-btn" onclick="answerQ4()">(b) Absolutely no</button>
@@ -227,7 +231,7 @@
         </div>
 
         <div id="q4-reveal" style="display:none; width:100%; flex-direction:column; gap:5px; align-items:center;">
-          <img src="sticker1.png" class="sticker-img" alt="Sticker" onerror="handleImgFallback(this)">
+          <img src="sticker1.png" class="sticker-img" alt="Sticker" onclick="openLightbox(this.src)" onerror="handleImgFallback(this)">
           <p style="color:var(--glow-pink); font-weight:bold;">Right answer, I love you baby ❤️</p>
           <button onclick="finishQuiz()">See Memories 📸➡️</button>
         </div>
